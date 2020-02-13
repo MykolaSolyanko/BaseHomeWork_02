@@ -1,2 +1,2 @@
 # BaseHomeWork_02
-Home work for base course
+Домашнє завдання Самчук Тараса
