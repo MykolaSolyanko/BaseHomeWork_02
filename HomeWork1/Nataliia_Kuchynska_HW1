@@ -1,0 +1,49 @@
+#include <cmath>
+#include <iostream>
+
+int main() {
+
+  long int a{}, b{}, c{};
+  double d{};
+  double x1{}, x2{};
+  long int t1{}, t2{};
+  t1 = std::numeric_limits<int>::min();
+  t2 = std::numeric_limits<int>::max();
+  std::cout << "To solve a quadratic equation \n\tA*X^2+B*X+C=0" << std::endl;
+  std::cout << "Please, enter integers A, B and C (in the range from ";
+  std::cout << std::numeric_limits<int>::min() << " ";
+  std::cout << " to ";
+  std::cout << std::numeric_limits<int>::max() << " )" << std::endl;
+
+  std::cout << "A = ";
+  std::cin >> a;
+
+  std::cout << "B = ";
+  std::cin >> b;
+
+  std::cout << "C = ";
+  std::cin >> c;
+
+  if (a == 0 || a < t1 || a > t2 || b < t1 || b > t2 || c < t1 || c > t2) {
+    std::cout << "Wrong initial data" << std::endl;
+    return 1;
+  }
+
+  d = b * b - 4 * a * c;
+
+  if (d >= 0) {
+    x1 = ((-1) * b + sqrt(d)) / (2 * a);
+    std::cout << x1 << std::endl;
+    x2 = ((-1) * b - sqrt(d)) / (2 * a);
+    std::cout << x2 << std::endl;
+    if (x1 == x2) {
+      std::cout << "The equation has one solution X = " << x1
+                << " of multiplicity 2 " << std::endl;
+    } else
+      std::cout << "The equation has two solutions: \nX1 = " << x1
+                << "\nX2 =" << x2 << std::endl;
+  } else
+    std::cout << "The equation has no solutions" << std::endl;
+
+  return 0;
+}
