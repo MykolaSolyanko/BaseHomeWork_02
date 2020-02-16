@@ -1,0 +1,51 @@
+#include <cmath>
+#include <iostream>
+#include <limits>
+
+int main(int argc, char const* argv[]) {
+  const int c4 = 4, c2 = 2;
+  short a, b, c;
+  double D;
+  std::cout << "x= ((-b) +- sqrt(b^2-4ac))/2a\n";
+
+  std::cout << "Enter 'a' number in range from 1 to 200\n";
+
+  while (!(std::cin >> a), a < 1 || a > 200) {
+    std::cout << "Error, out of range or not number\n";
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  }
+
+  std::cout << "Enter 'b' number in range [4...345]\n";
+
+  while (!(std::cin >> b), b < 4 || b > 345) {
+    std::cout << "Error, out of range or not number\n";
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  }
+
+  std::cout << "Enter 'c' number in range [2..567]\n";
+
+  while (!(std::cin >> c), c < 2 || c > 567) {
+    std::cout << "Error, out of range or not number\n";
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  }
+
+  D = pow(b, 2) - c4 * a * c;
+  if (D < 0) {
+    std::cout << "No real roots\n";
+    return 0;
+  }
+  if (D == 0) {
+    std::cout << "Not quadratic\n";
+    return 0;
+  }
+
+  std::cout << "There 2 roots\n";
+  auto x1 = (-b + sqrt(D)) / c2 * a;
+  auto x2 = (-b - sqrt(D)) / c2 * a;
+  std::cout << "x1=" << x1 << "\n";
+  std::cout << "x2=" << x2 << "\n";
+  return 0;
+}
