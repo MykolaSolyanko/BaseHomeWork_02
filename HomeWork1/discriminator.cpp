@@ -1,127 +1,148 @@
-//Cамчук Тарас
-//Розвʼязання квадратного рівняння
+
+//Solving the Quadratic Equation
 #include <iostream>
-#include <math.h>
-//для переклaду повідомлень використвувався translate.google.com.ua
+#include <cmath>
 int main()
 {
-  //запрошення програми//
+  //about programm
+  std::cout <<
+      R"(
+    +--------------------------------------+
+    | A program for solving a square swing |
+    |   The  equation  looks  like  this   |
+    |                                      |
+    |          a*x^2+b*x+c=0               |
+    |                                      |
+    |  ,where                              |
+    | a, b and c are the coefficients of   |
+    |             the equation             |
+    |    x     is the root of the equation |
+    +--------------------------------------+
 
-  //Програма для розвязання квадратного ріняння
-  std::cout << "\tA program for solving a square swing" << std::endl;
-  //Рівняння має вигляд
-  std::cout << "\t The  equation  looks  like  this" << std::endl;
-  //a * x ^ 2 + b * x + c = 0
-  std::cout << "\t\ta*x^2+b*x+c=0\n"
-            << std::endl;
-  //,де
-  std::cout << "\t,where" << std::endl;
-  //a, b і c - коефієнти рівняння
-  std::cout << "\t  a, b and c are the coefficients of\n\t    the equation" << std::endl;
-  //х - корінь рівнняння
-  std::cout << "\t  x is the root of the equation" << std::endl;
-  int a, b, c, min_short, max_short;
-  //Введіть коефіцієнти
+)";
   std::cout << "Enter the coefficients" << std::endl;
-  //будемо перевіряти на правильність введення числа
-  bool incorrect{true}; //true - неправильне число, false - правильне число
-
-  //вводимо числа//
-
-  min_short = std::numeric_limits<short>::min();
-  max_short = std::numeric_limits<short>::max();
-  std::cout << "Must be between " << min_short << " and " << max_short << "!" << std::endl;
-  //Вводимо коефіцієнт а
+  //Determination of the minimum number
+  const short k_min_short = std::numeric_limits<short>::min();
+  //Determination of maximum number
+  const short k_max_short = std::numeric_limits<short>::max();
+  //We show the message what number to enter
+  std::cout << "Must be an integer between " << k_min_short << " and " << k_max_short << "!" << std::endl;
+  //will check for the correct number input
+  bool incorrect{true}; //true = wrong number, false = correct number
+  //coefficient a
+  int a;
   do
   {
-    //Виводимо запрошення, що нам потрібно
+    //We output the message that we need
     std::cout << "a=";
-    //Читаємо значання
+    //We read values
     std::cin >> a;
-    std::cin.clear();
-    //перевіряємо чи попадаємо в діапазон
-    incorrect = (a < min_short) || (a > max_short);
+    //check if we are in range
+    incorrect = (a < k_min_short) || (a > k_max_short);
     if (incorrect)
     {
-      //Повідомляємо що вийшли за межі діапазону
-      std::cout << "\tYou entered an incorrect number." << std::endl;
-      std::cout << "\tMust be between " << min_short << " and " << max_short << "!" << std::endl;
+      //We are reporting that we have gone beyond the range
+      std::cout << "\tYou entered an incorrect number.\n"
+                   "\tMust be between "
+                << k_min_short << " and " << k_max_short << "!" << std::endl;
+      //We ask "a =" again
+      continue;
     }
-    //в діапазон попали, але а не повинно бути нулем, бо це вже лінійне рівняння
-    else if (a == 0)
+    //we are in the range, but should not be zero because it is already a linear equation
+    if (a == 0)
     {
-      // інвормуємо що введено нуль
-      std::cout << "\tYou entered an incorrect number." << std::endl;
-      std::cout << "\tCan't be zero" << std::endl;
-      //введене число не коректне
+      //we inform that zero is entered
+      std::cout << "\tYou entered an incorrect number.\n"
+                   "\tCan't be zero"
+                << std::endl;
+      //the number entered is incorrect
       incorrect = true;
     }
-    //якщо не коректне повторюємо запит
+    //if incorrectly repeat the request
   } while (incorrect);
-
-  //вводимо коефіцієнт b за ти самим алгоритмом що й А, але перевірку на нуль не виконуємо
+  //we enter the coefficient b according to the same algorithm as a, but we do not perform a zero check
+  int b;
   do
   {
     std::cout << "b=";
     std::cin >> b;
-    std::cin.clear();
-    incorrect = (b < min_short) || (b > max_short);
+    incorrect = (b < k_min_short) || (b > k_max_short);
     if (incorrect)
     {
-      std::cout << "\tYou entered an incorrect number." << std::endl;
-      std::cout << "\tMust be between " << min_short << " and " << max_short << "!" << std::endl;
+      std::cout << "\tYou entered an incorrect number.\n"
+                   "\tMust be between "
+                << k_min_short << " and " << k_max_short << "!" << std::endl;
     }
   } while (incorrect);
-  //вводимо коефіцієнт с так же як ввели b 
+  //enter the coefficient c as well as enter b
+  int c;
   do
   {
     std::cout << "c=";
     std::cin >> c;
-    std::cin.clear();
-    incorrect = (c < min_short) || (c > max_short);
+    incorrect = (c < k_min_short) || (c > k_max_short);
     if (incorrect)
     {
-      std::cout << "\tYou entered an incorrect number." << std::endl;
-      std::cout << "\tMust be between " << min_short << " and " << max_short << "!" << std::endl;
+      std::cout << "\tYou entered an incorrect number.\n"
+                   "\tMust be between "
+                << k_min_short << " and " << k_max_short << "!" << std::endl;
     }
   } while (incorrect);
-  //виводимо рівнняння з коефіцієнтами
+  //we derive the equation with the coefficients
   std::cout << "\t\t" << a << "*x^2+" << b << "*x+" << c << "=0" << std::endl;
-  //"магічне" 4
-  const long digit_4 = 4;
-  //обчислюємо дискримінант
-  long D = (b * b) - (digit_4 * a * c);
-  //аналізуємо дискримінант
-  //якщо менше нуля
+  //"magic" 4
+  const long k_digit_4 = 4;
+  //we calculate the discriminant
+  const long long k_D = (b * b) - (k_digit_4 * a * c);
+  //we analyze the discriminant
+  //if less than zero
   if (D < 0)
   {
-    //говоримо що рівняння не має реальних розв'язків
+    //we say that the equation has no real solutions
     std::cout << "\tThis equation has no real roots." << std::endl;
+    //and complete the program
+    return 0; //the program is executed without errors
   }
-  //корені рівнння
-  double x1, x2;
-  //"магічне" 2
-  const int digit_2 = 2;
-  //Якщо дискримінант рівний нулю
+  /*
+      formula is used to calculate the roots of the equation
+          x1 = (- b + sqrt (D)) / (2 * a)
+          x1 = (- b - sqrt (D)) / (2 * a)
+      if D = 0 the root equations are equal to each other x1 = x2 so we only calculate one value.
+      if D> 0 we have two possible roots, then we will calculate by both formulas
+      In the formulas, the denominators are the same, so as not to calculate one and also make twice
+      2 * a into a separate literal denominator, and calculate it once
+      sqrt (D) also make a separate literal only once
+      Our formulas
+          denominator = 2 * a
+          sqrt_D = sqrt (D)
+          x1 = (- b + sqrt_D) / denominator
+          x2 = (- b - sqrt_D) / denominator
+  */
+
+  //"magic" 2
+  const int k_digit_2 = 2;
+  const double k_denominator = k_digit_2 * a;//It is calculated once
+  const double k_sqrt_D = sqrt(k_D);
+  const double k_x1 = (-b + k_sqrt_D) / k_denominator;
+  //If the discriminant is zero
   if (D == 0)
   {
-    //маємо один корінь
+    //we have one root
     std::cout << "\tThis equation has one root." << std::endl;
-    //обчислюємо та виводимо його
-    x1 = -(b / (digit_2 * a));
-    std::cout << "\tx=" << x1 << std::endl;
+    //output it
+    std::cout << "\tx=" << k_x1 << std::endl;
+    //and complete the program
+    return 0; //the program is executed without errors
   }
-  //якщо дискримінант більший нуля
-  if (D > 0)
-  {
-    //маємо два можливих корені
-    std::cout << "\tThis equation has two roots." << std::endl;
-    //обчислюємо та виводимо
-    x1 = (-b + sqrt(D)) / (digit_2 * a);
-    x2 = (-b - sqrt(D)) / (digit_2 * a);
-    std::cout << "\tx=" << x1 << " and x=" << x2 << std::endl;
-  }
-  //кінець програми
-  return 0;
+  //else
+  // we have two possible roots
+  std::cout << "\tThis equation has two roots." << std::endl;
+  //compute x2
+  const double k_x2 = (-b - k_sqrt_D) / k_denominator;//It is calculated once
+  // output it
+  std::cout << "\tx=" << k_x1 << " and x=" << x2 << std::endl;
+  //and complete the program
+  return 0; //the program is executed without errors
+  // the end of the program
 }
 //EOF
