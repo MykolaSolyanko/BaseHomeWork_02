@@ -32,9 +32,9 @@ int main() {
   }
 
   if ((b * b - consfour * a * c) >= 0) {
-    x - (-1 * b + sqrt(b * b - consfour * a * c)) / (constwo * a);
+    x - (-b + sqrt(b * b - consfour * a * c)) / (constwo * a);
     std::cout << "The first root is " << x << std::endl;
-    x - (-1 * b - sqrt(b * b - consfour * a * c)) / (constwo * a);
+    x - (-b - sqrt(b * b - consfour * a * c)) / (constwo * a);
     std::cout << "The second root is " << x << std::endl;
   } else {
     std::cout << "Discriminant less then 0." << std::endl;
