@@ -7,8 +7,8 @@ int main() {
             << std::endl;
   const int min_Range{2};
   const int max_Range{255};
-  std::cout << "\nPlease enter 3 coefficients (A,B,C) in range [2..255].\nSo, "
-               "lets start from A = ";
+  std::cout << "\nPlease enter 3 coefficients (A,B,C) in range [" << min_Range
+            << ".." << max_Range << "].\nSo, lets start from A = ";
   int a{};
   std::cin >> a;
   while (a < min_Range || a > max_Range) {
@@ -44,12 +44,16 @@ int main() {
     x2 = (-b + sqrt(D)) / (L_2 * a);
     std::cout << "First root is x1=" << x1 << ", and second is x2=" << x2
               << std::endl;
+    return 0;
   }
   if (D == 0) {
     x1 = -b / (L_2 * a);
     std::cout << "Only 1 root is x =" << x1 << std::endl;
+    return 0;
   }
-  if (D < 0)
+  if (D < 0) {  
     std::cout << "Real roots are not exist" << std::endl;
+    return 0;
+  } 
   return 0;
 }
