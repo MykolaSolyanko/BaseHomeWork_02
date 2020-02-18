@@ -1,10 +1,13 @@
-
+// Samchuk Taras
+// Homework # 1
+// 16-02-20
 //Solving the Quadratic Equation
 #include <iostream>
+#include <limits>
 #include <cmath>
 int main()
 {
-  //about programm
+  //intro
   std::cout <<
       R"(
     +--------------------------------------+
@@ -96,7 +99,7 @@ int main()
   const long long k_D = (b * b) - (k_digit_4 * a * c);
   //we analyze the discriminant
   //if less than zero
-  if (D < 0)
+  if (k_D < 0)
   {
     //we say that the equation has no real solutions
     std::cout << "\tThis equation has no real roots." << std::endl;
@@ -121,11 +124,12 @@ int main()
 
   //"magic" 2
   const int k_digit_2 = 2;
+  //calculation
   const double k_denominator = k_digit_2 * a;//It is calculated once
   const double k_sqrt_D = sqrt(k_D);
   const double k_x1 = (-b + k_sqrt_D) / k_denominator;
   //If the discriminant is zero
-  if (D == 0)
+  if (k_D == 0)
   {
     //we have one root
     std::cout << "\tThis equation has one root." << std::endl;
@@ -137,10 +141,10 @@ int main()
   //else
   // we have two possible roots
   std::cout << "\tThis equation has two roots." << std::endl;
-  //compute x2
+  //calculation x2
   const double k_x2 = (-b - k_sqrt_D) / k_denominator;//It is calculated once
   // output it
-  std::cout << "\tx=" << k_x1 << " and x=" << x2 << std::endl;
+  std::cout << "\tx=" << k_x1 << " and x=" << k_x2 << std::endl;
   //and complete the program
   return 0; //the program is executed without errors
   // the end of the program
