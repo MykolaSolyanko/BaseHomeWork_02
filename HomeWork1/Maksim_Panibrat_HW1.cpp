@@ -34,8 +34,7 @@ int main(int argc, char const *argv[]) {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   }
-  const short c4 = 4;
-  double D = pow(b, 2) - c4 * a * c;
+  double D = pow(b, 2) - 4 * a * c;
   if (D < 0) {
     std::cout << "No real roots\n";
     return 0;
@@ -46,9 +45,8 @@ int main(int argc, char const *argv[]) {
   }
 
   std::cout << "There 2 roots\n";
-  const short c2 = 2;
-  auto x1 = (-b + sqrt(D)) / (c2 * a);
-  auto x2 = (-b - sqrt(D)) / (c2 * a);
+  auto x1 = (-b + sqrt(D)) / (2 * a);
+  auto x2 = (-b - sqrt(D)) / (2 * a);
   std::cout << "x1=" << x1 << "\n";
   std::cout << "x2=" << x2 << "\n";
   return 0;
