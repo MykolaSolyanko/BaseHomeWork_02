@@ -31,10 +31,12 @@ int main() {
     std::cout << "Error! Repeat: ";
   }
 
-  if ((b * b - consfour * a * c) >= 0) {
-    x - (-b + sqrt(b * b - consfour * a * c)) / (constwo * a);
+const int kform{b * b - consfour * a * c};
+
+  if ((kform) >= 0) {
+    x = (-b + sqrt(kform)) / (constwo * a);
     std::cout << "The first root is " << x << std::endl;
-    x - (-b - sqrt(b * b - consfour * a * c)) / (constwo * a);
+    x = (-b - sqrt(kform)) / (constwo * a);
     std::cout << "The second root is " << x << std::endl;
   } else {
     std::cout << "Discriminant less then 0." << std::endl;
