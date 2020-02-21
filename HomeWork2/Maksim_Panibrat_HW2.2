@@ -2,16 +2,16 @@
 
 int main() {
   std::cout << "Enter number\n";
-  long num;
+  int num;
   std::cin >> num;
-  long kMinNum = 100000, kMaxNum = 999999;
+  const int kMinNum = 100000, kMaxNum = 999999;
   while (num < kMinNum || num > kMaxNum) {
     std::cout << "Not in range\n";
     std::cin >> num;
   }
-  long left_num = (num / 100000) + ((num / 10000) % 10) + ((num / 1000) % 10);
+  int left_num = (num / 100000) + ((num / 10000) % 10) + ((num / 1000) % 10);
   std::cout << "left sum = " << left_num << std::endl;
-  long right_num = ((num / 100) % 10) + ((num / 10) % 10) + ((num / 1) % 10);
+  int right_num = ((num / 100) % 10) + ((num / 10) % 10) + ((num / 1) % 10);
   std::cout << "right_sum = " << right_num << std::endl;
   if (left_num == right_num)
     std::cout << "You won!!!\n";
