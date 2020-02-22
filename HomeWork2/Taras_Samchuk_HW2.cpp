@@ -1,14 +1,15 @@
 #include <iostream>
 #include <cmath>
 #include <limits>
-const char Items[][41]{
+const short K_l = 50;
+const char Items[][K_l]{
     "EXIT",
     "Digits summ",
     "Happy ticket",
-    "Reverse",
+    "Reverse(!)",
     "The sum of the odd elements",
-    "Best divisor",
-    "Christmas tree",
+    "Best divisor(!)",
+    "Christmas tree(!)",
     "Count the number of set bits in a number",
     "Bit test"};
 const int Items_Count = sizeof(Items) / sizeof(Items[0]);
@@ -89,7 +90,7 @@ int DIGITS_SUMM()
     Digits_Summ += Digit;
     std::cout << Digit << " ";
     Digits_Count++;
-  } while (Number > pow(k_digit_10, Digits_Count));
+  } while (Number >= pow(k_digit_10, Digits_Count));
   const double arithmetic_mean = (Digits_Summ + 0.f) / Digits_Count;
   std::cout << ") have the sum equal " << Digits_Summ << " and arithmetic mean " << arithmetic_mean << std::endl;
   return 0;
@@ -134,7 +135,7 @@ int REVERSE()
     +-----------------+
     |     REVERSE     |
     +-----------------+)";
-      std::cout << R"(
+  std::cout << R"(
     +--------------------------------+
     |  In the process of development |
     +--------------------------------+
@@ -156,19 +157,19 @@ int ODD_SUMM()
   const size_t k_count_min_limit = 1;
   const size_t k_count_max_limit = 50;
   std::cout << "\tPlease enter a count numbers\tMust be between " << k_count_min_limit << " and " << k_count_max_limit << "!" << std::endl;
-  size_t Counts=GetInInRange(k_count_min_limit,k_count_max_limit);
+  size_t Counts = GetInInRange(k_count_min_limit, k_count_max_limit);
   size_t Summ{0};
   const int k_min_limit = -60;
   const int k_max_limit = 90;
   for (size_t i = 0; i < Counts; i++)
   {
-    std::cout << "Please enter the " << i+1 << " number" << std::endl;
+    std::cout << "Please enter the " << i + 1 << " number" << std::endl;
     std::cout << "Must be between " << k_min_limit << " and " << k_max_limit << "!" << std::endl;
     size_t Num = GetInInRange(k_min_limit, k_max_limit);
     if (Num & 1)
       Summ += Num;
   }
-
+  std::cout << Summ << std::endl;
   return 0;
 }
 int BEST_DIVISOR()
@@ -177,7 +178,7 @@ int BEST_DIVISOR()
     +-----------------+
     |   BESTDIVISOR   |
     +-----------------+)";
-      std::cout << R"(
+  std::cout << R"(
     +--------------------------------+
     |  In the process of development |
     +--------------------------------+
@@ -190,7 +191,7 @@ int CHRISTMAS_TREE()
     +-----------------+
     |  CHRISTMASTREE  |
     +-----------------+)";
-      std::cout << R"(
+  std::cout << R"(
     +--------------------------------+
     |  In the process of development |
     +--------------------------------+
@@ -203,11 +204,25 @@ int BITS_COUNT()
     +-----------------+
     |   BITS COUNT    |
     +-----------------+)";
-      std::cout << R"(
+  std::cout << R"(
     +--------------------------------+
-    |  In the process of development |
+    |   We count the number of bits  |
+    |       established              |
     +--------------------------------+
   )";
+  const size_t k_min_limit = 0;
+  //The maximum six-digit number
+  const size_t k_max_limit = std::numeric_limits<int32_t>::max();
+  std::cout << "\tPlease enter a number\tMust be between 0 and " << k_max_limit << "!" << std::endl;
+  int Number = GetInInRange(k_min_limit, k_max_limit);
+  short Checked{0};
+  for (size_t i = 0; i < 32; i++)
+  {
+    size_t MASK = (size_t)pow(2, i);
+    if (Number & MASK)
+      Checked++;
+  }
+  std::cout << "The number " << Number << " have " << Checked << "checked bits" << std::endl;
   return 0;
 }
 int BITS_TEST()
@@ -216,11 +231,22 @@ int BITS_TEST()
     +-----------------+
     |    BITS TEST    |
     +-----------------+)";
-      std::cout << R"(
+  std::cout << R"(
     +--------------------------------+
     |  In the process of development |
     +--------------------------------+
   )";
+    const size_t k_min_limit = 0;
+  //The maximum six-digit number
+  const size_t k_max_limit = std::numeric_limits<int32_t>::max();
+  const size_t k_max_bits = 32;
+  std::cout << "\tPlease enter a number\tMust be between 0 and " << k_max_limit << "!" << std::endl;
+  int Number = GetInInRange(k_min_limit, k_max_limit);
+  std::cout << "\tEnter a number bit\tMust be between 0 and " << k_max_bits << "!" << std::endl;
+  int bit = GetInInRange(k_min_limit, k_max_bits);
+  size_t MASK = (size_t)pow(2, bit);
+  if(MASK&Number)std::cout<<"YES";else std::cout<<"NO";
+  std::cout<<std::endl;
   return 0;
 }
 int main()
@@ -265,5 +291,9 @@ int main()
       break;
     }
   } while (true);
+  std::cout << R"(
+    +-----------------+
+    |      E N D      |
+    +-----------------+)";
   return 0;
 }
