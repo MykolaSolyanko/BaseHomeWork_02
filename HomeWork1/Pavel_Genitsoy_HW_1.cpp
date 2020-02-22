@@ -10,24 +10,21 @@ int main() {
   std::cout << "\nPlease enter 3 coefficients (A,B,C) in range [" << min_Range
             << ".." << max_Range << "].\nSo, lets start from A = ";
   int a{};
-  std::cin >> a;
-  while (a < min_Range || a > max_Range) {
+  while (!(std::cin >> a) && (a < min_Range || a > max_Range)) {
     std::cout << "You entered an incorrect number, try entering the number "
                  "again.\nEnter num: ";
     std::cin >> a;
   }
   std::cout << "A = " << a << "\nEnter next num is B = ";
   int b{};
-  std::cin >> b;
-  while (b < min_Range || b > max_Range) {
+  while (!(std::cin >> b) && (b < min_Range || b > max_Range)) {
     std::cout << "You entered an incorrect number, try entering the number "
                  "again.\nEnter num: ";
     std::cin >> b;
   }
   std::cout << "B = " << b << "\nEnter next num is C = ";
   int c{};
-  std::cin >> c;
-  while (c < min_Range || c > max_Range) {
+  while (!(std::cin >> c) && (c < min_Range || c > max_Range)) {
     std::cout << "You entered an incorrect number, try entering the number "
                  "again.\nEnter num: ";
     std::cin >> c;
@@ -51,9 +48,6 @@ int main() {
     std::cout << "Only 1 root is x =" << x1 << std::endl;
     return 0;
   }
-  if (D < 0) {  
-    std::cout << "Real roots are not exist" << std::endl;
-    return 0;
-  } 
+  std::cout << "Real roots are not exist" << std::endl; 
   return 0;
 }
