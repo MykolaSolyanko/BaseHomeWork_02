@@ -1,34 +1,18 @@
-//Samchuk Taras
-//DigitsSumm.cpp
-//18-02-20 (22:43)
 #include <iostream>
 #include <cmath>
 #include <limits>
-//=================================================================================
-//    INTRO
-//=================================================================================
-int Intro(void)
-{
-  std::cout << R"(
-  +------------------+
-)";
-  return 0;
-}
-//=================================================================================
-//    CONSTANTS
-//=================================================================================
-const int Names_langth = 52;
-const char Items[][Names_langth]{
+const char Items[][41]{
+    "EXIT",
     "Digits summ",
     "Happy ticket",
-    // "Reverse",
-    // "The sum of the odd elements",
-    // "Best divisor",
-    // "Christmas tree",
-    // "Count the number of set bits in a number",
-    // "Bit test"
-};
-enum
+    "Reverse",
+    "The sum of the odd elements",
+    "Best divisor",
+    "Christmas tree",
+    "Count the number of set bits in a number",
+    "Bit test"};
+const int Items_Count = sizeof(Items) / sizeof(Items[0]);
+enum labels
 {
   LABEL_EXIT,
   LABEL_DIGITS_SUMM,
@@ -40,74 +24,68 @@ enum
   LABEL_BITS_COUNT,
   LABEL_BITS_TEST,
 };
-const int Items_Count = sizeof(Items) / sizeof(Items[0]);
-//=================================================================================
-//    MENU TO SCREEN
-//=================================================================================
-int PrintMenu()
+typedef signed long s_long;
+s_long GetInInRange(s_long aMin, s_long aMax)
 {
-  bool TryAgain{true};
-  size_t MyChoice;
+  s_long INPUT;
+  bool TryAgaine{true};
   do
   {
-    std::cout << "\tSelect a task" << std::endl;
-    for (size_t i = 0; i < Items_Count; i++)
-      std::cout << "\t(" << i + 1 << ")  " << Items[i] << std::endl;
-    std::cout << "\tEnter the number from 0 to " << Items_Count << " and press [ENTER]\n\tType 0 for exit" << std::endl;
-    std::cin >> MyChoice;
-    TryAgain = 0 > MyChoice || MyChoice > Items_Count;
-    if (!TryAgain)
-      break;
-  } while (TryAgain);
-  return MyChoice;
+    std::cout << ">";
+    std::cin >> INPUT;
+    TryAgaine = aMin > INPUT || INPUT > aMax;
+  } while (TryAgaine);
+  return INPUT;
 }
-//=================================================================================
-//    SUB PROGRAMMs
-//=================================================================================
-
-int DigitsSumm()
+const short k_digit_10{10};
+s_long GetDigit(s_long InputNumber, s_long Digit)
 {
-  std::cout << R"(
-      +--------------------------------+
-      | The program breaks the numbers |
-      |  into numbers and calculates   |
-      | their sum and arithmetic mean  |
-      +--------------------------------+
-  )";
-  std::cout << "\tPlease enter a number" << std::endl;
-  // 10 is the minimum two-digit number
-  const size_t k_min_limit = 10;
-  // "almost max" for this type
-  const size_t k_max_limit = std::numeric_limits<size_t>::max() >> 1;
-  size_t Number;
-  bool Incorrect; //true=incorrect; false=correct;
-  //We get the number
-  do
-  {
-    std::cout << "NUMBER=";
-    std::cin >> Number;
-    Incorrect = (Number < k_min_limit) || (Number > k_max_limit);
-    if (Incorrect)
-    {
-      std::cout << "\tYou entered an incorrect number.\n"
-                   "\tMust be between "
-                << k_min_limit << " and " << k_max_limit << "!" << std::endl;
-    }
-  } while (Incorrect);
-  std::cout << "The numbers ( ";
-  //We decompose the number
-  const short k_digit_10 = 10;
-  short Digits_Count{0};
-  short Digits_Summ{0};
-  do
-  {
-    /*
+  /*
     1) Digit1=(X%10)/1
     2) Digit2=(X%100)/10
     ...
     N) Digit_N=(X%pow(10,N))/pow(10,N-1)
     */
-    int Digit = (Number % (size_t)pow(k_digit_10, Digits_Count + 1)) / (size_t)pow(k_digit_10, Digits_Count);
+  return (InputNumber % (s_long)pow(k_digit_10, Digit + 1)) / (s_long)pow(k_digit_10, Digit);
+}
+//================================================================
+int MENU()
+{
+  std::cout << R"(
+    +-----------------+
+    |   SELECT TASK   |
+    +-----------------+)";
+  std::cout << std::endl;
+  for (size_t i = 0; i < Items_Count; i++)
+    std::cout << "\t(" << i << ")  " << Items[i] << std::endl;
+  std::cout << "\tEnter the number and press [ENTER]" << std::endl;
+  return GetInInRange(0, Items_Count - 1);
+}
+int DIGITS_SUMM()
+{
+  std::cout << R"(
+    +-----------------+
+    |   DIGITS SUMM   |
+    +-----------------+)";
+  std::cout << R"(
+    +--------------------------------+
+    | The program breaks the numbers |
+    |  into numbers and calculates   |
+    | their sum and arithmetic mean  |
+    +--------------------------------+
+  )";
+  // 10 is the minimum two-digit number
+  const size_t k_min_limit = 10;
+  const size_t k_max_limit = std::numeric_limits<size_t>::max() >> 1;
+  std::cout << "\tPlease enter a number\tMust be between " << k_min_limit << " and " << k_max_limit << "!" << std::endl;
+  size_t Number = GetInInRange(k_min_limit, k_max_limit);
+  std::cout << "The numbers ( ";
+  //We decompose the number
+  short Digits_Count{0};
+  short Digits_Summ{0};
+  do
+  {
+    int Digit = GetDigit(Number, Digits_Count);
     Digits_Summ += Digit;
     std::cout << Digit << " ";
     Digits_Count++;
@@ -116,89 +94,174 @@ int DigitsSumm()
   std::cout << ") have the sum equal " << Digits_Summ << " and arithmetic mean " << arithmetic_mean << std::endl;
   return 0;
 }
-//=================================================================================
-//    MAIN PROGRAMM
-//=================================================================================
-int HappyTicket()
+int HAPPY_TICKET()
 {
   std::cout << R"(
-      +--------------------------------+
-      |  The  program  checks  whether |
-      |     your ticket is happy       |
-      +--------------------------------+
+    +-----------------+
+    |  HAPPY TICKET   |
+    +-----------------+)";
+  std::cout << R"(
+    +--------------------------------+
+    |  The  program  checks  whether |
+    |     your ticket is happy       |
+    +--------------------------------+
   )";
-  std::cout << "\tPlease enter a number" << std::endl;
   const size_t k_min_limit = 0; // identical 000000
   //The maximum six-digit number
   const size_t k_max_limit = 999999;
-  bool Incorrect; //true=incorrect; false=correct;
-  unsigned int TicketNumber;
-  do
-  {
-    std::cout << "TICKET=";
-    std::cin >> TicketNumber;
-    Incorrect = (TicketNumber < k_min_limit) || (TicketNumber > k_max_limit);
-    if (Incorrect)
-    {
-      std::cout << "\tYou entered an incorrect ticket number.\n"
-                   "\tMust be between 000000 and " << k_max_limit << "!" << std::endl;
-    }
-  } while (Incorrect);
-  unsigned int HiSumm{0};
-  unsigned int LoSumm{0};
+  std::cout << "\tPlease enter a number\tMust be between 000000 and " << k_max_limit << "!" << std::endl;
+  int Number = GetInInRange(k_min_limit, k_max_limit);
+  int HiSumm{0};
+  int LoSumm{0};
   for (size_t i = 0; i < 3; i++)
   {
-    const short k_digit_10 = 10;
-    HiSumm += (TicketNumber % (size_t)pow(k_digit_10, i + 4)) / (size_t)pow(k_digit_10, i+3);
-    LoSumm += (TicketNumber % (size_t)pow(k_digit_10, i + 1)) / (size_t)pow(k_digit_10, i);
+    //HiSumm += (TicketNumber % (size_t)pow(k_digit_10, i + 4)) / (size_t)pow(k_digit_10, i+3);
+    HiSumm += GetDigit(Number, i);
+    //LoSumm += (TicketNumber % (size_t)pow(k_digit_10, i + 1)) / (size_t)pow(k_digit_10, i);
+    LoSumm += GetDigit(Number, i + 3);
   }
-  if(HiSumm==LoSumm)
+  if (HiSumm == LoSumm)
   {
-    std::cout<<"Congratulations to you, Lucky\n";
+    std::cout << "Congratulations to you, Lucky\n";
     return 0;
   }
-  std::cout<<"Try again, you will surely enjoy it";
+  std::cout << "Try again, you will surely enjoy it";
   return 0;
 }
-//=================================================================================
-//    MAIN PROGRAMM
-//=================================================================================
+int REVERSE()
+{
+  std::cout << R"(
+    +-----------------+
+    |     REVERSE     |
+    +-----------------+)";
+      std::cout << R"(
+    +--------------------------------+
+    |  In the process of development |
+    +--------------------------------+
+  )";
+  return 0;
+}
+int ODD_SUMM()
+{
+  std::cout << R"(
+    +-----------------+
+    |    ODD  SUMM    |
+    +-----------------+)";
+  std::cout << R"(
+    +--------------------------------+
+    |   We   calculate   the   sum   |
+    |        of odd numbers          |
+    +--------------------------------+
+  )";
+  const size_t k_count_min_limit = 1;
+  const size_t k_count_max_limit = 50;
+  std::cout << "\tPlease enter a count numbers\tMust be between " << k_count_min_limit << " and " << k_count_max_limit << "!" << std::endl;
+  size_t Counts=GetInInRange(k_count_min_limit,k_count_max_limit);
+  size_t Summ{0};
+  const int k_min_limit = -60;
+  const int k_max_limit = 90;
+  for (size_t i = 0; i < Counts; i++)
+  {
+    std::cout << "Please enter the " << i+1 << " number" << std::endl;
+    std::cout << "Must be between " << k_min_limit << " and " << k_max_limit << "!" << std::endl;
+    size_t Num = GetInInRange(k_min_limit, k_max_limit);
+    if (Num & 1)
+      Summ += Num;
+  }
+
+  return 0;
+}
+int BEST_DIVISOR()
+{
+  std::cout << R"(
+    +-----------------+
+    |   BESTDIVISOR   |
+    +-----------------+)";
+      std::cout << R"(
+    +--------------------------------+
+    |  In the process of development |
+    +--------------------------------+
+  )";
+  return 0;
+}
+int CHRISTMAS_TREE()
+{
+  std::cout << R"(
+    +-----------------+
+    |  CHRISTMASTREE  |
+    +-----------------+)";
+      std::cout << R"(
+    +--------------------------------+
+    |  In the process of development |
+    +--------------------------------+
+  )";
+  return 0;
+}
+int BITS_COUNT()
+{
+  std::cout << R"(
+    +-----------------+
+    |   BITS COUNT    |
+    +-----------------+)";
+      std::cout << R"(
+    +--------------------------------+
+    |  In the process of development |
+    +--------------------------------+
+  )";
+  return 0;
+}
+int BITS_TEST()
+{
+  std::cout << R"(
+    +-----------------+
+    |    BITS TEST    |
+    +-----------------+)";
+      std::cout << R"(
+    +--------------------------------+
+    |  In the process of development |
+    +--------------------------------+
+  )";
+  return 0;
+}
 int main()
 {
-  do
+  std::cout << R"(
+    +-----------------+
+    |   HOME WORK 2   |
+    +-----------------+)";
+  std::cout << std::endl;
+  do //forever loop
   {
-    std::cout << std::endl;
-    switch (PrintMenu())
+    switch (MENU())
     {
     case LABEL_EXIT:
       return 0;
       break;
     case LABEL_DIGITS_SUMM:
-      DigitsSumm();
+      DIGITS_SUMM();
       break;
     case LABEL_HAPPY_TICKET:
-      HappyTicket();
+      HAPPY_TICKET();
       break;
     case LABEL_REVERSE:
-      return 0;
+      REVERSE();
       break;
     case LABEL_ODD_SUMM:
-      return 0;
+      ODD_SUMM();
       break;
     case LABEL_BEST_DIVISOR:
-      return 0;
+      BEST_DIVISOR();
       break;
     case LABEL_CHRISTMAS_TREE:
-      return 0;
+      CHRISTMAS_TREE();
       break;
     case LABEL_BITS_COUNT:
-      return 0;
+      BITS_COUNT();
       break;
     case LABEL_BITS_TEST:
-      return 0;
+      BITS_TEST();
       break;
     default:
-      return 0;
       break;
     }
   } while (true);
