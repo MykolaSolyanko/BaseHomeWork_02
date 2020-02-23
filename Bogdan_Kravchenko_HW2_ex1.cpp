@@ -9,10 +9,11 @@ int main() {
   std::cin >> number;
 
   int sum = 0;
-  int count = 0;
+  size_t count = 0;
 
-  if (number != 0) {
-
+  if (number == 0) {
+    std::cout << "Error! Enter number more then zero!" << std::endl;
+  }
     while (number != 0) {
       sum += number % 10;
       number /= 10;
@@ -24,8 +25,6 @@ int main() {
     std::cout << "The arithmetic mean of digits your number is "
               << arithmetic_mean << std::endl;
 
-  } else
-    std::cout << "Error! Enter number more then zero!" << std::endl;
 
   return 0;
 }
