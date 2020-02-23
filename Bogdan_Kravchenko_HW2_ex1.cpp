@@ -13,6 +13,7 @@ int main() {
 
   if (number == 0) {
     std::cout << "Error! Enter number more then zero!" << std::endl;
+    return 1;
   }
     while (number != 0) {
       sum += number % 10;
