@@ -10,24 +10,21 @@ int main() {
   std::cout << "\nPlease enter 3 coefficients (A,B,C) in range [" << min_Range
             << ".." << max_Range << "].\nSo, lets start from A = ";
   int a{};
-  while (!(std::cin >> a) && (a < min_Range || a > max_Range)) {
+  while (std::cin >> a && (a < min_Range || a > max_Range)) {
     std::cout << "You entered an incorrect number, try entering the number "
                  "again.\nEnter num: ";
-    std::cin >> a;
   }
   std::cout << "A = " << a << "\nEnter next num is B = ";
   int b{};
-  while (!(std::cin >> b) && (b < min_Range || b > max_Range)) {
+  while (std::cin >> b && (b < min_Range || b > max_Range)) {
     std::cout << "You entered an incorrect number, try entering the number "
                  "again.\nEnter num: ";
-    std::cin >> b;
   }
   std::cout << "B = " << b << "\nEnter next num is C = ";
   int c{};
-  while (!(std::cin >> c) && (c < min_Range || c > max_Range)) {
+  while (std::cin >> c && (c < min_Range || c > max_Range)) {
     std::cout << "You entered an incorrect number, try entering the number "
                  "again.\nEnter num: ";
-    std::cin >> c;
   }
   std::cout << "C = " << c << "\nNow check our equation: " << a << "*x^2+" << b
             << "*x+" << c << "=0" << std::endl;
