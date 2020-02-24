@@ -126,17 +126,21 @@ void sum_odd_elements() {
 }
 
 void best_divisior() {
+  const auto kMin = std::numeric_limits<unsigned short>::min() + 1;
   const auto kMax = std::numeric_limits<unsigned int>::max();
-  std::cout << "\nEnter a positive (from 1 to " << kMax
-            << ")number: " << std::endl;
-  unsigned int number{}, best_sum{};
-  std::cin >> number;
-  unsigned int best_digit{number};
+  std::cout << "\nEnter a number in range [" << kMin << " ... " << kMax
+            << "]: " << std::endl;
+  unsigned int number{};
+  while (std::cin >> number && (number < kMin || number > kMax)) {
+    std::cout << "\nYou entered an incorrect amount of numbers, try entering "
+                 "again.\nEnter amount of num: ";
+  }
+  unsigned int best_digit{number}, best_sum{};
   for (size_t i = 1; i <= number; i++) {
     unsigned int sum{};
     if (number % i == 0) {
-      auto j = i;
-      auto temp{j};
+      unsigned int j{i};
+      unsigned int temp{j};
       std::cout << j << ' ';
 
       do {
