@@ -11,7 +11,7 @@ int main() {
     std::cin >> num;
   }
   float sum = 0;
-  int digits = 0;
+  int digits {0};
   while (num) {
     sum += (num % 10);
     num /= 10;
