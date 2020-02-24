@@ -20,3 +20,4 @@ int main() {
   else
     std::cout << "You lose...\n";
   return 0;
+}
