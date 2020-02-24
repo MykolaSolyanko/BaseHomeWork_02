@@ -1,5 +1,3 @@
-#include <iostream>
-
 int main() {
   std::cout << "This programm sums up even numbers.\n Uneven numbers will be "
                "discarded.\n";
@@ -16,16 +14,18 @@ int main() {
   std::cout << "Enter numbers in range [" << kMinVal << "..." << kMaxVal
             << "]\n";
   int sum{0};
-  for (int i = 1; i <= num; i++) {
+  size_t iter{1};
+  while (iter <= num) {
     int val;
     std::cin >> val;
-    while (val < kMinVal || val > kMaxVal) {
-      std::cout << "Error, out of value range\n";
-      std::cin >> val;
+    if (val < kMinVal || val > kMaxVal) {
+      std::cout << "Error, out of value range, please try again\n";
+      continue;
     }
     if (val % 2) {
       sum += val;
     }
+    ++iter;
   }
   std::cout << "Sum of even numbers = " << sum << std::endl;
   return 0;
