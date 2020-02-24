@@ -1,7 +1,9 @@
+
 #include <iostream>
 
 int main() {
-  std::cout << "Enter number\n";
+  std::cout << "This program checks ticket number.\n";
+  std::cout << "Enter ticket number\n";
   int num;
   std::cin >> num;
   const int kMinNum = 100000, kMaxNum = 999999;
