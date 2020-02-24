@@ -10,7 +10,8 @@ int main() {
     std::cout << "Out of range. Try again\n";
     std::cin >> num;
   }
-  float sum = 0, digits = 0;
+  float sum = 0;
+  int digits = 0;
   while (num) {
     sum += (num % 10);
     num /= 10;
