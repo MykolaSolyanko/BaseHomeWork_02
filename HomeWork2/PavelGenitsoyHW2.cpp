@@ -34,11 +34,9 @@ void lucky_ticket() {
   std::cout << "\nEnter number in range[" << kMin << "..." << kMax
             << "]: " << std::endl;
   int num{};
-  std::cin >> num;
-  while (num < kMin || num > kMax) {
+  while (std::cin >> num && (num < kMin || num > kMax)) {
     std::cout << "\nYou entered an incorrect number, try entering the number "
                  "again.\nEnter num: ";
-    std::cin >> num;
   }
 
   int first_sum_digits{};
@@ -102,11 +100,9 @@ void sum_odd_elements() {
             << "..." << Max_amount
             << "], which you will be input: " << std::endl;
   int amount{};
-  std::cin >> amount;
-  while (amount < kMin_amount || amount > Max_amount) {
+  while (std::cin >> amount && (amount < kMin_amount || amount > Max_amount)) {
     std::cout << "\nYou entered an incorrect amount of numbers, try entering "
                  "again.\nEnter amount of num: ";
-    std::cin >> amount;
   }
   int sum_num{};
   while (amount != 0) {
@@ -115,11 +111,9 @@ void sum_odd_elements() {
     std::cout << "\nEnter number in range[" << kMin_range << "..." << kMax_range
               << "]: ";
     int num{};
-    std::cin >> num;
-    while (num < kMin_range || num > kMax_range) {
+    while (std::cin >> num && (num < kMin_range || num > kMax_range)) {
       std::cout << "\nYou entered an incorrect number, try entering the number "
                    "again.\nEnter num: ";
-      std::cin >> num;
     }
     if (num % 2 == 0) {
       sum_num += 0;
