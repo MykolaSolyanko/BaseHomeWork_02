@@ -1,6 +1,8 @@
+
 #include <iostream>
 
 int main() {
+  std::cout << "This program turns number in reverse.\n";
   const int32_t kMinNum = std::numeric_limits<int32_t>::min();
   const int32_t kMaxNum = std::numeric_limits<int32_t>::max();
   std::cout << "Enter number in range [" << kMinNum << "..." << kMaxNum
@@ -17,4 +19,5 @@ int main() {
   } else
     rev_num = num;
   std::cout << rev_num << "\n";
+  return 0;
 }
