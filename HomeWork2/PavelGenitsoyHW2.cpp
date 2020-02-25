@@ -115,9 +115,7 @@ void sum_odd_elements() {
       std::cout << "\nYou entered an incorrect number, try entering the number "
                    "again.\nEnter num: ";
     }
-    if (num % 2 == 0) {
-      sum_num += 0;
-    } else {
+    if (num % 2 == 1) {
       sum_num += num;
     }
     --amount;
