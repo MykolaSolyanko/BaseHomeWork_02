@@ -5,6 +5,14 @@ void lucky_ticket();
 void reverse_number();
 void odd_el_sum();
 void best_divisor();
+void cristmas_tree();
+enum {
+  SUM_AM = 1,
+  LUCKY_TICKET,
+  REVERSE_NUMBER,
+  ODD_ELEMENTS_SUM,
+  BEST_DIVISOR,
+};
 int main() {
   int i{1};
   do {
@@ -25,19 +33,19 @@ int main() {
     int choise;
     std::cin >> choise;
     switch (choise) {
-    case 1:
+    case SUM_AM:
       sum_am();
       break;
-    case 2:
+    case LUCKY_TICKET:
       lucky_ticket();
       break;
-    case 3:
+    case REVERSE_NUMBER:
       reverse_number();
       break;
-    case 4:
+    case ODD_ELEMENTS_SUM:
       odd_el_sum();
       break;
-    case 5:
+    case BEST_DIVISOR:
       best_divisor();
       break;
     default:
@@ -49,45 +57,45 @@ int main() {
   return 0;
 }
 void sum_am() {
-  std::cout << " Please, enter integer number" << std::endl;
+  std::cout << " Please, enter integer number from 1 to "
+            << std::numeric_limits<short>::max() << std::endl;
   long int value{};
   std::cin >> value;
-  long int v_sum{}, v_am{}, k{};
-  for (int i{value}; i > 0; i /= 10) {
-    v_sum += i % 10;
-    ++k;
-  };
-  v_am = v_sum / k;
-  std::cout << " For number " << value << " :\n the sum of number digits is "
-            << v_sum << "; \n the arithmetic mean is " << v_am << "."
-            << std::endl;
+  if (value <= 0 || value > std::numeric_limits<short>::max()) {
+    std::cout << "Incorrect input number" << std::endl;
+  } else {
+    long int v_sum{}, v_am{}, k{};
+    for (int i{value}; i > 0; i /= 10) {
+      v_sum += i % 10;
+      ++k;
+    };
+    v_am = v_sum / k;
+    std::cout << " For number " << value << " :\n the sum of number digits is "
+              << v_sum << "; \n the arithmetic mean is " << v_am << "."
+              << std::endl;
+  }
 }
 void lucky_ticket() {
   std::cout << " Please, enter 6-digit integer number" << std::endl;
   long int value{};
   std::cin >> value;
-  long int first_part{}, second_part{}, k{}, invalid_ticket{};
-  for (int i{value}; i > 0; i /= 10) {
+  if (value < 100'000 || value > 999'999) {
+    std::cout << "Invalid ticket number. " << std::endl;
+    return;
+  }
+  long int first_part{}, second_part{};
+  for (int i{value}, k{}; i > 0; i /= 10, ++k) {
     if (k < 3) {
       second_part += i % 10;
-    } else if (k >= 3 && k < 6) {
+    } else {
       first_part += i % 10;
-    } else {
-      i = 0;
-      invalid_ticket = 1;
     }
-    ++k;
   };
-  if (invalid_ticket == 0) {
-    if ((first_part - second_part) == 0) {
-      std::cout << " The ticket " << value << " is lucky. Congrats!"
-                << std::endl;
-    } else {
-      std::cout << " The ticket " << value
-                << " is NOT lucky. Buy another one :)" << std::endl;
-    }
+  if ((first_part - second_part) == 0) {
+    std::cout << " The ticket " << value << " is lucky. Congrats!" << std::endl;
   } else {
-    std::cout << " Incorrect ticket number." << std::endl;
+    std::cout << " The ticket " << value << " is NOT lucky. Buy another one :)"
+              << std::endl;
   }
 }
 void reverse_number() {
@@ -95,17 +103,15 @@ void reverse_number() {
   int value{};
   std::cin >> value;
   long int v_sum{}, v_am{};
-  if (value > 0) {
-    for (int i{value}; i > 0; i /= 10) {
-      v_sum *= 10;
-      v_sum += i % 10;
-    };
-  } else {
+  bool is_negative = (value < 0);
+  if (is_negative) {
     value = -value;
-    for (int i{value}; i > 0; i /= 10) {
-      v_sum *= 10;
-      v_sum += i % 10;
-    };
+  }
+  for (int i{value}; i > 0; i /= 10) {
+    v_sum *= 10;
+    v_sum += i % 10;
+  };
+  if (is_negative) {
     v_sum = -v_sum;
     value = -value;
   }
@@ -115,28 +121,27 @@ void reverse_number() {
 void odd_el_sum() {
   std::cout << "Please, enter the size of integer numbers array (from 1 to 50)"
             << std::endl;
-  int value;
+  size_t value;
   std::cin >> value;
-  std::cout << value;
   if ((value > 50) || (value < 1)) {
     std::cout << "Incorrect size of array" << std::endl;
   } else {
     std::cout << "Please, enter " << value
               << " numbers in interval -60 <= x <= 90" << std::endl;
-    int element, sum{};
-    for (int i = 0; i < value; i++) {
+    int element;
+    size_t i{};
+    long long sum{};
+    while (i < value) {
       std::cout << "Please, enter the " << i + 1 << "th number: " << std::endl;
-      do {
-        std::cin >> element;
-        if (element < -60 || element > 90) {
-          std::cout << "Incorrect element. Try again." << std::endl;
-        } else {
-          break;
-        }
-      } while (true);
+      std::cin >> element;
+      if (element < -60 || element > 90) {
+        std::cout << "Incorrect element. Try again." << std::endl;
+        continue;
+      }
       if (element % 2 != 0) {
         sum += element;
       }
+      ++i;
     }
 
     std::cout << "The summ of odd numbers is " << sum << "." << std::endl;
@@ -149,7 +154,7 @@ void best_divisor() {
   std::cin >> value;
   uint32_t b_div{1}, dig_sum_b_div{1}, dig_sum_i;
   if (value > 0) {
-    for (uint32_t i{1}; i < value + 1; ++i) {
+    for (uint32_t i{1}; i <= value; ++i) {
       if (value % i == 0) {
         dig_sum_i = 0;
         for (uint32_t j{i}; j > 0; j /= 10) {
