@@ -3,43 +3,43 @@
 #include <limits>
 //Constant for show menu sub programs
 const short K_l = 50;
-const char Items[][K_l]{
+const char k_Items[][K_l]{
     "EXIT",
     "Digits summ",
     "Happy ticket",
     "Reverse",
     "The sum of the odd elements",
     "Best divisor",
-    "Christmas tree(!)",
+    "Christmas tree",
     "Count the number of set bits in a number",
     "Bit test"};
-const size_t Items_Count = sizeof(Items) / sizeof(Items[0]);
+const size_t k_Items_Count = sizeof(k_Items) / sizeof(k_Items[0]);
 enum labels
 {
-  LABEL_EXIT,
-  LABEL_DIGITS_SUMM,
-  LABEL_HAPPY_TICKET,
-  LABEL_REVERSE,
-  LABEL_ODD_SUMM,
-  LABEL_BEST_DIVISOR,
-  LABEL_CHRISTMAS_TREE,
-  LABEL_BITS_COUNT,
-  LABEL_BITS_TEST,
+  Label_Exit,
+  Label_Digits_Summ,
+  Label_Happy_Ticket,
+  Label_Reverse,
+  Label_Odd_Summ,
+  Label_Best_Divisor,
+  Label_Christmas_Tree,
+  Label_Bits_Count,
+  Label_Bits_Test
 };
 
 //The function returns a value if it is within the range.
 //Executes until the correct value is entered
 int64_t GetInInRange(int64_t aMin, int64_t aMax)
 {
-  int64_t INPUT;
+  int64_t Input;
   bool TryAgaine{true};
   do
   {
     std::cout << ">";
-    std::cin >> INPUT;
-    TryAgaine = aMin > INPUT || INPUT > aMax;
+    std::cin >> Input;
+    TryAgaine = aMin > Input || Input > aMax;
   } while (TryAgaine);
-  return INPUT;
+  return Input;
 }
 
 const short k_digit_10{10};
@@ -56,21 +56,21 @@ int64_t GetDigit(int64_t InputNumber, size_t Digit)
   return (InputNumber % (int64_t)pow(k_digit_10, Digit + 1)) / (int64_t)pow(k_digit_10, Digit);
 }
 //Displays the menu and returns the selected item number
-int MENU()
+int Menu()
 {
   std::cout << R"(
     +-----------------+
     |   SELECT TASK   |
     +-----------------+)";
   std::cout << std::endl;
-  for (size_t i = 0; i < Items_Count; i++)
-    std::cout << "\t(" << i << ")  " << Items[i] << std::endl;
+  for (size_t i = 0; i < k_Items_Count; i++)
+    std::cout << "\t(" << i << ")  " << k_Items[i] << std::endl;
   std::cout << "\tEnter the number and press [ENTER]" << std::endl;
-  return GetInInRange(0, Items_Count - 1);
+  return GetInInRange(0, k_Items_Count - 1);
 }
 
 //home work
-int DIGITS_SUMM()
+int Digits_Summ()
 {
   std::cout << R"(
     +-----------------+
@@ -99,11 +99,11 @@ int DIGITS_SUMM()
     std::cout << Digit << " ";
     Digits_Count++;
   } while (Number >= pow(k_digit_10, Digits_Count));
-  const double arithmetic_mean = (Digits_Summ + 0.f) / Digits_Count;
-  std::cout << ") have the sum equal " << Digits_Summ << " and arithmetic mean " << arithmetic_mean << std::endl;
+  const double k_arithmetic_mean = (Digits_Summ + 0.f) / Digits_Count;
+  std::cout << ") have the sum equal " << Digits_Summ << " and arithmetic mean " << k_arithmetic_mean << std::endl;
   return 0;
 }
-int HAPPY_TICKET()
+int Happy_Ticket()
 {
   std::cout << R"(
     +-----------------+
@@ -130,13 +130,13 @@ int HAPPY_TICKET()
   }
   if (HiSumm == LoSumm)
   {
-    std::cout << "Congratulations to you, Lucky\n";
+    std::cout << "Congratulations to you, Lucky" << std::endl;
     return 0;
   }
-  std::cout << "Try again, you will surely enjoy it";
+  std::cout << "Try again, you will surely enjoy it\n";
   return 0;
 }
-int REVERSE()
+int Reverse()
 {
   std::cout << R"(
     +-----------------+
@@ -151,8 +151,8 @@ int REVERSE()
   std::cout << "\tPlease enter a count numbers\n\tMust be between " << k_min_limit << " and " << k_max_limit << "!" << std::endl;
   size_t Digits_Count{0};
   int64_t Number = GetInInRange(k_min_limit, k_max_limit);
-  bool Negative = Number < 0;
-  if (Negative)
+  const bool k_Negative = Number < 0;
+  if (k_Negative)
     Number = -Number;
   do
   {
@@ -162,15 +162,15 @@ int REVERSE()
   int64_t NewNumber{0};
   for (size_t i = 0; i < Digits_Count; i++)
   {
-    NewNumber=pow(k_digit_10,i)*GetDigit(Number,Digits_Count-i-1)+NewNumber;
-  }  
-  if (Negative)
+    NewNumber = pow(k_digit_10, i) * GetDigit(Number, Digits_Count - i - 1) + NewNumber;
+  }
+  if (k_Negative)
     NewNumber = -NewNumber;
   std::cout << NewNumber;
 
   return 0;
 }
-int ODD_SUMM()
+int Odd_Summ()
 {
   std::cout << R"(
     +-----------------+
@@ -199,7 +199,7 @@ int ODD_SUMM()
   std::cout << Summ << std::endl;
   return 0;
 }
-int BEST_DIVISOR()
+int Best_Divisor()
 {
   std::cout << R"(
     +-----------------+
@@ -211,7 +211,7 @@ int BEST_DIVISOR()
     +--------------------------------+
   )";
   const int k_min_limit = 1;
-  const int k_max_limit = std::numeric_limits<short>::max();
+  const int k_max_limit = std::numeric_limits<int>::max();
   std::cout << "\tPlease enter a count numbers\n\tMust be between " << k_min_limit << " and " << k_max_limit << "!" << std::endl;
   const int Number = GetInInRange(k_min_limit, k_max_limit);
   int MaxDivisor{1};
@@ -241,10 +241,10 @@ int BEST_DIVISOR()
       }
     }
   }
-  std::cout << BestDivisor << " BestDivisor\n";
+  std::cout << BestDivisor << " is the best divisor of the number " << Number << std::endl;
   return 0;
 }
-int CHRISTMAS_TREE()
+int Christmas_Tree()
 {
   std::cout << R"(
     +-----------------+
@@ -254,9 +254,37 @@ int CHRISTMAS_TREE()
     |  In the process of development |
     +--------------------------------+
   )";
+  const size_t k_min_limit = 1;
+  const size_t k_max_limit = 79;
+  std::cout << "\tPlease enter size of tree\n\tMust be between " << k_min_limit << " and " << k_max_limit << "!" << std::endl;
+  size_t size;
+  do
+  {
+    size = GetInInRange(k_min_limit, k_max_limit);
+    if (size % 2 != 0)
+      break;
+    std::cout << "Please enter an odd number " << std::endl;
+  } while (true);
+  const size_t k_center_align = size / 2;
+  for (size_t y = 0; y <= k_center_align; y++)
+  {
+    const char k_star = '*';
+    const char k_spase = ' ';
+    for (size_t x = 0; x < size; x++)
+    {
+      size_t left_align = k_center_align - y;
+      size_t rihgt_align = k_center_align + y;
+      if (left_align <= x && x <= rihgt_align)
+        std::cout << k_star;
+      else
+        std::cout << k_spase;
+    }
+
+    std::cout << std::endl;
+  }
   return 0;
 }
-int BITS_COUNT()
+int Bit_Count()
 {
   std::cout << R"(
     +-----------------+
@@ -282,7 +310,7 @@ int BITS_COUNT()
   std::cout << "The number " << Number << " have " << Checked << " checked bits" << std::endl;
   return 0;
 }
-int BITS_TEST()
+int Bits_Test()
 {
   std::cout << R"(
     +-----------------+
@@ -297,12 +325,12 @@ int BITS_TEST()
   const size_t k_max_limit = std::numeric_limits<u_int32_t>::max();
   const size_t k_max_bits = 32;
   std::cout << "\tPlease enter a number\n\tMust be between " << k_min_limit << " and " << k_max_limit << "!" << std::endl;
-  int Number = GetInInRange(k_min_limit, k_max_limit);
+  int const k_Number = GetInInRange(k_min_limit, k_max_limit);
   std::cout << "\tEnter a number bit\n\tMust be between " << k_min_limit << " and " << k_max_bits << "!" << std::endl;
   int bit = GetInInRange(k_min_limit, k_max_bits);
   //size_t MASK = (size_t)pow(2, bit);
   size_t MASK = 1LL << bit;
-  if (MASK & Number)
+  if (MASK & k_Number)
     std::cout << "YES";
   else
     std::cout << "NO";
@@ -319,34 +347,34 @@ int main()
     +-----------------+)";
   do //forever loop
   {
-    switch (MENU())
+    switch (Menu())
     {
-    case LABEL_EXIT:
+    case Label_Exit:
       return 0;
       break;
-    case LABEL_DIGITS_SUMM:
-      DIGITS_SUMM();
+    case Label_Digits_Summ:
+      Digits_Summ();
       break;
-    case LABEL_HAPPY_TICKET:
-      HAPPY_TICKET();
+    case Label_Happy_Ticket:
+      Happy_Ticket();
       break;
-    case LABEL_REVERSE:
-      REVERSE();
+    case Label_Reverse:
+      Reverse();
       break;
-    case LABEL_ODD_SUMM:
-      ODD_SUMM();
+    case Label_Odd_Summ:
+      Odd_Summ();
       break;
-    case LABEL_BEST_DIVISOR:
-      BEST_DIVISOR();
+    case Label_Best_Divisor:
+      Best_Divisor();
       break;
-    case LABEL_CHRISTMAS_TREE:
-      CHRISTMAS_TREE();
+    case Label_Christmas_Tree:
+      Christmas_Tree();
       break;
-    case LABEL_BITS_COUNT:
-      BITS_COUNT();
+    case Label_Bits_Count:
+      Bit_Count();
       break;
-    case LABEL_BITS_TEST:
-      BITS_TEST();
+    case Label_Bits_Test:
+      Bits_Test();
       break;
     default:
       break;
