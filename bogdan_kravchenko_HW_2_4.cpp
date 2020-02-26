@@ -37,7 +37,6 @@ int main() {
   }
 
   std::cout << "Sum of your odd numbers = " << sum << std::endl;
-  std::cout << "Quantity of your odd number = " << (count - 1) << std::endl;
-
+ 
   return 0;
 }
