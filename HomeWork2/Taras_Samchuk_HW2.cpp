@@ -3,7 +3,22 @@
 #include <limits>
 //Constant for show menu sub programs
 const short K_l = 50;
-const char k_Items[][K_l]{
+const short k_digit_10{10};
+const size_t k_max_bits = 31;
+enum label
+{
+  LABEL_EXIT = 0,
+  LABEL_DIGITS_SUMM,
+  LABEL_HAPPY_TICKET,
+  LABEL_REVERSE,
+  LABEL_ODD_SUMM,
+  LABEL_BEST_DIVISOR,
+  LABEL_CHRISTMAS_TREE,
+  LABEL_BITS_COUNT,
+  LABEL_BITS_TEST,
+  LABEL_COUNT
+};
+const char k_Items[LABEL_COUNT][K_l]{
     "EXIT",
     "Digits summ",
     "Happy ticket",
@@ -14,35 +29,18 @@ const char k_Items[][K_l]{
     "Count the number of set bits in a number",
     "Bit test"};
 const size_t k_Items_Count = sizeof(k_Items) / sizeof(k_Items[0]);
-enum labels
-{
-  Label_Exit,
-  Label_Digits_Summ,
-  Label_Happy_Ticket,
-  Label_Reverse,
-  Label_Odd_Summ,
-  Label_Best_Divisor,
-  Label_Christmas_Tree,
-  Label_Bits_Count,
-  Label_Bits_Test
-};
-
 //The function returns a value if it is within the range.
 //Executes until the correct value is entered
 int64_t GetInInRange(int64_t aMin, int64_t aMax)
 {
   int64_t Input;
-  bool TryAgaine{true};
   do
   {
     std::cout << ">";
     std::cin >> Input;
-    TryAgaine = aMin > Input || Input > aMax;
-  } while (TryAgaine);
+  } while (aMin > Input || Input > aMax);
   return Input;
 }
-
-const short k_digit_10{10};
 
 //The function breaks the number into digits
 int64_t GetDigit(int64_t InputNumber, size_t Digit)
@@ -53,7 +51,7 @@ int64_t GetDigit(int64_t InputNumber, size_t Digit)
     ...
     N) Digit_N=(X%pow(10,N))/pow(10,N-1)
     */
-  return (InputNumber % (int64_t)pow(k_digit_10, Digit + 1)) / (int64_t)pow(k_digit_10, Digit);
+  return (InputNumber % static_cast<int64_t>((pow(k_digit_10, Digit + 1)))) / static_cast<int64_t>((pow(k_digit_10, Digit)));
 }
 //Displays the menu and returns the selected item number
 int Menu()
@@ -70,7 +68,7 @@ int Menu()
 }
 
 //home work
-int Digits_Summ()
+void Digits_Summ()
 {
   std::cout << R"(
     +-----------------+
@@ -85,7 +83,8 @@ int Digits_Summ()
   // 10 is the minimum two-digit number
   const size_t k_min_limit = 10;
   //Almost the maximum for this type
-  const size_t k_max_limit = std::numeric_limits<size_t>::max() >> 1;
+  const size_t k_max_limit = std::numeric_limits<u_int32_t>::max();
+  ;
   std::cout << "\tPlease enter a number\n\tMust be between " << k_min_limit << " and " << k_max_limit << "!" << std::endl;
   size_t Number = GetInInRange(k_min_limit, k_max_limit);
   std::cout << "The numbers ( ";
@@ -101,9 +100,9 @@ int Digits_Summ()
   } while (Number >= pow(k_digit_10, Digits_Count));
   const double k_arithmetic_mean = (Digits_Summ + 0.f) / Digits_Count;
   std::cout << ") have the sum equal " << Digits_Summ << " and arithmetic mean " << k_arithmetic_mean << std::endl;
-  return 0;
+  ;
 }
-int Happy_Ticket()
+void Happy_Ticket()
 {
   std::cout << R"(
     +-----------------+
@@ -116,27 +115,31 @@ int Happy_Ticket()
   )";
   const size_t k_min_limit = 0; // identical 000000
   //The maximum six-digit number
-  const size_t k_max_limit = 999999;
+  const size_t k_max_limit = 999'999;
+  const size_t k_min_happy_ticket = 1'001;
   std::cout << "\tPlease enter a number\n\tMust be between 000000 and " << k_max_limit << "!" << std::endl;
   size_t Number = GetInInRange(k_min_limit, k_max_limit);
-  short HiSumm{0};
-  short LoSumm{0};
-  for (size_t i = 0; i < 3; i++)
+  if (Number > k_min_happy_ticket)
   {
-    //HiSumm += (TicketNumber % (size_t)pow(k_digit_10, i + 4)) / (size_t)pow(k_digit_10, i+3);
-    HiSumm += GetDigit(Number, i);
-    //LoSumm += (TicketNumber % (size_t)pow(k_digit_10, i + 1)) / (size_t)pow(k_digit_10, i);
-    LoSumm += GetDigit(Number, i + 3);
-  }
-  if (HiSumm == LoSumm)
-  {
-    std::cout << "Congratulations to you, Lucky" << std::endl;
-    return 0;
+    short HiSumm{0};
+    short LoSumm{0};
+    for (size_t i = 0; i < 3; i++)
+    {
+      //HiSumm += (TicketNumber % (size_t)pow(k_digit_10, i + 4)) / (size_t)pow(k_digit_10, i+3);
+      HiSumm += GetDigit(Number, i);
+      //LoSumm += (TicketNumber % (size_t)pow(k_digit_10, i + 1)) / (size_t)pow(k_digit_10, i);
+      LoSumm += GetDigit(Number, i + 3);
+    }
+    if (HiSumm == LoSumm)
+    {
+      std::cout << "Congratulations to you, Lucky" << std::endl;
+      return;
+    }
   }
   std::cout << "Try again, you will surely enjoy it\n";
-  return 0;
+  return;
 }
-int Reverse()
+void Reverse()
 {
   std::cout << R"(
     +-----------------+
@@ -167,10 +170,8 @@ int Reverse()
   if (k_Negative)
     NewNumber = -NewNumber;
   std::cout << NewNumber;
-
-  return 0;
 }
-int Odd_Summ()
+void Odd_Summ()
 {
   std::cout << R"(
     +-----------------+
@@ -197,9 +198,8 @@ int Odd_Summ()
       Summ += Num;
   }
   std::cout << Summ << std::endl;
-  return 0;
 }
-int Best_Divisor()
+void Best_Divisor()
 {
   std::cout << R"(
     +-----------------+
@@ -214,7 +214,6 @@ int Best_Divisor()
   const int k_max_limit = std::numeric_limits<int>::max();
   std::cout << "\tPlease enter a count numbers\n\tMust be between " << k_min_limit << " and " << k_max_limit << "!" << std::endl;
   const int Number = GetInInRange(k_min_limit, k_max_limit);
-  int MaxDivisor{1};
   int BestDivisor{Number};
   int MaxSum{0};
   int Digits_Summ{0};
@@ -222,8 +221,6 @@ int Best_Divisor()
   {
     if (Number % i == 0)
     {
-      if (i == Number - 1)
-        MaxDivisor = i;
       if (i > 10)
       {
         size_t Digits_Count{0};
@@ -242,9 +239,8 @@ int Best_Divisor()
     }
   }
   std::cout << BestDivisor << " is the best divisor of the number " << Number << std::endl;
-  return 0;
 }
-int Christmas_Tree()
+void Christmas_Tree()
 {
   std::cout << R"(
     +-----------------+
@@ -282,9 +278,8 @@ int Christmas_Tree()
 
     std::cout << std::endl;
   }
-  return 0;
 }
-int Bit_Count()
+void Bit_Count()
 {
   std::cout << R"(
     +-----------------+
@@ -300,7 +295,7 @@ int Bit_Count()
   std::cout << "\tPlease enter a number\n\tMust be between 0 and " << k_max_limit << "!" << std::endl;
   int Number = GetInInRange(k_min_limit, k_max_limit);
   short Checked{0};
-  for (size_t i = 0; i < 32; i++)
+  for (size_t i = 0; i <= k_max_bits; i++)
   {
     //size_t MASK = (size_t)pow(2, i);
     size_t MASK = 1LL << i;
@@ -308,9 +303,8 @@ int Bit_Count()
       Checked++;
   }
   std::cout << "The number " << Number << " have " << Checked << " checked bits" << std::endl;
-  return 0;
 }
-int Bits_Test()
+void Bits_Test()
 {
   std::cout << R"(
     +-----------------+
@@ -323,7 +317,6 @@ int Bits_Test()
   )";
   const size_t k_min_limit = 0;
   const size_t k_max_limit = std::numeric_limits<u_int32_t>::max();
-  const size_t k_max_bits = 32;
   std::cout << "\tPlease enter a number\n\tMust be between " << k_min_limit << " and " << k_max_limit << "!" << std::endl;
   int const k_Number = GetInInRange(k_min_limit, k_max_limit);
   std::cout << "\tEnter a number bit\n\tMust be between " << k_min_limit << " and " << k_max_bits << "!" << std::endl;
@@ -335,7 +328,6 @@ int Bits_Test()
   else
     std::cout << "NO";
   std::cout << std::endl;
-  return 0;
 }
 
 //main progamm
@@ -349,31 +341,31 @@ int main()
   {
     switch (Menu())
     {
-    case Label_Exit:
+    case LABEL_EXIT:
       return 0;
       break;
-    case Label_Digits_Summ:
+    case LABEL_DIGITS_SUMM:
       Digits_Summ();
       break;
-    case Label_Happy_Ticket:
+    case LABEL_HAPPY_TICKET:
       Happy_Ticket();
       break;
-    case Label_Reverse:
+    case LABEL_REVERSE:
       Reverse();
       break;
-    case Label_Odd_Summ:
+    case LABEL_ODD_SUMM:
       Odd_Summ();
       break;
-    case Label_Best_Divisor:
+    case LABEL_BEST_DIVISOR:
       Best_Divisor();
       break;
-    case Label_Christmas_Tree:
+    case LABEL_CHRISTMAS_TREE:
       Christmas_Tree();
       break;
-    case Label_Bits_Count:
+    case LABEL_BITS_COUNT:
       Bit_Count();
       break;
-    case Label_Bits_Test:
+    case LABEL_BITS_TEST:
       Bits_Test();
       break;
     default:
