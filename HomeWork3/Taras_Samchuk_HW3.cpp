@@ -24,8 +24,31 @@ void Reverse() {
   }
   std::cout << "The reflected line \"" << text << "\"" << std::endl;
 }
+bool IsDigit(const char Data = 0) {
+/*
+    Fragment of ASCI table
+    for digits
+    DEC OCT HEX SYM BIN
+    48  60  30  0   0011'0000
+    49  61  31  1   0011'0001
+    50  62  32  2   0011'0010
+    51  63  33  3   0011'0011
+    52  64  34  4   0011'0100
+    53  65  35  5   0011'0101
+    54  66  36  6   0011'0110
+    55  67  37  7   0011'0111
+    56  70  38  8   0011'1000
+    57  71  39  9   0011'1001
+*/
+  // '0' in ASCI dec(48) hex(0x30) oct(060) bin(0b0011'0000)
+  const char k_ZERO_code{48};
+  // '9' in ASCI dec(57) hex(0x39) oct(071) bin(0b0011'1001)
+  const char k_NINE_code{57};
+  return (k_ZERO_code <= Data && Data <= k_NINE_code) ? true : false;
+}
 int main() {
-  Reverse();
+
+  
   // char test[]{"test string-"};
   // std::cout << "";
   // std::cin >> test;
@@ -33,5 +56,5 @@ int main() {
   // std::cout << test << std::endl;
   // Reverse(test_ptr);
   // std::cout << test << std::endl;
-  // return 0;
+   return 0;
 }
