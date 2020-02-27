@@ -2,6 +2,8 @@
 #include <limits>
 
 const int MAX_VAL = std::numeric_limits<int>::max();
+const int MINBITSET = 0;
+const int MAXBITSET = 32;
 void CristmasTree() {
   std::cout << " Please enter the number in the range from 0 to 100"
             << std::endl;
@@ -16,9 +18,10 @@ void CristmasTree() {
   if (n % 2 == 0) {
     n += 1;
   }
-  for (int i = 0; i < n / 2 + 1; ++i) {
+  const int n_half = n / 2;
+  for (int i = 0; i < n_half + 1; ++i) {
     for (int j = 0; j < n; j++) {
-      if (j < (n / 2 - i) || j > (n / 2 + i)) {
+      if (j < (n_half - i) || j > (n_half + i)) {
         std::cout << " ";
       } else {
         std::cout << "*";
@@ -39,8 +42,9 @@ void BitCounter() {
     std::cout << "Incorrect value. Try again." << std::endl;
   } while (true);
   unsigned bit_counter = 0;
-  for (; n; ++bit_counter) {
+  while (n) {
     n &= n - 1;
+    ++bit_counter;
   }
   std::cout << " The amount of setted bit is " << bit_counter << std::endl;
 }
@@ -60,17 +64,13 @@ void isSetBit() {
   int32_t bit_set;
   do {
     std::cin >> bit_set;
-    if (bit_set >= 0 && bit_set < 32) {
+    if (bit_set >= MINBITSET && bit_set < MAXBITSET) {
       break;
     }
     std::cout << "Incorrect value. Try again." << std::endl;
   } while (true);
   bool b = (n >> bit_set) & 1LL;
-  if (b == 1) {
-    std::cout << "Yes." << std::endl;
-  } else {
-    std::cout << "No." << std::endl;
-  }
+  std::cout << ((b == 1) ? "Yes." : "No.") << std::endl;
 }
 void NumberCreation() {
   std::cout << " Please enter the number in the range from 0 to " << MAX_VAL
@@ -87,26 +87,21 @@ void NumberCreation() {
             << MAX_VAL << std::endl;
   long long sum{};
   int value;
-  bool b;
+
   for (int j{}; j < n; ++j) {
     do {
       std::cin >> value;
       if (value > 0 && value < MAX_VAL) {
         for (int i{value}; i > 0; i /= 10) {
           sum += i % 10;
-          b = 0;
         };
+        break;
       } else {
-        b = 1;
         std::cout << "Incorrect value. Try again." << std::endl;
       }
-    } while (b);
+    } while (true);
   }
-  if (sum % 3 == 0) {
-    std::cout << "Yes!" << std::endl;
-  } else {
-    std::cout << "No." << std::endl;
-  }
+  std::cout << ((sum % 3 == 0) ? "Yes!" : "No.") << std::endl;
 }
 enum {
   CRISTMAS_TREE = 1,
@@ -141,8 +136,7 @@ int main() {
       break;
     default:
       std::cout << " End of Program " << std::endl;
-      i = 0;
-      break;
+      return 0;
     }
   } while (i != 0);
   return 0;
