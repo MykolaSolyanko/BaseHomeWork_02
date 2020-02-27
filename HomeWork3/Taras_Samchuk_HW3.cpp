@@ -3,35 +3,35 @@
 int SwapChar(char *const first_ptr, char *const second_ptr) {
   if (first_ptr == nullptr || second_ptr == nullptr ||
       first_ptr == second_ptr) {
-    return 1; // ERROR
+    return 1;  // ERROR
   }
-  // char tmp = '\0';
-  // char *tmp_ptr = &tmp;
   char tmp_ptr = *first_ptr;
   *first_ptr = *second_ptr;
   *second_ptr = tmp_ptr;
-  return 0; // OK
+  return 0;  // OK
 }
-int Reverse(char *text) {
-  if (text == nullptr) {
-    return 1; // Error
-  }
+void Reverse() {
+  const size_t k_max_char_len{255};
+  const size_t k_len{k_max_char_len};
+  std::cout << "Enter String" << std::endl;
+  char text[k_len];
+  std::cin >> text;
+  std::cout << "You  have  entered \"" << text << "\"" << std::endl;
   size_t len{0};
-  while (text[len] != '\0')
-    len++;
+  while (*(text + len) != '\0') len++;
   for (size_t i = 0; i < len / 2; i++) {
-    if (!SwapChar(&text[i], &text[len - 1 - i]))
-      return 0;
+    SwapChar((text + i), (text + len - i - 1));
   }
-  return 0;
+  std::cout << "The reflected line \"" << text << "\"" << std::endl;
 }
 int main() {
-  char test[]{"test string-"};
-  std::cout << "";
-  std::cin >> test;
-  char *test_ptr = test;
-  std::cout << test << std::endl;
-  Reverse(test_ptr);
-  std::cout << test << std::endl;
-  return 0;
+  Reverse();
+  // char test[]{"test string-"};
+  // std::cout << "";
+  // std::cin >> test;
+  // char *test_ptr = test;
+  // std::cout << test << std::endl;
+  // Reverse(test_ptr);
+  // std::cout << test << std::endl;
+  // return 0;
 }
