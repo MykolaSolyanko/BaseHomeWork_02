@@ -2,9 +2,9 @@
 #include <iostream>
 #include <limits>
 // Constant for show menu sub programs
-const short k_item_len = 50;
+const short k_item_len{50};
 const short k_digit_10{10};
-const size_t k_max_bits = 31;
+const size_t k_max_bits{31};
 enum Label {
   LABEL_EXIT = 0,
   LABEL_DIGITS_SUMM,
@@ -30,7 +30,7 @@ const char k_Items[LABEL_COUNT][k_item_len]{
 
 // The function returns a value if it is within the range.
 // Executes until the correct value is entered
-int64_t GetInInRange(const int64_t aMin,const int64_t aMax) {
+int64_t GetInInRange(const int64_t aMin, const int64_t aMax) {
   int64_t Input;
   do {
     std::cout << ">";
@@ -40,7 +40,7 @@ int64_t GetInInRange(const int64_t aMin,const int64_t aMax) {
 }
 
 // The function breaks the number into digits
-int64_t GetDigit(const int64_t InputNumber,const size_t Digit) {
+int64_t GetDigit(const int64_t InputNumber, const size_t Digit) {
   /*
     1) Digit1=(X%10)/1
     2) Digit2=(X%100)/10
@@ -248,8 +248,8 @@ void Christmas_Tree() {
   const size_t k_center_align = size / 2;
   for (size_t y = 0; y <= k_center_align; y++) {
     for (size_t x = 0; x < size; x++) {
-      const char k_star = '*';
-      const char k_spase = ' ';
+      const char k_star {'*'};
+      const char k_spase  {' '};
       size_t left_align = k_center_align - y;
       size_t rihgt_align = k_center_align + y;
       std::cout << ((left_align <= x && x <= rihgt_align) ? k_star : k_spase);
@@ -273,7 +273,7 @@ void Bit_Count() {
   std::cout << "\tPlease enter a number\n\tMust be between 0 and "
             << k_max_limit << "!" << std::endl;
   int Number = GetInInRange(k_min_limit, k_max_limit);
-  short Checked{0};
+  short Checked {0};
   for (size_t i = 0; i <= k_max_bits; i++) {
     size_t MASK = 1LL << i;
     Checked = (Number & MASK) ? Checked + 1 : Checked;
