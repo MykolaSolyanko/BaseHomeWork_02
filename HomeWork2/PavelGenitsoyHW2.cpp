@@ -15,16 +15,19 @@ void digits_in_number() {
               << ", and arithmetic mean of digits in the number: "
               << arithmetic_mean << "\n\n"
               << std::endl;
+    return;
   }
   if (num == 0) {
     std::cout << "\nThe sum and arithmetic mean of digits in the number: "
               << num << "\n\n"
               << std::endl;
+    return;
   }
   if (num < 0) {
     std::cout << "\nTry a number which >0"
               << "\n\n"
               << std::endl;
+    return;
   }
 }
 
@@ -39,27 +42,27 @@ void lucky_ticket() {
                  "again.\nEnter num: ";
   }
 
+  const auto kHalf_num{num / 1000};
   int first_sum_digits{};
-  for (int i{num / 1000}; i > 0; i /= 10) {
+  for (int i{kHalf_num}; i > 0; i /= 10) {
     first_sum_digits += i % 10;
   }
 
-  int v{0};
   int second_sum_digits{};
-  while (v != 3) {
-    second_sum_digits += num % 10;
-    num /= 10;
-    ++v;
+  for (int i{num}; i > kHalf_num; i /= 10) {
+    second_sum_digits += i % 10;
   }
 
   if (first_sum_digits == second_sum_digits) {
     std::cout << "\nNICE!! You have a lucky ticket!"
               << "\n\n"
               << std::endl;
+    return;
   } else {
     std::cout << "\nGG. Its is not a lucky ticket."
               << "\n\n"
               << std::endl;
+    return;
   }
 }
 
@@ -68,28 +71,22 @@ void reverse_num() {
   std::cout << "\nEnter some number: " << std::endl;
   std::cin >> num;
   int r_num{};
-  if (num > 0) {
-    for (auto i{num}; i > 0; i /= 10) {
-      r_num *= 10;
-      r_num += i % 10;
-    }
-    std::cout << "You entered is " << num << ", and reverse of your number is "
-              << r_num << "\n\n"
-              << std::endl;
-  }
-  if (num < 0) {
-    for (int i{-num}; i > 0; i /= 10) {
-      r_num *= 10;
-      r_num += i % 10;
-    }
-    std::cout << "You entered is " << num << ", and reverse of your number is "
-              << -r_num << "\n\n"
-              << std::endl;
-  }
   if (num == 0) {
     std::cout << "You entered is " << num << ", and reverse of your number is "
               << r_num << "\n\n"
               << std::endl;
+    return;
+  } else {
+    auto i{num};
+    while (i != 0) {
+      r_num *= 10;
+      r_num += i % 10;
+      i /= 10;
+    }
+    std::cout << "You entered is " << num << ", and reverse of your number is "
+              << r_num << "\n\n"
+              << std::endl;
+    return;
   }
 }
 
@@ -155,8 +152,15 @@ void best_divisior() {
   std::cout << "\nThe best divisor is " << best_digit << std::endl;
 }
 
+enum {
+  DIGITS_IN_NUMBER = 1,
+  LUCKY_TICKET,
+  REVERSE_NUMBER,
+  SUM_ODD_ELEMENTS,
+  BEST_DIVISIOR
+};
+
 int main() {
-  bool k{true};
   do {
     std::cout << "\n1) Enter 1 | to calculate the sum and arithmetic mean of "
                  "digits in the number."
@@ -176,26 +180,25 @@ int main() {
     int key{};
     std::cin >> key;
     switch (key) {
-    case 1:
+    case DIGITS_IN_NUMBER:
       digits_in_number();
       break;
-    case 2:
+    case LUCKY_TICKET:
       lucky_ticket();
       break;
-    case 3:
+    case REVERSE_NUMBER:
       reverse_num();
       break;
-    case 4:
+    case SUM_ODD_ELEMENTS:
       sum_odd_elements();
       break;
-    case 5:
+    case BEST_DIVISIOR:
       best_divisior();
       break;
     default:
-      k = false;
-      break;
+      return 0;
     }
-  } while (k);
+  } while (true);
 
   return 0;
 }
