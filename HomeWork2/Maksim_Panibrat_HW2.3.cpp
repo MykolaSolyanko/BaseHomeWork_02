@@ -4,18 +4,18 @@
 int main() {
   std::cout << "This program turns number in reverse.\n";
   std::cout << "Enter number to reverse it\n";
-  int num;
-  std::cin >> num;
-  int rev_num{0};
-  if (num < 10) {
+  int number;
+  std::cin >> number;
+  int reverse_number{0};
+  if (number < 10) {
     std::cout << "reverse number is the same as you are entered\n";
   }
   do {
-    rev_num *= 10;
-    rev_num += num % 10;
-    num /= 10;
-  } while (num != 0);
+    reverse_number *= 10;
+    reverse_number += number % 10;
+    number /= 10;
+  } while (number != 0);
 
-  std::cout << rev_num << "\n";
+  std::cout << reverse_number << "\n";
   return 0;
 }
