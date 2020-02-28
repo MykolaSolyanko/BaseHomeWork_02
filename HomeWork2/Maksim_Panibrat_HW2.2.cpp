@@ -4,18 +4,18 @@
 int main() {
   std::cout << "This program checks ticket number.\n";
   std::cout << "Enter ticket number\n";
-  int num;
-  std::cin >> num;
-  const int kMinNum = 100000, kMaxNum = 999999;
-  while (num < kMinNum || num > kMaxNum) {
+  int number;
+  std::cin >> number;
+  const int kMinNumber = 100000, kMaxNumber = 999999;
+  while (number < kMinNumber || number > kMaxNumber) {
     std::cout << "Not in range\n";
-    std::cin >> num;
+    std::cin >> number;
   }
-  int left_num = (num / 100000) + ((num / 10000) % 10) + ((num / 1000) % 10);
-  std::cout << "left sum = " << left_num << std::endl;
-  int right_num = ((num / 100) % 10) + ((num / 10) % 10) + ((num / 1) % 10);
-  std::cout << "right_sum = " << right_num << std::endl;
-  if (left_num == right_num)
+  int left_number = (number / 100000) + ((number / 10000) % 10) + ((number / 1000) % 10);
+  std::cout << "left sum = " << left_number << std::endl;
+  int right_number = ((number / 100) % 10) + ((number / 10) % 10) + ((number / 1) % 10);
+  std::cout << "right sum = " << right_number << std::endl;
+  if (left_number == right_number)
     std::cout << "You won!!!\n";
   else
     std::cout << "You lose...\n";
