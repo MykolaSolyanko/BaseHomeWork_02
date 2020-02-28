@@ -1,32 +1,34 @@
+#include <iostream>
+
 int main() {
-  std::cout << "This programm sums up even numbers.\n Uneven numbers will be "
-               "discarded.\n";
-  const int kMinNum = 1, kMaxNum = 50;
-  std::cout << "Enter amount of numbers in range [" << kMinNum << "..."
-            << kMaxNum << "]\n";
-  int num;
-  std::cin >> num;
-  while (num < kMinNum || num > kMaxNum) {
-    std::cout << "Error, out of amount range\n";
-    std::cin >> num;
-  }
-  const int kMinVal = -60, kMaxVal = 90;
-  std::cout << "Enter numbers in range [" << kMinVal << "..." << kMaxVal
-            << "]\n";
-  int sum{0};
-  size_t iter{1};
-  while (iter <= num) {
-    int val;
-    std::cin >> val;
-    if (val < kMinVal || val > kMaxVal) {
-      std::cout << "Error, out of value range, please try again\n";
-      continue;
+    std::cout << "This programm sums up even numbers.\n Uneven numbers will be "
+        "discarded.\n";
+    const int kMinNumber = 1, kMaxNumber = 50;
+    std::cout << "Enter amount of numbers in range [" << kMinNumber << "..."
+        << kMaxNumber << "]\n";
+    int number;
+    std::cin >> number;
+    while (number < kMinNumber || number > kMaxNumber) {
+        std::cout << "Error, out of amount range\n";
+        std::cin >> number;
     }
-    if (val % 2) {
-      sum += val;
+    const int kMinValue = -60, kMaxValue = 90;
+    std::cout << "Enter numbers in range [" << kMinValue << "..." << kMaxValue
+        << "]\n";
+    int sum{ 0 };
+    size_t iter{ 1 };
+    while (iter <= number) {
+        int value;
+        std::cin >> value;
+        if (value < kMinValue || value > kMaxValue) {
+            std::cout << "Error, out of value range, please try again\n";
+            continue;
+        }
+        if (value % 2) {
+            sum += value;
+        }
+        ++iter;
     }
-    ++iter;
-  }
-  std::cout << "Sum of even numbers = " << sum << std::endl;
-  return 0;
+    std::cout << "Sum of even numbers = " << sum << std::endl;
+    return 0;
 }
