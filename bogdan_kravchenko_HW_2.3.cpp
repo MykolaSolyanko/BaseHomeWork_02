@@ -11,6 +11,7 @@ int main() {
   int64_t reverse_number{0};
   if (number < 10) {
     std::cout << "reverse number is the same as you are entered\n";
+    return;
   }
 
   do {
