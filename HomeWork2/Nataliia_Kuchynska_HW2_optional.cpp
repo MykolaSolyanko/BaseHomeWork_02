@@ -1,26 +1,30 @@
 #include <iostream>
 #include <limits>
 
-const int MAX_VAL = std::numeric_limits<int>::max();
-const int MINBITSET = 0;
-const int MAXBITSET = 32;
+auto ReadValueFromCin(size_t min, size_t max) {
+  size_t n{};
+  do {
+    std::cin >> n;
+    if (n > min && n < max) {
+      break;
+    }
+    std::cout << "Incorrect value. Try again." << std::endl;
+  } while (true);
+  return n;
+}
 void CristmasTree() {
   std::cout << " Please enter the number in the range from 0 to 100"
             << std::endl;
-  int n;
-  do {
-    std::cin >> n;
-    if (n > 0 && n < 101) {
-      break;
-    }
-    std::cout << " Incorrect value. Try again." << std::endl;
-  } while (true);
+  size_t n;
+  const int8_t MINVALUE = 0;
+  const int8_t MAXVALUE = 101;
+  n = ReadValueFromCin(MINVALUE, MAXVALUE);
   if (n % 2 == 0) {
     n += 1;
   }
-  const int n_half = n / 2;
-  for (int i = 0; i < n_half + 1; ++i) {
-    for (int j = 0; j < n; j++) {
+  const size_t n_half = n / 2;
+  for (size_t i = 0; i < n_half + 1; ++i) {
+    for (size_t j = 0; j < n; j++) {
       if (j < (n_half - i) || j > (n_half + i)) {
         std::cout << " ";
       } else {
@@ -34,15 +38,11 @@ void BitCounter() {
   std::cout << " Please enter the number in the range from 0 to "
             << std::numeric_limits<short>::max() << std::endl;
   int n;
-  do {
-    std::cin >> n;
-    if (n > 0 && n < std::numeric_limits<short>::max()) {
-      break;
-    }
-    std::cout << "Incorrect value. Try again." << std::endl;
-  } while (true);
+  const int MINVALUE = 0;
+  const int MAXVALUE = std::numeric_limits<short>::max();
+  n = ReadValueFromCin(MINVALUE, MAXVALUE);
   unsigned bit_counter = 0;
-  while (n) {
+  while (n != 0) {
     n &= n - 1;
     ++bit_counter;
   }
@@ -52,46 +52,32 @@ void isSetBit() {
   std::cout << " Please enter the number in the range from 0 to "
             << std::numeric_limits<int32_t>::max() << std::endl;
   int32_t n;
-  do {
-    std::cin >> n;
-    if (n > 0 && n < std::numeric_limits<int32_t>::max()) {
-      break;
-    }
-    std::cout << "Incorrect value. Try again." << std::endl;
-  } while (true);
+  const int MINVALUE = 0;
+  const int MAXVALUE = std::numeric_limits<int32_t>::max();
+  n = ReadValueFromCin(MINVALUE, MAXVALUE);
   std::cout << " Please enter the bit number in the range from 0 to 31."
             << std::endl;
+  const int MINBITSET = 0;
+  const int MAXBITSET = 32;
   int32_t bit_set;
-  do {
-    std::cin >> bit_set;
-    if (bit_set >= MINBITSET && bit_set < MAXBITSET) {
-      break;
-    }
-    std::cout << "Incorrect value. Try again." << std::endl;
-  } while (true);
+  bit_set = ReadValueFromCin(MINBITSET, MAXBITSET);
   bool b = (n >> bit_set) & 1LL;
   std::cout << ((b == 1) ? "Yes." : "No.") << std::endl;
 }
 void NumberCreation() {
-  std::cout << " Please enter the number in the range from 0 to " << MAX_VAL
-            << " ." << std::endl;
+
   int32_t n;
-  do {
-    std::cin >> n;
-    if (n > 0 && n < MAX_VAL) {
-      break;
-    }
-    std::cout << "Incorrect value. Try again." << std::endl;
-  } while (true);
-  std::cout << " Please enter " << n << " numbers in the range from 0 to "
-            << MAX_VAL << std::endl;
+  const int MINVALUE = 0;
+  const int MAXVALUE = std::numeric_limits<int>::max();
+  std::cout << " Please enter the number in the range from 0 to " << MAXVALUE
+            << " ." << std::endl;
+  n = ReadValueFromCin(MINVALUE, MAXVALUE);
   long long sum{};
   int value;
-
   for (int j{}; j < n; ++j) {
     do {
       std::cin >> value;
-      if (value > 0 && value < MAX_VAL) {
+      if (value > MINVALUE && value < MAXVALUE) {
         for (int i{value}; i > 0; i /= 10) {
           sum += i % 10;
         };
@@ -110,7 +96,6 @@ enum {
   NUMBER_CREATION,
 };
 int main() {
-  int i{1};
   do {
     std::cout << "\n Please, choose the function from the list:" << std::endl;
     std::cout << " 1 to get a cristmas tree;" << std::endl;
@@ -138,6 +123,6 @@ int main() {
       std::cout << " End of Program " << std::endl;
       return 0;
     }
-  } while (i != 0);
+  } while (true);
   return 0;
 }
