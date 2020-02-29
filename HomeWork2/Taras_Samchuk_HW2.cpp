@@ -153,8 +153,8 @@ void Reverse() {
   } while (Number >= pow(k_digit_10, Digits_Count));
   int64_t NewNumber{0};
   for (size_t i = 0; i < Digits_Count; i++) {
-    NewNumber =
-        pow(k_digit_10, i) * GetDigit(Number, Digits_Count - i - 1) + NewNumber;
+    NewNumber +=
+        pow(k_digit_10, i) * GetDigit(Number, Digits_Count - i - 1);
   }
   NewNumber = (k_Negative) ? -NewNumber : NewNumber;
   std::cout << NewNumber;
