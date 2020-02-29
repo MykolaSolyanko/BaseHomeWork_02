@@ -15,9 +15,6 @@ int main() {
   std::cout << "left sum = " << left_number << std::endl;
   int right_number = ((number / 100) % 10) + ((number / 10) % 10) + ((number / 1) % 10);
   std::cout << "right sum = " << right_number << std::endl;
-  if (left_number == right_number)
-    std::cout << "You won!!!\n";
-  else
-    std::cout << "You lose...\n";
+  std::cout << "You " << (left_number == right_number ? "won!!!" : "lose...");
   return 0;
 }
