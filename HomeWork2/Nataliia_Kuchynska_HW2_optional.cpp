@@ -15,10 +15,10 @@ auto ReadValueFromCin(size_t min, size_t max) {
 void CristmasTree() {
   std::cout << " Please enter the number in the range from 0 to 100"
             << std::endl;
-  size_t n;
+
   const int8_t MINVALUE = 0;
   const int8_t MAXVALUE = 101;
-  n = ReadValueFromCin(MINVALUE, MAXVALUE);
+  size_t n = ReadValueFromCin(MINVALUE, MAXVALUE);
   if (n % 2 == 0) {
     n += 1;
   }
@@ -37,10 +37,9 @@ void CristmasTree() {
 void BitCounter() {
   std::cout << " Please enter the number in the range from 0 to "
             << std::numeric_limits<short>::max() << std::endl;
-  int n;
   const int MINVALUE = 0;
   const int MAXVALUE = std::numeric_limits<short>::max();
-  n = ReadValueFromCin(MINVALUE, MAXVALUE);
+  int32_t n = ReadValueFromCin(MINVALUE, MAXVALUE);
   unsigned bit_counter = 0;
   while (n != 0) {
     n &= n - 1;
@@ -51,27 +50,23 @@ void BitCounter() {
 void isSetBit() {
   std::cout << " Please enter the number in the range from 0 to "
             << std::numeric_limits<int32_t>::max() << std::endl;
-  int32_t n;
   const int MINVALUE = 0;
   const int MAXVALUE = std::numeric_limits<int32_t>::max();
-  n = ReadValueFromCin(MINVALUE, MAXVALUE);
-  std::cout << " Please enter the bit number in the range from 0 to 31."
+  int32_t n = ReadValueFromCin(MINVALUE, MAXVALUE);
+  std::cout << " Please enter the bit number in the range from 1 to 32."
             << std::endl;
   const int MINBITSET = 0;
   const int MAXBITSET = 32;
-  int32_t bit_set;
-  bit_set = ReadValueFromCin(MINBITSET, MAXBITSET);
+  int32_t bit_set = ReadValueFromCin(MINBITSET, MAXBITSET);
   bool b = (n >> bit_set) & 1LL;
   std::cout << ((b == 1) ? "Yes." : "No.") << std::endl;
 }
 void NumberCreation() {
-
-  int32_t n;
   const int MINVALUE = 0;
   const int MAXVALUE = std::numeric_limits<int>::max();
   std::cout << " Please enter the number in the range from 0 to " << MAXVALUE
             << " ." << std::endl;
-  n = ReadValueFromCin(MINVALUE, MAXVALUE);
+  int32_t n = ReadValueFromCin(MINVALUE, MAXVALUE);
   long long sum{};
   int value;
   for (int j{}; j < n; ++j) {
