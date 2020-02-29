@@ -4,7 +4,7 @@
 // Constant for show menu sub programs
 const short k_item_len{50};
 const short k_digit_10{10};
-const size_t k_max_bits_number{31};
+const size_t k_max_bit{32};
 enum Label {
   LABEL_EXIT = 0,
   LABEL_DIGITS_SUMM,
@@ -283,7 +283,7 @@ void Bit_Count() {
             << k_max_limit << "!" << std::endl;
   size_t Number = GetInInRange(k_min_limit, k_max_limit);
   short Checked{0};
-  for (size_t bit_num{0}; bit_num <= k_max_bits_number; bit_num++) {
+  for (size_t bit_num{0}; bit_num <= k_max_bit; bit_num++) {
     size_t MASK = 1LL << bit_num;
     Checked = (Number & MASK) ? Checked + 1 : Checked;
   }
@@ -300,15 +300,16 @@ void Bits_Test() {
     |  to the number by  its number  |
     +--------------------------------+
   )";
-  const size_t k_min_limit {0};
-  const size_t k_max_limit {std::numeric_limits<uint32_t>::max()};
+  const size_t k_min_limit{0};
+  const size_t k_first_bit{1};
+  const size_t k_max_limit{std::numeric_limits<uint32_t>::max()};
   std::cout << "\tPlease enter a number\n\tMust be between " << k_min_limit
             << " and " << k_max_limit << "!" << std::endl;
   size_t const k_Number = GetInInRange(k_min_limit, k_max_limit);
-  std::cout << "\tEnter a number bit\n\tMust be between " << k_min_limit
-            << " and " << k_max_bits_number << "!" << std::endl;
-  size_t bit = GetInInRange(k_min_limit, k_max_bits_number);
-  size_t MASK = 1LL << bit;
+  std::cout << "\tEnter a number bit\n\tMust be between " << k_first_bit
+            << " and " << k_max_bit << "!" << std::endl;
+  size_t bit = GetInInRange(k_first_bit, k_max_bit);
+  size_t MASK = 1LL << (bit-1);
   std::cout << ((MASK & k_Number) ? "YES" : "NO") << std::endl;
 }
 
