@@ -1,6 +1,9 @@
 // Working with pointers
-
 #include <iostream>
+
+const short k_item_len{60};
+const size_t k_max_char_len{255};
+
 int SwapChar(char *const first_ptr, char *const second_ptr) {
   if (first_ptr == nullptr || second_ptr == nullptr ||
       first_ptr == second_ptr) {
@@ -53,9 +56,9 @@ int DOWNto(char *const DOWN2) {
   if (DOWN2 == nullptr) {
     return 1;  // ERROR
   }
-  const u_int8_t k_letter_BIG_A = 65;
-  const u_int8_t k_letter_BIG_Z = 90;
-  u_int8_t Mask = 1 << 5;
+  const uint8_t k_letter_BIG_A = 65;
+  const uint8_t k_letter_BIG_Z = 90;
+  uint8_t Mask = 1 << 5;
   // u_int8_t Mask = 0b100'000;
   *DOWN2 = (k_letter_BIG_A <= *DOWN2 && *DOWN2 <= k_letter_BIG_Z)
                ? *DOWN2 | Mask
@@ -67,10 +70,10 @@ int toUP(char *const toUP) {
   if (toUP == nullptr) {
     return 1;  // ERROR
   }
-  const u_int8_t k_letter_small_a = 97;
-  const u_int8_t k_letter_small_z = 122;
+  const uint8_t k_letter_small_a = 97;
+  const uint8_t k_letter_small_z = 122;
 
-  u_int8_t Mask = ~(1 << 5);
+  uint8_t Mask = ~(1 << 5);
   // u_int8_t Mask = 0b11'011'111;
   *toUP = (k_letter_small_a <= *toUP && *toUP <= k_letter_small_z)
               ? *toUP & Mask
@@ -78,12 +81,20 @@ int toUP(char *const toUP) {
   return 0;  // OK
 }
 
-void Reverse() {
-  const size_t k_max_char_len{255};
+void ReverseLine() {
+  std::cout << R"(
+    +-----------------+
+    |  REVERSE  LINE  |
+    +-----------------+
+    +--------------------------------+
+    |   We   reflect   the   line    |
+    +--------------------------------+
+  )";
   const size_t k_len{k_max_char_len};
   std::cout << "Enter String" << std::endl;
   char text[k_len];
   std::cin >> text;
+  std::cin.clear();
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
   size_t len{0};
   while (*(text + len) != '\0') len++;
@@ -93,8 +104,18 @@ void Reverse() {
   std::cout << "The reflected line \"" << text << "\"" << std::endl;
 }
 
-void MyToLower() {
-  const size_t k_max_char_len{255};
+void InsertToArray() {}
+void DeleteFromArray() {}
+
+void ToLower() {
+  std::cout << R"(
+    +-----------------+
+    |   small letter  |
+    +-----------------+
+    +--------------------------------+
+    |Rewrite the line in small letter|
+    +--------------------------------+
+  )";
   const size_t k_len{k_max_char_len};
   std::cout << "Enter String" << std::endl;
   char text[k_len];
@@ -102,15 +123,25 @@ void MyToLower() {
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
   size_t len{0};
   while (*(text + len) != '\0') {
-    // TODO переробити обхід масиву
     DOWNto(text + len);
     len++;
   }
   std::cout << " lowercase letters \"" << text << "\"" << std::endl;
 }
 
-void MyToUpper() {
-  const size_t k_max_char_len{255};
+void IsDigit() {}
+
+void ToUpper() {
+  std::cout << R"(
+    +-----------------+
+    |   DIGITS SUMM   |
+    +-----------------+
+    +--------------------------------+
+    | The program breaks the numbers |
+    |  into numbers and calculates   |
+    | their sum and arithmetic mean  |
+    +--------------------------------+
+  )";
   const size_t k_len{k_max_char_len};
   std::cout << "Enter String" << std::endl;
   char text[k_len];
@@ -118,31 +149,28 @@ void MyToUpper() {
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
   size_t len{0};
   while (*(text + len) != '\0') {
-    // TODO переробити обхід масиву
     toUP(text + len);
     len++;
   }
   std::cout << "IN CAPITAL LETTERS \"" << text << "\"" << std::endl;
 }
 
+
+
 int main() {
-  MyToUpper();
-  /*
-  char test = 'T';
-  std::cout << test << std::endl;
-  DOWNto(&test);
-
-  std::cout << test << std::endl;
-    toUP(&test);
-
-  std::cout << test << std::endl;*/
-
-  // char test[]{"test string-"};
-  // std::cout << "";
-  // std::cin >> test;
-  // char *test_ptr = test;
-  // std::cout << test << std::endl;
-  // Reverse(test_ptr);
-  // std::cout << test << std::endl;
+  std::cout << R"(
+    +-----------------+
+    |   HOME WORK 3   |
+    +-----------------+)";
+  ReverseLine();
+  InsertToArray();
+  DeleteFromArray();
+  ToUpper();
+  IsDigit();
+  ToLower();
+  std::cout << R"(
+    +-----------------+
+    |      E N D      |
+    +-----------------+)";
   return 0;
 }
