@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 int main() {
@@ -8,7 +7,9 @@ int main() {
   std::cin >> number;
   int reverse_number{0};
   if (number < 10) {
-    std::cout << "reverse number is the same as you are entered\n";
+    std::cout << "There is no need to reverse.\n Reverse number: " << number
+              << std::endl;
+    return 0;
   }
   do {
     reverse_number *= 10;
@@ -16,6 +17,7 @@ int main() {
     number /= 10;
   } while (number != 0);
 
-  std::cout << reverse_number << "\n";
+  std::cout << "Reverse number: " << reverse_number << "\n";
   return 0;
 }
+
