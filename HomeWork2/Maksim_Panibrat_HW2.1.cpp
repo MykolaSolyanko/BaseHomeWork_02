@@ -7,12 +7,12 @@ int main() {
   int number;
   std::cin >> number;
   while (number == 0) {
-    std::cout << "Out of range. Try again\n";
+    std::cout << "Enter more than 0\n";
     std::cin >> number;
   }
   float sum = 0;
   int digits {0};
-  while (number) {
+  while (number>0) {
     sum += (number % 10);
     number /= 10;
     digits++;
