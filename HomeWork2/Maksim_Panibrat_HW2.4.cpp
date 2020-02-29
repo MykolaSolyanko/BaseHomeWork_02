@@ -15,8 +15,7 @@ int main() {
     const int kMinValue = -60, kMaxValue = 90;
     std::cout << "Enter numbers in range [" << kMinValue << "..." << kMaxValue
         << "]\n";
-    int sum{ 0 };
-    size_t iter{ 1 };
+    size_t sum{ 0 }, iter{ 1 };
     while (iter <= number) {
         int value;
         std::cin >> value;
