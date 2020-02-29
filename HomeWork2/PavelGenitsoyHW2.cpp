@@ -1,5 +1,14 @@
 #include <iostream>
 
+auto GetInputFromCin(long long min, size_t max) {
+  size_t number{};
+  while (std::cin >> number && (number < min || number > max)) {
+    std::cout << "\nYou entered an incorrect numbers, try entering "
+                 "again.\nEnter a num: ";
+  }
+  return number;
+}
+
 void digits_in_number() {
   int num{};
   std::cout << "\nEnter some number: " << std::endl;
@@ -23,12 +32,9 @@ void digits_in_number() {
               << std::endl;
     return;
   }
-  if (num < 0) {
-    std::cout << "\nTry a number which >0"
-              << "\n\n"
-              << std::endl;
-    return;
-  }
+  std::cout << "\nTry a number which >0"
+            << "\n\n"
+            << std::endl;
 }
 
 void lucky_ticket() {
@@ -36,11 +42,7 @@ void lucky_ticket() {
   const auto kMax = 999999;
   std::cout << "\nEnter number in range[" << kMin << "..." << kMax
             << "]: " << std::endl;
-  int num{};
-  while (std::cin >> num && (num < kMin || num > kMax)) {
-    std::cout << "\nYou entered an incorrect number, try entering the number "
-                 "again.\nEnter num: ";
-  }
+  auto num = GetInputFromCin(kMin, kMax);
 
   const auto kHalf_num{num / 1000};
   int first_sum_digits{};
@@ -58,12 +60,10 @@ void lucky_ticket() {
               << "\n\n"
               << std::endl;
     return;
-  } else {
-    std::cout << "\nGG. Its is not a lucky ticket."
-              << "\n\n"
-              << std::endl;
-    return;
   }
+  std::cout << "\nGG. Its is not a lucky ticket."
+            << "\n\n"
+            << std::endl;
 }
 
 void reverse_num() {
@@ -76,18 +76,16 @@ void reverse_num() {
               << r_num << "\n\n"
               << std::endl;
     return;
-  } else {
-    auto i{num};
-    while (i != 0) {
-      r_num *= 10;
-      r_num += i % 10;
-      i /= 10;
-    }
-    std::cout << "You entered is " << num << ", and reverse of your number is "
-              << r_num << "\n\n"
-              << std::endl;
-    return;
+  } 
+  auto i{num};
+  while (i != 0) {
+    r_num *= 10;
+    r_num += i % 10;
+    i /= 10;
   }
+  std::cout << "You entered is " << num << ", and reverse of your number is "
+            << r_num << "\n\n"
+            << std::endl;
 }
 
 void sum_odd_elements() {
@@ -96,22 +94,16 @@ void sum_odd_elements() {
   std::cout << "\nEnter amount of numbers in this range [" << kMin_amount
             << "..." << Max_amount
             << "], which you will be input: " << std::endl;
-  int amount{};
-  while (std::cin >> amount && (amount < kMin_amount || amount > Max_amount)) {
-    std::cout << "\nYou entered an incorrect amount of numbers, try entering "
-                 "again.\nEnter amount of num: ";
-  }
+  auto amount = GetInputFromCin(kMin_amount, kMax_amount);
+
   int sum_num{};
   while (amount != 0) {
     const auto kMin_range = -60;
     const auto kMax_range = 90;
     std::cout << "\nEnter number in range[" << kMin_range << "..." << kMax_range
               << "]: ";
-    int num{};
-    while (std::cin >> num && (num < kMin_range || num > kMax_range)) {
-      std::cout << "\nYou entered an incorrect number, try entering the number "
-                   "again.\nEnter num: ";
-    }
+    auto num = GetInputFromCin(kMin_range, kMax_range);
+
     if (num % 2 == 1) {
       sum_num += num;
     }
@@ -125,18 +117,14 @@ void best_divisior() {
   const auto kMax = std::numeric_limits<unsigned int>::max();
   std::cout << "\nEnter a number in range [" << kMin << " ... " << kMax
             << "]: " << std::endl;
-  unsigned int number{};
-  while (std::cin >> number && (number < kMin || number > kMax)) {
-    std::cout << "\nYou entered an incorrect amount of numbers, try entering "
-                 "again.\nEnter amount of num: ";
-  }
+  unsigned int number = GetInputFromCin(kMin, kMax);
+
   unsigned int best_digit{number}, best_sum{};
   for (size_t i = 1; i <= number; i++) {
     unsigned int sum{};
     if (number % i == 0) {
-      unsigned int j{i};
-      unsigned int temp{j};
-      std::cout << j << ' ';
+      unsigned int temp{i};
+      std::cout << i << ' ';
 
       do {
         sum += temp % 10;
@@ -145,7 +133,7 @@ void best_divisior() {
 
       if (sum > best_sum) {
         best_sum = sum;
-        best_digit = j;
+        best_digit = i;
       }
     }
   }
