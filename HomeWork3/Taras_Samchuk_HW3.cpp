@@ -1,7 +1,6 @@
 // Working with pointers
 #include <iostream>
 
-const short k_item_len{60};
 const size_t k_max_char_len{255};
 
 int SwapChar(char *const first_ptr, char *const second_ptr) {
@@ -17,7 +16,7 @@ int SwapChar(char *const first_ptr, char *const second_ptr) {
 bool IsDigit(const char *const Data) {
   /*
       Fragment of ASCI table
-      for digits
+            for digits
       DEC OCT HEX CH     BIN
       48  60  30  0   0011'0000
       49  61  31  1   0011'0001
@@ -38,7 +37,6 @@ bool IsDigit(const char *const Data) {
 }
 
 /*
-
     An excerpt of the ASCI table for some letters
 dec  oct  hex    BIN    ch    dec  oct  hex     BIN
               76543210                       76543210
@@ -46,10 +44,10 @@ dec  oct  hex    BIN    ch    dec  oct  hex     BIN
 66   102  42  100'0010  B     98   142   62  110'0010  b
 67   103  43  100'0011  C     99   143   63  110'0011  c
 ...  ...  ...   ...    ...   ...   ...  ...    ...    ...
-89   131  59  101'1001  Y    121   171   79  101'1001  y
-90   132  5A  101'1010  Z    122   172   7A  101'1010  z
+89   131  59  101'1001  Y    121   171   79  111'1001  y
+90   132  5A  101'1010  Z    122   172   7A  111'1010  z
               [^]                            [^]
-          Look at 5 bits               Look at 5 bits
+            5-bit                          5-bit
 */
 // down
 int DOWNto(char *const DOWN2) {
@@ -59,9 +57,9 @@ int DOWNto(char *const DOWN2) {
   const uint8_t k_letter_BIG_A = 65;
   const uint8_t k_letter_BIG_Z = 90;
   uint8_t Mask = 1 << 5;
-  // u_int8_t Mask = 0b100'000;
+  // u_int8_t Mask = 0b00'100'000;
   *DOWN2 = (k_letter_BIG_A <= *DOWN2 && *DOWN2 <= k_letter_BIG_Z)
-               ? *DOWN2 | Mask
+               ? *DOWN2 | Mask  // 5 bit set
                : *DOWN2;
   return 0;  // OK
 }
@@ -76,7 +74,7 @@ int toUP(char *const toUP) {
   uint8_t Mask = ~(1 << 5);
   // u_int8_t Mask = 0b11'011'111;
   *toUP = (k_letter_small_a <= *toUP && *toUP <= k_letter_small_z)
-              ? *toUP & Mask
+              ? *toUP & Mask  // 5 bit reset
               : *toUP;
   return 0;  // OK
 }
@@ -84,14 +82,14 @@ int toUP(char *const toUP) {
 void ReverseLine() {
   std::cout << R"(
     +-----------------+
-    |  REVERSE  LINE  |
+    |  REVERSE  WORD  |
     +-----------------+
     +--------------------------------+
-    |   We   reflect   the   line    |
+    |   We   reflect   the   word    |
     +--------------------------------+
   )";
   const size_t k_len{k_max_char_len};
-  std::cout << "Enter String" << std::endl;
+  std::cout << "Enter word" << std::endl;
   char text[k_len];
   std::cin >> text;
   std::cin.clear();
@@ -104,8 +102,56 @@ void ReverseLine() {
   std::cout << "The reflected line \"" << text << "\"" << std::endl;
 }
 
-void InsertToArray() {}
-void DeleteFromArray() {}
+void InsertToArray() {
+  std::cout << R"(
+    +-----------------+
+    | INSERT TO ARRAY |
+    +-----------------+
+    +--------------------------------+
+    |We insert a value into an array |
+    +--------------------------------+
+  )";
+  const size_t k_array_size{10};
+  short Array[k_array_size]{0};
+  std::cout << "Stating programm";
+  for (auto show : Array) {
+    std::cout << "[" << show << "]";
+  }
+  std::cout<<std::endl;
+  int NewElem{3};
+  size_t NewPos{0};
+  do {
+    if (Array[NewPos] < NewElem) {
+      NewPos++;
+      continue;
+    }
+    //треба свап робити у форі мабуть
+    for(size_t from_teils{5};from_teils>3;from_teils--){
+      std::cout<<'['<<from_teils<<','<<NewPos<<']';
+    }
+
+    //записуємо
+    Array[NewPos] = NewElem;
+
+
+
+    //тут тільки лог виводиться
+    for (auto show : Array) {
+      std::cout << "[" << show << "]";
+    }
+    std::cout<<std::endl;
+  } while (Array[k_array_size - 1] == 0);
+}
+void DeleteFromArray() {
+  std::cout << R"(
+    +-----------------+
+    |     |
+    +-----------------+
+    +--------------------------------+
+    ||
+    +--------------------------------+
+  )";
+}
 
 void ToLower() {
   std::cout << R"(
@@ -113,11 +159,11 @@ void ToLower() {
     |   small letter  |
     +-----------------+
     +--------------------------------+
-    |Rewrite the line in small letter|
+    |   rewrite word small letters   |
     +--------------------------------+
   )";
   const size_t k_len{k_max_char_len};
-  std::cout << "Enter String" << std::endl;
+  std::cout << "Enter word" << std::endl;
   char text[k_len];
   std::cin >> text;
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
@@ -129,21 +175,40 @@ void ToLower() {
   std::cout << " lowercase letters \"" << text << "\"" << std::endl;
 }
 
-void IsDigit() {}
+void IsDigit() {
+  std::cout << R"(
+    +-----------------+
+    |   DETECT DIGITS |
+    +-----------------+
+    +--------------------------------+
+    |the number detector in the word |
+    +--------------------------------+
+  )";
+  const size_t k_len{k_max_char_len};
+  std::cout << "Enter word" << std::endl;
+  char text[k_len];
+  std::cin >> text;
+  std::cout << "You  have  entered \"" << text << "\"" << std::endl;
+  size_t len{0};
+  while (*(text + len) != '\0') {
+    len++;
+    std::cout << *(text + len) << " "
+              << (IsDigit(text + len) ? "is digit" : "is not digit")
+              << std::endl;
+  }
+}
 
 void ToUpper() {
   std::cout << R"(
     +-----------------+
-    |   DIGITS SUMM   |
+    | CAPITAL LETTERS |
     +-----------------+
     +--------------------------------+
-    | The program breaks the numbers |
-    |  into numbers and calculates   |
-    | their sum and arithmetic mean  |
+    |  REWRITE WORD CAPITAL LETTERS  |
     +--------------------------------+
   )";
   const size_t k_len{k_max_char_len};
-  std::cout << "Enter String" << std::endl;
+  std::cout << "Enter word" << std::endl;
   char text[k_len];
   std::cin >> text;
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
@@ -155,22 +220,21 @@ void ToUpper() {
   std::cout << "IN CAPITAL LETTERS \"" << text << "\"" << std::endl;
 }
 
-
-
 int main() {
   std::cout << R"(
     +-----------------+
     |   HOME WORK 3   |
     +-----------------+)";
-  ReverseLine();
+  // ReverseLine();
   InsertToArray();
-  DeleteFromArray();
+  /*DeleteFromArray();
   ToUpper();
   IsDigit();
-  ToLower();
+  ToLower();*/
   std::cout << R"(
     +-----------------+
     |      E N D      |
-    +-----------------+)";
+    +-----------------+)"
+            << std::endl;
   return 0;
 }
