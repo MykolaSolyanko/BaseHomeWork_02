@@ -40,11 +40,11 @@ int64_t GetInInRange(const int64_t aMin, const int64_t aMax) {
 }
 
 // Returns the decimal digit (the length of the number)
-size_t DigitsCount(uint64_t const Number) {
+size_t DigitsCount(int64_t const Number) {
   size_t Digits_Count{0};
   do {
     Digits_Count++;
-  } while (Number >= pow(k_digit_10, Digits_Count));
+  } while (((Number>0) ? Number : -Number) >= pow(k_digit_10, Digits_Count));
   return Digits_Count;
 }
 
@@ -56,7 +56,7 @@ int64_t GetDigit(const int64_t InputNumber, const size_t Digit) {
     ...
     N) Digit_N=(X%pow(10,N))/pow(10,N-1)
     */
-  return (InputNumber % static_cast<int64_t>((pow(k_digit_10, Digit + 1)))) /
+  return (((InputNumber>0) ? InputNumber : -InputNumber) % static_cast<int64_t>((pow(k_digit_10, Digit + 1)))) /
          static_cast<int64_t>((pow(k_digit_10, Digit)));
 }
 
@@ -283,7 +283,7 @@ void Bit_Count() {
             << k_max_limit << "!" << std::endl;
   size_t Number = GetInInRange(k_min_limit, k_max_limit);
   short Checked{0};
-  for (size_t bit_num{0}; bit_num <= k_max_bit; bit_num++) {
+  for (size_t bit_num{0}; bit_num < k_max_bit; bit_num++) {
     size_t MASK = 1LL << bit_num;
     Checked = (Number & MASK) ? Checked + 1 : Checked;
   }
