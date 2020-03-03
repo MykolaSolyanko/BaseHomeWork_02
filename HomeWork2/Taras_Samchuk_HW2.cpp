@@ -4,7 +4,7 @@
 // Constant for show menu sub programs
 const short k_item_len{50};
 const short k_digit_10{10};
-const size_t k_max_bit{32};
+const size_t k_max_bit_number{31};  // The numbering starts with 0
 enum Label {
   LABEL_EXIT = 0,
   LABEL_DIGITS_SUMM,
@@ -44,7 +44,7 @@ size_t DigitsCount(int64_t const Number) {
   size_t Digits_Count{0};
   do {
     Digits_Count++;
-  } while (((Number>0) ? Number : -Number) >= pow(k_digit_10, Digits_Count));
+  } while (((Number > 0) ? Number : -Number) >= pow(k_digit_10, Digits_Count));
   return Digits_Count;
 }
 
@@ -56,7 +56,8 @@ int64_t GetDigit(const int64_t InputNumber, const size_t Digit) {
     ...
     N) Digit_N=(X%pow(10,N))/pow(10,N-1)
     */
-  return (((InputNumber>0) ? InputNumber : -InputNumber) % static_cast<int64_t>((pow(k_digit_10, Digit + 1)))) /
+  return (((InputNumber > 0) ? InputNumber : -InputNumber) %
+          static_cast<int64_t>((pow(k_digit_10, Digit + 1)))) /
          static_cast<int64_t>((pow(k_digit_10, Digit)));
 }
 
@@ -283,7 +284,7 @@ void Bit_Count() {
             << k_max_limit << "!" << std::endl;
   size_t Number = GetInInRange(k_min_limit, k_max_limit);
   short Checked{0};
-  for (size_t bit_num{0}; bit_num < k_max_bit; bit_num++) {
+  for (size_t bit_num{0}; bit_num <= k_max_bit_number; bit_num++) {
     size_t MASK = 1LL << bit_num;
     Checked = (Number & MASK) ? Checked + 1 : Checked;
   }
@@ -301,15 +302,15 @@ void Bits_Test() {
     +--------------------------------+
   )";
   const size_t k_min_limit{0};
-  const size_t k_first_bit{1};
+  const size_t k_first_bit{0};
   const size_t k_max_limit{std::numeric_limits<uint32_t>::max()};
   std::cout << "\tPlease enter a number\n\tMust be between " << k_min_limit
             << " and " << k_max_limit << "!" << std::endl;
   size_t const k_Number = GetInInRange(k_min_limit, k_max_limit);
   std::cout << "\tEnter a number bit\n\tMust be between " << k_first_bit
-            << " and " << k_max_bit << "!" << std::endl;
-  size_t bit = GetInInRange(k_first_bit, k_max_bit);
-  size_t MASK = 1LL << (bit-1);
+            << " and " << k_max_bit_number << "!" << std::endl;
+  size_t bit = GetInInRange(k_first_bit, k_max_bit_number);
+  size_t MASK = 1LL << bit;
   std::cout << ((MASK & k_Number) ? "YES" : "NO") << std::endl;
 }
 
