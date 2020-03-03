@@ -1,6 +1,7 @@
 // Working with pointers
 #include <cstdio>
 #include <iostream>
+#include <random>
 
 const size_t k_max_char_len{255};
 //==============================================================
@@ -17,12 +18,8 @@ enum Label {
 };
 const char k_Items[Label::LABEL_COUNT][k_item_len]{
     "EXIT",  //
-    "REVERSE  WORD",
-    "INSERT TO ARRAY",
-    "DELETE FROM ARRAY",
-    "small letter",
-    "DETECT DIGITS",
-    "CAPITAL LETTERS"};
+    "REVERSE  WORD", "INSERT TO ARRAY", "DELETE FROM ARRAY",
+    "small letter",  "DETECT DIGITS",   "CAPITAL LETTERS"};
 
 // The function returns a value if it is within the range.
 // Executes until the correct value is entered
@@ -34,7 +31,6 @@ int64_t GetInInRange(const int64_t aMin, const int64_t aMax) {
   } while (aMin > Input || Input > aMax);
   return Input;
 }
-
 
 // Displays the menu and returns the selected item number
 int Menu() {
@@ -50,8 +46,6 @@ int Menu() {
   std::cout << "\tEnter the number and press [ENTER]" << std::endl;
   return GetInInRange(1, Label::LABEL_COUNT) - 1;
 }
-
-
 
 //==============================================================
 
@@ -106,10 +100,10 @@ int DOWNto(char *const DOWN2) {
   if (DOWN2 == nullptr) {
     return 1;  // ERROR
   }
-  const uint8_t k_letter_BIG_A = 65;
-  const uint8_t k_letter_BIG_Z = 90;
-  uint8_t Mask = 1 << 5;
-  // u_int8_t Mask = 0b00'100'000;
+  const uint8_t k_letter_BIG_A{65};
+  const uint8_t k_letter_BIG_Z{90};
+  // uint8_t Mask = 1 << 5;
+  u_int8_t Mask{0b00'100'000};
   *DOWN2 = (k_letter_BIG_A <= *DOWN2 && *DOWN2 <= k_letter_BIG_Z)
                ? *DOWN2 | Mask  // 5 bit set
                : *DOWN2;
@@ -123,8 +117,8 @@ int toUP(char *const toUP) {
   const uint8_t k_letter_small_a = 97;
   const uint8_t k_letter_small_z = 122;
 
-  uint8_t Mask = ~(1 << 5);
-  // u_int8_t Mask = 0b11'011'111;
+  // uint8_t Mask = ~(1 << 5);
+  u_int8_t Mask{0b11'011'111};
   *toUP = (k_letter_small_a <= *toUP && *toUP <= k_letter_small_z)
               ? *toUP & Mask  // 5 bit reset
               : *toUP;
@@ -164,33 +158,42 @@ void InsertToArray() {
     +--------------------------------+
   )";
   const size_t k_array_size{10};
-  short Array[k_array_size]{0};
-  std::cout << "Stating programm";
+  const unsigned int k_empti{0};
+  const unsigned int k_max{255};
+  unsigned int Array[k_array_size]{0};
   for (auto show : Array) {
-    std::cout << "[" << show << "]";
+    std::cout << '{' << show << '}';
   }
   std::cout << std::endl;
-  int NewElem{3};
-  size_t NewPos{0};
+  size_t Index{0};
+  int NewData;
   do {
-    if (Array[NewPos] < NewElem) {
-      NewPos++;
+    //=================================================
+    Index = 0;
+    std::cout << "New=";
+    std::cin >> NewData;
+    if (!(k_empti < NewData && NewData < k_max)) {
+      std::cout << "The number must not be (" << k_empti << "," << k_max << "]"
+                << std::endl;
       continue;
     }
-    //треба свап робити у форі мабуть
-    for (size_t from_teils{5}; from_teils > 3; from_teils--) {
-      std::cout << '[' << from_teils << ',' << NewPos << ']';
+    while (NewData > Array[Index] && Array[Index]) {
+      Index++;
     }
-
-    //записуємо
-    Array[NewPos] = NewElem;
-
-    //тут тільки лог виводиться
+    while (Array[Index]) {
+      for (size_t i = k_array_size - 1; i > Index; i--) {
+        Array[i] = Array[i - 1];
+      }
+      Array[Index] = 0;
+    }
+    std::cout << Index;
+    Array[Index] = NewData;
+    //====================================================
     for (auto show : Array) {
-      std::cout << "[" << show << "]";
+      std::cout << '{' << show << '}';
     }
     std::cout << std::endl;
-  } while (Array[k_array_size - 1] == 0);
+  } while (!Array[k_array_size - 1]);
 }
 void DeleteFromArray() {
   std::cout << R"(
@@ -201,6 +204,49 @@ void DeleteFromArray() {
     ||
     +--------------------------------+
   )";
+  //==================================
+  const size_t k_array_size{20};
+  int Array[k_array_size];
+  // init randome genetaror
+  std::random_device rd;
+  std::mt19937 mt(rd());
+  // init
+  // std::uniform_real_distribution<int> dist(1, 10);
+  std::uniform_int_distribution<int> dist(1, 5);
+  for (size_t index = 0; index < k_array_size; index++) {
+    Array[index] = dist(mt);
+  }
+  // show
+  for (auto show : Array) {
+    std::cout << '{' << show << '}';
+  }
+  std::cout << std::endl;
+  do {
+    for (auto show : Array) {
+      std::cout << '{' << show << '}';
+    }
+    int FindThis = 2;
+    std::cout << "loop";
+    std::cin >> FindThis;
+    if (!FindThis) {
+      break;
+    }
+    size_t border{k_array_size - 1};
+    size_t index{0};
+    do {
+      if (Array[index] == FindThis) {
+        std::cout << "find deletind\n";
+        for (size_t i = index; i <= border; i++) {
+          Array[i] = Array[i + 1];
+        }
+        Array[border] = 0;
+      }
+      if (Array[index] == FindThis) continue;
+      index++;
+    } while ((k_array_size - 1) >= index);
+
+  } while (Array[0]);
+  //=============================================
 }
 
 void ToLower() {
@@ -275,10 +321,10 @@ int main() {
     +-----------------+
     |   HOME WORK 3   |
     +-----------------+)";
- // do  // forever loop
+  // do  // forever loop
   {
     Label Sel{LABEL_REVERSE_WORD};
-    switch (6)/* (Menu()) */ {
+    switch (2) /* (Menu()) */ {
       case LABEL_EXIT:
         return 0;
         break;
@@ -303,14 +349,14 @@ int main() {
       default:
         break;
     }
-  }// while (true);
-    /*
-  ReverseLine();
-  //InsertToArray();
-  //DeleteFromArray();
-  ToUpper();
-  IsDigit();
-  ToLower();*/
+  }  // while (true);
+  /*
+ReverseLine();
+//InsertToArray();
+//DeleteFromArray();
+ToUpper();
+IsDigit();
+ToLower();*/
   std::cout << R"(
     +-----------------+
     |      E N D      |
