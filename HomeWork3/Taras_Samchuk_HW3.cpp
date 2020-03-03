@@ -1,7 +1,59 @@
 // Working with pointers
+#include <cstdio>
 #include <iostream>
 
 const size_t k_max_char_len{255};
+//==============================================================
+const short k_item_len{50};
+enum Label {
+  LABEL_EXIT = 0,
+  LABEL_REVERSE_WORD,
+  LABEL_INSET_TO_ARRAY,
+  LABEL_DELETE_FROM_ARRAY,
+  LABEL_SMALL_LETTERS,
+  LABEL_DETECT_DIGITS,
+  LABEL_CAPITAL_LETTERS,
+  LABEL_COUNT
+};
+const char k_Items[Label::LABEL_COUNT][k_item_len]{
+    "EXIT",  //
+    "REVERSE  WORD",
+    "INSERT TO ARRAY",
+    "DELETE FROM ARRAY",
+    "small letter",
+    "DETECT DIGITS",
+    "CAPITAL LETTERS"};
+
+// The function returns a value if it is within the range.
+// Executes until the correct value is entered
+int64_t GetInInRange(const int64_t aMin, const int64_t aMax) {
+  int64_t Input;
+  do {
+    std::cout << ">";
+    std::cin >> Input;
+  } while (aMin > Input || Input > aMax);
+  return Input;
+}
+
+
+// Displays the menu and returns the selected item number
+int Menu() {
+  std::cout << R"(
+    +-----------------+
+    |   SELECT TASK   |
+    +-----------------+)";
+  std::cout << std::endl;
+  for (size_t MenuItem{0}; MenuItem < Label::LABEL_COUNT; MenuItem++) {
+    std::cout << "\t(" << MenuItem + 1 << ")  " << k_Items[MenuItem]
+              << std::endl;
+  }
+  std::cout << "\tEnter the number and press [ENTER]" << std::endl;
+  return GetInInRange(1, Label::LABEL_COUNT) - 1;
+}
+
+
+
+//==============================================================
 
 int SwapChar(char *const first_ptr, char *const second_ptr) {
   if (first_ptr == nullptr || second_ptr == nullptr ||
@@ -85,14 +137,14 @@ void ReverseLine() {
     |  REVERSE  WORD  |
     +-----------------+
     +--------------------------------+
-    |   We   reflect   the   word    |
+    |   We   reflect   the   line    |
     +--------------------------------+
   )";
   const size_t k_len{k_max_char_len};
   std::cout << "Enter word" << std::endl;
   char text[k_len];
-  std::cin >> text;
-  std::cin.clear();
+  std::cin.get(text, k_len);
+
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
   size_t len{0};
   while (*(text + len) != '\0') len++;
@@ -117,7 +169,7 @@ void InsertToArray() {
   for (auto show : Array) {
     std::cout << "[" << show << "]";
   }
-  std::cout<<std::endl;
+  std::cout << std::endl;
   int NewElem{3};
   size_t NewPos{0};
   do {
@@ -126,26 +178,24 @@ void InsertToArray() {
       continue;
     }
     //треба свап робити у форі мабуть
-    for(size_t from_teils{5};from_teils>3;from_teils--){
-      std::cout<<'['<<from_teils<<','<<NewPos<<']';
+    for (size_t from_teils{5}; from_teils > 3; from_teils--) {
+      std::cout << '[' << from_teils << ',' << NewPos << ']';
     }
 
     //записуємо
     Array[NewPos] = NewElem;
 
-
-
     //тут тільки лог виводиться
     for (auto show : Array) {
       std::cout << "[" << show << "]";
     }
-    std::cout<<std::endl;
+    std::cout << std::endl;
   } while (Array[k_array_size - 1] == 0);
 }
 void DeleteFromArray() {
   std::cout << R"(
     +-----------------+
-    |     |
+    |DELETE FROM ARRAY|
     +-----------------+
     +--------------------------------+
     ||
@@ -165,7 +215,7 @@ void ToLower() {
   const size_t k_len{k_max_char_len};
   std::cout << "Enter word" << std::endl;
   char text[k_len];
-  std::cin >> text;
+  std::cin.get(text, k_len);
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
   size_t len{0};
   while (*(text + len) != '\0') {
@@ -178,7 +228,7 @@ void ToLower() {
 void IsDigit() {
   std::cout << R"(
     +-----------------+
-    |   DETECT DIGITS |
+    |  DETECT DIGITS  |
     +-----------------+
     +--------------------------------+
     |the number detector in the word |
@@ -187,7 +237,7 @@ void IsDigit() {
   const size_t k_len{k_max_char_len};
   std::cout << "Enter word" << std::endl;
   char text[k_len];
-  std::cin >> text;
+  std::cin.get(text, k_len);
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
   size_t len{0};
   while (*(text + len) != '\0') {
@@ -210,7 +260,7 @@ void ToUpper() {
   const size_t k_len{k_max_char_len};
   std::cout << "Enter word" << std::endl;
   char text[k_len];
-  std::cin >> text;
+  std::cin.get(text, k_len);
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
   size_t len{0};
   while (*(text + len) != '\0') {
@@ -225,9 +275,39 @@ int main() {
     +-----------------+
     |   HOME WORK 3   |
     +-----------------+)";
-  // ReverseLine();
-  InsertToArray();
-  /*DeleteFromArray();
+ // do  // forever loop
+  {
+    Label Sel{LABEL_REVERSE_WORD};
+    switch (6)/* (Menu()) */ {
+      case LABEL_EXIT:
+        return 0;
+        break;
+      case LABEL_REVERSE_WORD:
+        ReverseLine();
+        break;
+      case LABEL_INSET_TO_ARRAY:
+        InsertToArray();
+        break;
+      case LABEL_DELETE_FROM_ARRAY:
+        DeleteFromArray();
+        break;
+      case LABEL_SMALL_LETTERS:
+        ToLower();
+        break;
+      case LABEL_DETECT_DIGITS:
+        IsDigit();
+        break;
+      case LABEL_CAPITAL_LETTERS:
+        ToUpper();
+        break;
+      default:
+        break;
+    }
+  }// while (true);
+    /*
+  ReverseLine();
+  //InsertToArray();
+  //DeleteFromArray();
   ToUpper();
   IsDigit();
   ToLower();*/
