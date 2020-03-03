@@ -319,43 +319,6 @@ int main() {
     +-----------------+
     |   HOME WORK 3   |
     +-----------------+)";
-  /*
-// do  // forever loop
-{
-Label Sel{LABEL_REVERSE_WORD};
-switch (2)  (Menu()) / {
-case LABEL_EXIT:
-return 0;
-break;
-case LABEL_REVERSE_WORD:
-ReverseLine();
-break;
-case LABEL_INSET_TO_ARRAY:
-InsertToArray();
-break;
-case LABEL_DELETE_FROM_ARRAY:
-DeleteFromArray();
-break;
-case LABEL_SMALL_LETTERS:
-ToLower();
-break;
-case LABEL_DETECT_DIGITS:
-IsDigit();
-break;
-case LABEL_CAPITAL_LETTERS:
-ToUpper();
-break;
-default:
-break;
-}
-} */  // while (true);
-
-  //ReverseLine();
-  //InsertToArray();
-  //DeleteFromArray();
-  //ToUpper();
-  //IsDigit();
-  //ToLower();
   std::cout << R"(
     +-----------------+
     |      E N D      |
