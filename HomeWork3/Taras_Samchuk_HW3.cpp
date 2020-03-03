@@ -140,11 +140,15 @@ void ReverseLine() {
   std::cin.get(text, k_len);
 
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
-  size_t len{0};
-  while (*(text + len) != '\0') len++;
-  for (size_t i = 0; i < len / 2; i++) {
-    SwapChar((text + i), (text + len - i - 1));
-  }
+
+  /*
+    size_t len{0};
+    while (*(text + len) != '\0') len++;
+    for (size_t i = 0; i < len / 2; i++) {
+      SwapChar((text + i), (text + len - i - 1));
+    }
+  */
+
   std::cout << "The reflected line \"" << text << "\"" << std::endl;
 }
 
@@ -165,11 +169,10 @@ void InsertToArray() {
     std::cout << '{' << show << '}';
   }
   std::cout << std::endl;
-  size_t Index{0};
   int NewData;
+  unsigned int *arr_ptr = Array;
   do {
-    //=================================================
-    Index = 0;
+    arr_ptr = Array;
     std::cout << "New=";
     std::cin >> NewData;
     if (!(k_empti < NewData && NewData < k_max)) {
@@ -177,18 +180,17 @@ void InsertToArray() {
                 << std::endl;
       continue;
     }
-    while (NewData > Array[Index] && Array[Index]) {
-      Index++;
+    while (NewData > *arr_ptr  && *arr_ptr!=0) {
+      arr_ptr++;
     }
-    while (Array[Index]) {
-      for (size_t i = k_array_size - 1; i > Index; i--) {
-        Array[i] = Array[i - 1];
+      unsigned int *arr_end_ptr = Array+k_array_size-1;
+      while (*arr_ptr!=0) {
+      for (unsigned int *i_ptr = arr_end_ptr; i_ptr > arr_ptr; i_ptr--) {
+        *i_ptr=*(i_ptr-1);
       }
-      Array[Index] = 0;
+      *arr_ptr=k_empti;
     }
-    std::cout << Index;
-    Array[Index] = NewData;
-    //====================================================
+    *arr_ptr=NewData;
     for (auto show : Array) {
       std::cout << '{' << show << '}';
     }
@@ -201,52 +203,51 @@ void DeleteFromArray() {
     |DELETE FROM ARRAY|
     +-----------------+
     +--------------------------------+
-    ||
+    |   Delete   item   by   value   |
     +--------------------------------+
   )";
-  //==================================
   const size_t k_array_size{20};
+  const int k_empty{0};
+  const int k_min_find{1};
+  const int k_max_find{10};
   int Array[k_array_size];
-  // init randome genetaror
   std::random_device rd;
   std::mt19937 mt(rd());
-  // init
-  // std::uniform_real_distribution<int> dist(1, 10);
-  std::uniform_int_distribution<int> dist(1, 5);
-  for (size_t index = 0; index < k_array_size; index++) {
+  std::uniform_int_distribution<int> dist(k_min_find, k_max_find);
+
+  for (size_t index{0}; index < k_array_size; index++) {
     Array[index] = dist(mt);
   }
-  // show
-  for (auto show : Array) {
-    std::cout << '{' << show << '}';
-  }
   std::cout << std::endl;
+
+  int DeleteThis;
+  int *array_ptr = Array;
   do {
+    array_ptr = Array;
     for (auto show : Array) {
       std::cout << '{' << show << '}';
     }
-    int FindThis = 2;
-    std::cout << "loop";
-    std::cin >> FindThis;
-    if (!FindThis) {
+    std::cout << std::endl;
+
+    std::cout
+        << "What we delete?\nIf you do not delete anything, write a number "
+        << k_empty << ". We can look for numbers from " << k_min_find << " to "
+        << k_max_find << ".\nYour choice " << std::endl;
+    std::cin >> DeleteThis;
+    if (DeleteThis == k_empty) {
+      std::cout << "We are not looking for anything.\n We finish the program"
+                << std::endl;
       break;
     }
-    size_t border{k_array_size - 1};
-    size_t index{0};
     do {
-      if (Array[index] == FindThis) {
-        std::cout << "find deletind\n";
-        for (size_t i = index; i <= border; i++) {
-          Array[i] = Array[i + 1];
-        }
-        Array[border] = 0;
+      if (*array_ptr == DeleteThis) {
+        std::cout << "Found {" << DeleteThis << "}. Deleting" << std::endl;
+        *(array_ptr) = k_empty;
       }
-      if (Array[index] == FindThis) continue;
-      index++;
-    } while ((k_array_size - 1) >= index);
+      array_ptr++;
+    } while ((k_array_size - 1) >= *array_ptr);
 
-  } while (Array[0]);
-  //=============================================
+  } while (DeleteThis != k_empty);
 }
 
 void ToLower() {
@@ -263,10 +264,9 @@ void ToLower() {
   char text[k_len];
   std::cin.get(text, k_len);
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
-  size_t len{0};
-  while (*(text + len) != '\0') {
-    DOWNto(text + len);
-    len++;
+  char *text_ptr = text;
+  while (*text_ptr != '\0') {
+    DOWNto(text_ptr++);
   }
   std::cout << " lowercase letters \"" << text << "\"" << std::endl;
 }
@@ -285,12 +285,11 @@ void IsDigit() {
   char text[k_len];
   std::cin.get(text, k_len);
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
-  size_t len{0};
-  while (*(text + len) != '\0') {
-    len++;
-    std::cout << *(text + len) << " "
-              << (IsDigit(text + len) ? "is digit" : "is not digit")
-              << std::endl;
+  char *text_ptr = text;
+  while (*text_ptr != '\0') {
+    text_ptr++;
+    std::cout << *text_ptr << " "
+              << (IsDigit(text_ptr) ? "is digit" : "is not digit") << std::endl;
   }
 }
 
@@ -308,10 +307,9 @@ void ToUpper() {
   char text[k_len];
   std::cin.get(text, k_len);
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
-  size_t len{0};
-  while (*(text + len) != '\0') {
-    toUP(text + len);
-    len++;
+  char *text_ptr = text;
+  while (*text_ptr != '\0') {
+    toUP(text_ptr++);
   }
   std::cout << "IN CAPITAL LETTERS \"" << text << "\"" << std::endl;
 }
@@ -321,42 +319,43 @@ int main() {
     +-----------------+
     |   HOME WORK 3   |
     +-----------------+)";
-  // do  // forever loop
-  {
-    Label Sel{LABEL_REVERSE_WORD};
-    switch (2) /* (Menu()) */ {
-      case LABEL_EXIT:
-        return 0;
-        break;
-      case LABEL_REVERSE_WORD:
-        ReverseLine();
-        break;
-      case LABEL_INSET_TO_ARRAY:
-        InsertToArray();
-        break;
-      case LABEL_DELETE_FROM_ARRAY:
-        DeleteFromArray();
-        break;
-      case LABEL_SMALL_LETTERS:
-        ToLower();
-        break;
-      case LABEL_DETECT_DIGITS:
-        IsDigit();
-        break;
-      case LABEL_CAPITAL_LETTERS:
-        ToUpper();
-        break;
-      default:
-        break;
-    }
-  }  // while (true);
   /*
+// do  // forever loop
+{
+Label Sel{LABEL_REVERSE_WORD};
+switch (2)  (Menu()) / {
+case LABEL_EXIT:
+return 0;
+break;
+case LABEL_REVERSE_WORD:
 ReverseLine();
-//InsertToArray();
-//DeleteFromArray();
-ToUpper();
+break;
+case LABEL_INSET_TO_ARRAY:
+InsertToArray();
+break;
+case LABEL_DELETE_FROM_ARRAY:
+DeleteFromArray();
+break;
+case LABEL_SMALL_LETTERS:
+ToLower();
+break;
+case LABEL_DETECT_DIGITS:
 IsDigit();
-ToLower();*/
+break;
+case LABEL_CAPITAL_LETTERS:
+ToUpper();
+break;
+default:
+break;
+}
+} */  // while (true);
+
+  // ReverseLine();
+  InsertToArray();
+  // DeleteFromArray();
+  // ToUpper();
+  // IsDigit();
+  // ToLower();
   std::cout << R"(
     +-----------------+
     |      E N D      |
