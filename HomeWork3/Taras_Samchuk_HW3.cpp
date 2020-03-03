@@ -5,6 +5,7 @@
 
 const size_t k_max_char_len{255};
 //==============================================================
+/*
 const short k_item_len{50};
 enum Label {
   LABEL_EXIT = 0,
@@ -46,7 +47,7 @@ int Menu() {
   std::cout << "\tEnter the number and press [ENTER]" << std::endl;
   return GetInInRange(1, Label::LABEL_COUNT) - 1;
 }
-
+*/
 //==============================================================
 
 int SwapChar(char *const first_ptr, char *const second_ptr) {
@@ -140,15 +141,14 @@ void ReverseLine() {
   std::cin.get(text, k_len);
 
   std::cout << "You  have  entered \"" << text << "\"" << std::endl;
-
-  /*
-    size_t len{0};
-    while (*(text + len) != '\0') len++;
-    for (size_t i = 0; i < len / 2; i++) {
-      SwapChar((text + i), (text + len - i - 1));
-    }
-  */
-
+  char *begin_ptr = text;
+  char *end_ptr = begin_ptr;
+  while (*(end_ptr + 1) != '\0') {
+    ++end_ptr;
+  }
+  do {
+    SwapChar(begin_ptr++, end_ptr--);
+  } while (begin_ptr < end_ptr);
   std::cout << "The reflected line \"" << text << "\"" << std::endl;
 }
 
@@ -180,17 +180,17 @@ void InsertToArray() {
                 << std::endl;
       continue;
     }
-    while (NewData > *arr_ptr  && *arr_ptr!=0) {
+    while (NewData > *arr_ptr && *arr_ptr != 0) {
       arr_ptr++;
     }
-      unsigned int *arr_end_ptr = Array+k_array_size-1;
-      while (*arr_ptr!=0) {
+    unsigned int *arr_end_ptr = Array + k_array_size - 1;
+    while (*arr_ptr != 0) {
       for (unsigned int *i_ptr = arr_end_ptr; i_ptr > arr_ptr; i_ptr--) {
-        *i_ptr=*(i_ptr-1);
+        *i_ptr = *(i_ptr - 1);
       }
-      *arr_ptr=k_empti;
+      *arr_ptr = k_empti;
     }
-    *arr_ptr=NewData;
+    *arr_ptr = NewData;
     for (auto show : Array) {
       std::cout << '{' << show << '}';
     }
@@ -350,12 +350,12 @@ break;
 }
 } */  // while (true);
 
-  // ReverseLine();
-  InsertToArray();
-  // DeleteFromArray();
-  // ToUpper();
-  // IsDigit();
-  // ToLower();
+  //ReverseLine();
+  //InsertToArray();
+  //DeleteFromArray();
+  //ToUpper();
+  //IsDigit();
+  //ToLower();
   std::cout << R"(
     +-----------------+
     |      E N D      |
