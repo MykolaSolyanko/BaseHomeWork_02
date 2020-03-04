@@ -22,7 +22,7 @@ int main() {
       }
       std::cout << "Divisor: " << divisor << std::endl;
     }
-    divisor--;
+    divisor-1;
   }
   std::cout << "Your best divisor = " << divisor_best << std::endl;
   return 0;
