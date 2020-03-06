@@ -215,8 +215,8 @@ void DeleteFromArray() {
   std::mt19937 mt(rd());
   std::uniform_int_distribution<int> dist(k_min_find, k_max_find);
 
-  for (size_t index{0}; index < k_array_size; index++) {
-    Array[index] = dist(mt);
+  for (auto& value : Array) {
+    value = dist(mt);
   }
   std::cout << std::endl;
 
