@@ -80,7 +80,7 @@ bool IsDigit(const char *const Data) {
   const char k_ZERO_code{48};
   // '9' in ASCI dec(57) hex(0x39) oct(071) bin(0b0011'1001)
   const char k_NINE_code{57};
-  return (k_ZERO_code <= *Data && *Data <= k_NINE_code) ? true : false;
+  return (k_ZERO_code <= *Data && *Data <= k_NINE_code);
 }
 
 /*
