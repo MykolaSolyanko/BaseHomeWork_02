@@ -1,20 +1,22 @@
 #include <iostream>
-#include <string>
 
-void Reverse(std::string input_string) {
-  int letter = 1;
-  size_t length = size(input_string);
-  while (letter <= length) {
-    std::cout << input_string[length - letter];
-    letter++;
+void Reverse(char *array, const size_t kMaxInput) {
+  size_t tic = 1;
+  while (tic <= kMaxInput) {
+    if (array[kMaxInput - tic] != 0) {
+      std::cout << array[kMaxInput - tic];
+    }
+    tic++;
   }
 }
 
-int main() {
-  std::cout << "This programm reverses string\n"
-               "Enter string for analize: ";
-  std::string input_string;
-  std::getline(std::cin, input_string);
-  Reverse(std::string(input_string));
+int main(int argc, char *argv[]) {
+  std::cout << "This program reverses string\n";
+  const size_t kMaxInput = 100;
+  char array[kMaxInput]{};
+  std::cout << "Enter string for reverse, in range of " << kMaxInput
+            << " symbols:\n";
+  std::cin >> array;
+  Reverse(array, kMaxInput);
   return 0;
 }
