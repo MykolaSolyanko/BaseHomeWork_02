@@ -102,7 +102,7 @@ int main()
         std::cin >> nElement;
         while ((nElement < Min) || (nElement > Max)) 
         {
-            std::cout << "\tEnter an integer again in range 1...50" << std::endl;
+            std::cout << "\tEnter an integer again in range ..."<<Min<<"..."<<Max << std::endl;
             std::cin >> nElement;
         }
         for (int i = 0; i < nElement; i++) 
