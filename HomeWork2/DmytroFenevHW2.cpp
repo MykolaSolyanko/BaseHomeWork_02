@@ -15,21 +15,20 @@ int main()
   
     std::cout << "\tEnter number of Task N1, N2, N3, N4, N5\n";
     std::cin >> task_choise;
-    int x, n, tmp;
+    //int x, n, tmp;
    
     switch (task_choise) 
     {
     case FIRST_TASK:
-        n = 1; //число цифр
+            {int n{1}; //число цифр
         std::cout << "\tEnter an integer" << std::endl;
         std::cin >> x;
         //xp = x; //сохранение х после подсчета количества цифр
-        tmp = x;
+        int tmp = x;
         while ((tmp /= 10) > 0)
             n++;
         std::cout << "\tNumber of digits=" << n << std::endl;
-        int sum;
-        sum = 0;
+        int sum{0};
         for (int ii = 0; ii < n; ii++) 
         {
             sum +=x % 10; //sum of digits
@@ -37,15 +36,14 @@ int main()
         }
         std::cout << "\tsum=" << sum << std::endl;
         std::cout << "\tAverage number =" << sum / n << std::endl;
-        break;
+        break;}
     case SECOND_TASK:
-        int numberDigit;
-        numberDigit = 6; //number of digits
+            {int numberDigit{6}; //number of digits
+        int x;
         std::cout << "\tEnter six digits" << std::endl;
         std::cin >> x;
-        int chisloDigits;
-        chisloDigits = 1;
-        tmp = x; //сохранение х после подсчета количества цифр
+        int chisloDigits{1};
+        int tmp = x; //сохранение х после подсчета количества цифр
         while ((tmp /= 10) > 0)
             chisloDigits++;
         //std::cout << chisloDigits << std::endl;
@@ -58,9 +56,7 @@ int main()
             while ((tmp /= 10) > 0)
                 chisloDigits++;
         }
-        int sum1, sum2;
-        sum1 = 0;
-        sum2 = 0;
+        int sum1{0}, sum2{0};
         for (int ii = 0; ii < numberDigit;ii++)
         {
             if (ii < numberDigit / 2) 
@@ -75,10 +71,10 @@ int main()
             std::cout << "\tAmount match" << std::endl;
         else
             std::cout << "\tAmounts do not match" << std::endl;
-        break;
+        break;}
     case THIRD_TASK:
-        int Chislo, reversedChislo, remainder;
-        reversedChislo = 0;
+            {int Chislo, reversedChislo{0}, remainder;
+        //reversedChislo = 0;
         std::cout << "Enter Number" << std::endl;
         std::cin >> Chislo;
         while (Chislo != 0) 
@@ -88,17 +84,13 @@ int main()
             Chislo /= 10;
         }
         std::cout << "reverse number=" << reversedChislo << std::endl;
-        break;
+        break;}
     case FOUR_TASK:
-        int Min, Max, cmin, cmax;
-        Min = 1;
-        Max = 50;
-        cmin = -60;
-        cmax = 90;
-        int chislo;
+            {int Min{1}, Max{50}, cmin{-60}, cmax{90};
+            int chislo;
         int nElement;
-        sum = 0;
-        std::cout << "\tEnter an integer in range...1...50" << std::endl;
+        int sum = 0;
+        std::cout << "\tEnter an integer in range..."<<Min<<"---"<<Max << std::endl;
         std::cin >> nElement;
         while ((nElement < Min) || (nElement > Max)) 
         {
@@ -118,14 +110,14 @@ int main()
                 sum += chislo;
         }
         std::cout << "\tSum of odd number=" << sum << std::endl;
-        break;
+        break;}
     case FIVE_TASK:
-        std::cout << "Enter x: ";
-        std::cin >> x;
+            {std::cout << "Enter x: ";
+        int x;
+             std::cin >> x;
         int MaxDivider;
         int sumN;
-        int sumDigitDivider; 
-        sumDigitDivider = 0;//Max sum of divider
+        int sumDigitDivider{0}; //Max sum of divider
         for (int i = 1; i <= x; i++) 
         {
             if (x % i == 0) 
@@ -146,6 +138,6 @@ int main()
             }
         }
         std::cout << "MaxDivider=" << MaxDivider << std::endl;
-        break;
+        break;}
         }
 }
