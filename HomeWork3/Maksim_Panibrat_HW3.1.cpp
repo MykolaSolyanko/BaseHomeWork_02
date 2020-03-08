@@ -1,12 +1,12 @@
 #include <iostream>
 
 void Reverse(char *array, const size_t kMaxInput) {
-  size_t tic = 1;
-  while (tic <= kMaxInput) {
-    if (array[kMaxInput - tic] != 0) {
-      std::cout << array[kMaxInput - tic];
+  size_t i = 1;
+  while (i <= kMaxInput) {
+    if (array[kMaxInput - i] != 0) {
+      std::cout << array[kMaxInput - i];
     }
-    tic++;
+    i++;
   }
 }
 
