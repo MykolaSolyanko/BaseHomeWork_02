@@ -1,0 +1,23 @@
+#include <iostream>
+
+int revers(int value) //
+{
+  int value2 = 0;
+  int n = 0;
+  while (value > 0) {
+    value2 = value2 * 10 + value % 10;
+    value = value / 10;
+    n = n + 1;
+  }
+  std::cout << "n=" << n << " value=" << value << " value2=" << value2
+            << std::endl;
+  return value2; //
+}
+int main() {
+  int value = 1234;
+  std::cout << "value=" << value << " revers value=" << revers(value)
+            << std::endl;
+
+  std::cin.get();
+  return 0;
+}
