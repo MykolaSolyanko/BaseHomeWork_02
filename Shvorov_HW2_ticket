@@ -1,0 +1,56 @@
+#include <iostream>
+
+int myinput() {
+  int var = 0; //{0};//универсальная инициализация*
+  while (true) {
+    std::cout << "Enter number (6 digits):";
+    std::cin >> var;
+    if (std::cin.fail()) // если предыдущее извлечение оказалось неудачным,
+    {
+      std::cin.clear(); //сброс флага ошибки (возвращаем cin в 'обычный' режим
+                        //работы)
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                      '\n'); //после ошибки пропукаем символв и удаляем значения
+                             //предыдущего ввода из входного буфера
+      std::cout << "Error format. Please try again.\n";
+    } else {
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                      '\n'); // удаляем лишние значения
+      if (var >= 0 && var <= 999999)
+        break;
+      else
+        std::cout << "Error number! Enter 6 digits. Please try again.\n";
+    }
+  }
+  return var;
+}
+
+bool Sum(int value) //сумма
+{
+  int sum1 = 0;
+  int sum2 = 0;
+  int n = 0;
+  while (value > 0) {
+    if (n < 3)
+      sum1 = sum1 + value % 10;
+    else
+      sum2 = sum2 + value % 10;
+    value = value / 10;
+    n = n + 1;
+  }
+  // std::cout<<"n="<<n<<" value="<<value<<" ost="<<value%10<<" sum1="<<sum1<<"
+  // sum2="<<sum2<<std::endl;
+  return (sum1 == sum2); // 1 - true, 0 - false
+}
+
+int main() {
+  int ticket = myinput();
+  // std::cout<<"ticket="<<ticket<<std::endl;
+  if (Sum(ticket))
+    std::cout << "Happy ticket" << std::endl;
+  else
+    std::cout << "No happy ticket" << std::endl;
+
+  std::cin.get();
+  return 0;
+}
