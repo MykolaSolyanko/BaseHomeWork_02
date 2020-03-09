@@ -1,0 +1,29 @@
+#include <iostream>
+
+double Avg(double sum, int n) //среднее
+{
+  return sum / n;
+}
+
+int Sum(int value, int *n) //сумма
+{
+  int sum = 0;
+  while (value > 0) {
+    sum = sum + value % 10;
+    value = value / 10;
+    *n = *n + 1;
+  }
+  // std::cout<<"n="<<*n<<" value="<<value<<" ost="<<value%10<<"
+  // sum="<<sum<<std::endl;
+  return sum;
+}
+
+int main() {
+  int n = 0;
+  int sum = Sum(123451, &n);
+  double avg = Avg(sum, n);
+  std::cout << "sum=" << sum << " avg=" << avg << std::endl;
+
+  std::cin.get();
+  return 0;
+}
