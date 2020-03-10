@@ -8,7 +8,7 @@ enum SortType { ST_BOBLE_SORT, ST_SELECTION_SORT, ST_QUICK_SORT, COUNT_ST };
 
 using comparison = std::function<bool(int, int)>;
 
-const size_t k_int_array_size{10};
+const size_t k_int_array_size{10'000};
 const int k_min_random_value{10};
 const int k_max_random_value{99};
 
@@ -36,23 +36,23 @@ void uInitArray(int *const array_begin, int const *const array_end) {
       array_begin >= array_end) {
     return;  // error
   }
-  std::cout<<"Start initiating an array"<<std::endl;
+  std::cout << "Start initiating an array" << std::endl;
   for (int *index = array_begin; index <= array_end; index++) {
-    std::cout<<"Enter int value=";
-    std::cin>>*index;
+    std::cout << "Enter int value=";
+    std::cin >> *index;
   }
-  std::cout<<"Array initiation complete"<<std::endl;
+  std::cout << "Array initiation complete" << std::endl;
   return;  // ok
 }
 
 // SHOW ARRAY
-void ShowArray(int *const array_begin, int const *const array_end,char OB='{',char CB='}') {
+void ShowArray(int *const array_begin, int const *const array_end) {
   if (array_begin == nullptr || array_end == nullptr ||
       array_begin > array_end) {
     return;  // error
   }
   for (int *index = array_begin; index <= array_end; index++) {
-    std::cout << OB << *index << CB;
+    std::cout << '{' << *index << '}';
   }
   std::cout << std::endl;
   return;  // ok
@@ -126,13 +126,18 @@ void Quicksort(int *array_begin, int *array_end, comparison comp) {
 //  Q U I C K   S O R T   F U N C T I O N S   B L O K   E N D
 
 int main() {
-  using TypeArray = int[k_int_array_size];
-  TypeArray SrcArray{0};
+  std::cout << R"(Надрукуй розмір масиву
+для ручної ініціації масиву введи число від 2 до 100
+при введені 1 розмір масиву буде 100 з виведенням на екран
+При введені 2 розмір масиву буде 10000 без виведння на екран)";
 
-  std::cout << "Fill the array with a random number generator." << std::endl;
+  int SrcArray[k_int_array_size];
+  rInitArray(SrcArray, SrcArray + k_int_array_size);
+  // uInitArray(SrcArray, SrcArray + k_int_array_size);
+
   auto BeginAt = std::chrono::system_clock::now();
   rInitArray(SrcArray, SrcArray + k_int_array_size);
-  ShowArray(SrcArray, SrcArray + k_int_array_size,'[',']');
+  // ShowArray(SrcArray, SrcArray + k_int_array_size);
   auto FinishAt = std::chrono::system_clock::now();
   std::chrono::duration<double> TimeІpent = FinishAt - BeginAt;
   std::cout << "Elapsed time: " << TimeІpent.count() << "s\n";
@@ -141,7 +146,7 @@ int main() {
             << std::endl;
   size_t memory_size = sizeof(SrcArray);
   for (int Method = 0; Method < COUNT_ST; Method++) {
-    TypeArray Victim;
+    int Victim[k_int_array_size];
     BeginAt = std::chrono::system_clock::now();
     memcpy(Victim, SrcArray, memory_size);
     FinishAt = std::chrono::system_clock::now();
