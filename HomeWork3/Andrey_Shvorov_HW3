@@ -1,0 +1,111 @@
+#include <iostream>
+int GetR() {
+  std::cout << std::endl
+            << "Repeat enter?" << std::endl
+            << "1 - yes (repeat)" << std::endl
+            << "0 - no (exit)" << std::endl;
+  int r{};
+  std::cin >> r;
+  if (std::cin.fail()) // если предыдущее извлечение оказалось неудачным
+                       // остаемся в проге,
+  {
+    std::cin.clear(); // то возвращаем cin в 'обычный' режим работы
+    std::cin.ignore(
+        std::numeric_limits<std::streamsize>::max(),
+        '\n'); // и удаляем значения предыдущего ввода из входного буфера
+    r = 1;     //остаемся в проге
+  }
+  return r;
+}
+
+int GetValue() {
+  int var = {0}; //универсальная инициализация*
+  while (true) {
+    std::cout << "Enter value:";
+    std::cin >> var;
+    if (std::cin.fail()) // если предыдущее извлечение оказалось неудачным,
+    {
+      std::cin.clear(); //сброс флага ошибки (возвращаем cin в 'обычный' режим
+                        //работы)
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                      '\n'); //после ошибки пропукаем символв и удаляем значения
+                             //предыдущего ввода из входного буфера
+      std::cout << "Error format.  Please try again.\n";
+    } else {
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                      '\n'); // удаляем лишние значения
+      break;
+    }
+  }
+  return var;
+}
+void PrintArray(int *arr, int size) {
+  std::cout << "array[";
+  for (int i = 0; i < size; i++)
+    if (i == 0)
+      std::cout << arr[i];
+    else
+      std::cout << "," << arr[i];
+  std::cout << "]" << std::endl;
+}
+
+void Sort(int *arr, int size) {
+  if (arr == nullptr || size == 0)
+    return;
+
+  for (int i = size - 1; i >= 0; i--) {
+    for (int j = 0; j < i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        int tmp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = tmp;
+      }
+    }
+  }
+}
+
+int Pos(int *arr, int size, int val) {
+  if (arr == nullptr || size == 0)
+    return -2; // error
+  if (arr[0] == 0)
+    return 0; // min==0
+  for (int i = 0; i < size - 1; i++) {
+    if ((arr[i] < val && val <= arr[i + 1]) ||
+        (arr[i] < val && arr[i + 1] == 0))
+      return i + 1; // between or last
+    if (arr[i] > val)
+      return i;
+  }
+  return -1;
+}
+
+void Insert(int *arr, int size, int p, int val) {
+  if (arr == nullptr || size == 0)
+    return; // error
+  for (int i = size - 1; i > p; i--)
+    arr[i] = arr[i - 1];
+  arr[p] = val;
+}
+
+int main() {
+  int arr[]{0, 0, 0, 0, 0, 0};
+  int size = sizeof(arr) / sizeof(int);
+  PrintArray(arr, size);
+
+  int val{0};
+  int p{0};
+  int r{1};
+  while (r == 1) //для меню
+  {
+    val = GetValue();
+    p = Pos(arr, size, val);
+    if (p >= 0)
+      Insert(arr, size, p, val);
+    PrintArray(arr, size);
+
+    r = GetR();
+  }
+
+  // std::cin.get();
+  return 0;
+}
