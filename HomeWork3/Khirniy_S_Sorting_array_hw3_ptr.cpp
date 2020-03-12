@@ -8,6 +8,7 @@ void addToArray(int *begin, int *end) {
     std::cin >> *begin;
     begin++;
   }
+  std::cout << std::endl;
 }
 // Function for print to screen
 void printToScreen(int *begin, int *end) {
@@ -15,6 +16,7 @@ void printToScreen(int *begin, int *end) {
     std::cout << *begin << " ";
     begin++;
   }
+  std::cout << std::endl;
 }
 
 int main(int argc, char const *argv[]) {
@@ -27,12 +29,10 @@ int main(int argc, char const *argv[]) {
   // Input array from keyboard
   std::cout << "Input " << arrSize << " elements in array: " << std::endl;
   addToArray(begin, end);
-  std::cout << std::endl;
 
   // Output array before sorting
   std::cout << "Array has " << arrSize << " elements: " << std::endl;
   printToScreen(begin, end);
-  std::cout << std::endl;
 
   int temp; // Temporary variable for swapping elements
 
@@ -49,11 +49,8 @@ int main(int argc, char const *argv[]) {
   }
 
   // Output array after sorting
-  std::cout << std::endl;
   std::cout << "Sorting array of " << arrSize << " elements: " << std::endl;
 
   printToScreen(begin, end);
-  std::cout << std::endl;
-  std::cout << std::endl;
   return 0;
 }
