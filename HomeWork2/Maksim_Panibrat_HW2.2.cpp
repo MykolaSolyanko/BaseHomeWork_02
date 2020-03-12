@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
   const int kMinNum = 100000, kMaxNum = 999999;
   std::cout << "This programm checks your ticket's number\n"
                "Enter number in range [ "
-            << kMinNum << " ... " << kMaxNum << " ] fo analize: ";
+            << kMinNum << " ... " << kMaxNum << " ] for analize: ";
   int ticket_num;
   std::cin >> ticket_num;
   ticket_analize(ticket_num);
