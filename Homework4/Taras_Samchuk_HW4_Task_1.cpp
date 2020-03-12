@@ -1,5 +1,6 @@
 #include <chrono>
 #include <cstring>
+#include <fstream>
 #include <functional>
 #include <iostream>
 #include <random>
@@ -11,6 +12,7 @@ using comparison = std::function<bool(int, int)>;
 const size_t k_int_array_size{10'000};
 const int k_min_random_value{10};
 const int k_max_random_value{99};
+const char k_file_name[]{"Taras_Samchuk_HW4_Task_1.txt"};
 
 bool More(int a, int b) { return a > b; }
 bool Less(int a, int b) { return a < b; }
@@ -25,19 +27,38 @@ void rInitArray(int *const array_begin, int const *const array_end) {
   std::mt19937 mt(rd());
   std::uniform_int_distribution<int> GenInt(k_min_random_value,
                                             k_max_random_value);
-  for (int *index = array_begin; index <= array_end; index++) {
+  for (int *index = array_begin; index != array_end; index++) {
     *index = GenInt(mt);
   }
   return;  // ok
 }
-// RANDOM INIT ARRAY
+
+void fInitArray(int *const array_begin, int const *const array_end) {
+  if (array_begin == nullptr || array_end == nullptr ||
+      array_begin >= array_end) {
+    return;  // error
+  }
+  std::ifstream InitFile;
+  InitFile.open(k_file_name);
+  if (InitFile.is_open()) {
+    int *read = array_begin;
+    while (!InitFile.eof() && !(read == array_end)) {
+      InitFile >> *read++;
+    }
+    InitFile.close();
+    return;
+  }
+  std::cout << "File not found" << std::endl;
+}
+
+// USER INIT ARRAY
 void uInitArray(int *const array_begin, int const *const array_end) {
   if (array_begin == nullptr || array_end == nullptr ||
       array_begin >= array_end) {
     return;  // error
   }
   std::cout << "Start initiating an array" << std::endl;
-  for (int *index = array_begin; index <= array_end; index++) {
+  for (int *index = array_begin; index != array_end; index++) {
     std::cout << "Enter int value=";
     std::cin >> *index;
   }
@@ -51,7 +72,7 @@ void ShowArray(int *const array_begin, int const *const array_end) {
       array_begin > array_end) {
     return;  // error
   }
-  for (int *index = array_begin; index <= array_end; index++) {
+  for (int *index = array_begin; index != array_end; index++) {
     std::cout << '{' << *index << '}';
   }
   std::cout << std::endl;
@@ -126,27 +147,56 @@ void Quicksort(int *array_begin, int *array_end, comparison comp) {
 //  Q U I C K   S O R T   F U N C T I O N S   B L O K   E N D
 
 int main() {
-  std::cout << R"(Надрукуй розмір масиву
-для ручної ініціації масиву введи число від 2 до 100
-при введені 1 розмір масиву буде 100 з виведенням на екран
-При введені 2 розмір масиву буде 10000 без виведння на екран)";
+  std::cout << R"(
+A program for demonstrating the 
+   speed of some algorithms.
+Choose the method of initiation
+1 Automatic (random number generator)
+2 The numbers are downloaded from the file 
+)" << k_file_name
+            << R"(
 
-  int SrcArray[k_int_array_size];
-  rInitArray(SrcArray, SrcArray + k_int_array_size);
-  // uInitArray(SrcArray, SrcArray + k_int_array_size);
-
-  auto BeginAt = std::chrono::system_clock::now();
-  rInitArray(SrcArray, SrcArray + k_int_array_size);
-  // ShowArray(SrcArray, SrcArray + k_int_array_size);
-  auto FinishAt = std::chrono::system_clock::now();
-  std::chrono::duration<double> TimeІpent = FinishAt - BeginAt;
-  std::cout << "Elapsed time: " << TimeІpent.count() << "s\n";
-
-  std::cout << "Performance comparison of some sorting algorithms\n"
+Enter a method)"
             << std::endl;
+  int SrcArray[k_int_array_size]{};
+  char choise;
+  std::cin >> choise;
+  auto BeginAt = std::chrono::system_clock::now();
+  auto FinishAt = std::chrono::system_clock::now();
+  std::chrono::duration<double> TimeІpent;
+  switch (choise) {
+    case '1':
+      std::cout << "Fill in an array of " << k_int_array_size
+                << " elements with a random number generator\n"
+                << std::endl;
+      BeginAt = std::chrono::system_clock::now();
+      rInitArray(SrcArray, SrcArray + k_int_array_size);
+      FinishAt = std::chrono::system_clock::now();
+      TimeІpent = FinishAt - BeginAt;
+      std::cout << "Elapsed time: " << TimeІpent.count() << "s" << std::endl;
+      break;
+    case '2':
+      std::cout << R"(
+Filling an array from a file. In the absence 
+of data in the file, the data array is filled 
+with empty values. When filling the array, the 
+remaining data from the file is ignored.
+)" << std::endl;
+      BeginAt = std::chrono::system_clock::now();
+      fInitArray(SrcArray, SrcArray + k_int_array_size);
+      FinishAt = std::chrono::system_clock::now();
+      TimeІpent = FinishAt - BeginAt;
+      std::cout << "Elapsed time: " << TimeІpent.count() << "s" << std::endl;
+      break;
+    default:
+      std::cout << "Unknown choice.The program cannot be executed" << std::endl;
+      return 0;
+      break;
+  }
+
   size_t memory_size = sizeof(SrcArray);
   for (int Method = 0; Method < COUNT_ST; Method++) {
-    int Victim[k_int_array_size];
+    int Victim[k_int_array_size]{};
     BeginAt = std::chrono::system_clock::now();
     memcpy(Victim, SrcArray, memory_size);
     FinishAt = std::chrono::system_clock::now();
