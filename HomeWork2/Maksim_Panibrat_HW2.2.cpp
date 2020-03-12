@@ -1,20 +1,23 @@
-
 #include <iostream>
 
-int main() {
-  std::cout << "This program checks ticket number.\n";
-  std::cout << "Enter ticket number\n";
-  int number;
-  std::cin >> number;
-  const int kMinNumber = 100000, kMaxNumber = 999999;
-  while (number < kMinNumber || number > kMaxNumber) {
-    std::cout << "Not in range\n";
-    std::cin >> number;
-  }
-  int left_number = (number / 100000) + ((number / 10000) % 10) + ((number / 1000) % 10);
-  std::cout << "left sum = " << left_number << std::endl;
-  int right_number = ((number / 100) % 10) + ((number / 10) % 10) + ((number / 1) % 10);
-  std::cout << "right sum = " << right_number << std::endl;
-  std::cout << "You " << (left_number == right_number ? "won!!!" : "lose...");
+void ticket_analize(int ticket_num) {
+  int left_sum;
+  left_sum = (ticket_num / 100000) + (ticket_num / 10000) % 10 +
+             (ticket_num / 1000) % 10;
+  int right_sum;
+  right_sum =
+      (ticket_num / 100) % 10 + (ticket_num / 10) % 10 + ticket_num % 10;
+  std::cout << (left_sum == right_sum ? "You won!!!" : "You lose...")
+            << std::endl;
+}
+
+int main(int argc, char *argv[]) {
+  const int kMinNum = 100000, kMaxNum = 999999;
+  std::cout << "This programm checks your ticket's number\n"
+               "Enter number in range [ "
+            << kMinNum << " ... " << kMaxNum << " ] fo analize: ";
+  int ticket_num;
+  std::cin >> ticket_num;
+  ticket_analize(ticket_num);
   return 0;
 }
