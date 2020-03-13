@@ -7,7 +7,7 @@ int main(){
 	int array_size;
 	cout<<"Enter size of your array: "<<endl;
 	cin>>array_size;
-	int arr[array_size];
+	int arr[array_size]{};
 	arr[array_size-1] = 0;
 	cout<<"Enter int values to fill your array\n";
 	int h=0;
