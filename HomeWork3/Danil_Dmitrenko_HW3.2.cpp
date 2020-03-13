@@ -11,9 +11,9 @@ int main(){
 	arr[array_size-1] = 0;
 	cout<<"Enter int values to fill your array\n";
 	int h=0;
-	while(arr[array_size-1]==0){
-		cin>>arr[h];
-		h++;
+      size_t count{};
+	while(count < array_size) {
+		cin>>arr[count++];
 	}
 	qwerty(arr,array_size);
 	for(int l=0;l<array_size;l++){
