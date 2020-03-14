@@ -1,42 +1,44 @@
 #include <chrono>
 #include <cstring>
-#include <functional>
 #include <iostream>
-#include <random>
 
 const size_t message_max_lenght{255};
 const char k_letter_BIG_A{'A'};
 const char k_letter_BIG_Z{'Z'};
 const char k_letter_small_a{'a'};
 const char k_letter_small_z{'z'};
-const char k_letters_count = k_letter_BIG_Z - k_letter_BIG_A + 1;
+const short k_letters_count = k_letter_BIG_Z - k_letter_BIG_A + 1;
 
 enum Code { OK, TO_BIG_KEY, TO_SMALL_KEY };
 
-Code CaesarCode(char *Letter, int Key) {
-  if (Key == 0) return Code::TO_SMALL_KEY;
-  if (Key > k_letters_count || Key < (-k_letters_count)) return TO_BIG_KEY;
-  // is letter
+Code CaesarCode(char *input, const int Key) {
+  if (Key == 0) {
+    return Code::TO_SMALL_KEY;
+  }
+  if (Key > k_letters_count || Key < (-k_letters_count)) {
+    return Code::TO_BIG_KEY;
+  }
+  unsigned char temp_letter=static_cast<unsigned char>(*input);
+  unsigned char *Letter=&temp_letter;
   if ((*Letter >= k_letter_BIG_A && *Letter <= k_letter_BIG_Z) ||
       (*Letter >= k_letter_small_a && *Letter <= k_letter_small_z)) {
     if (*Letter >= k_letter_BIG_A && *Letter <= k_letter_BIG_Z) {
       *Letter += Key;
       *Letter =
-          (*Letter >= k_letter_BIG_Z) ? *Letter - k_letters_count : *Letter;
+          (*Letter > k_letter_BIG_Z) ? *Letter - k_letters_count : *Letter;
       *Letter =
           (*Letter < k_letter_BIG_A) ? *Letter + k_letters_count : *Letter;
     } else {
       *Letter += Key;
       *Letter =
-          (*Letter >= k_letter_small_z) ? *Letter - k_letters_count : *Letter;
+          (*Letter > k_letter_small_z) ? *Letter - k_letters_count : *Letter;
       *Letter =
           (*Letter < k_letter_small_a) ? *Letter + k_letters_count : *Letter;
     }
   };
-
+  *input=static_cast<char>(temp_letter);
   return Code::OK;
 }
-
 
 int main(int argc, char const *argv[]) {
   std::cout << R"(
@@ -54,7 +56,7 @@ int main(int argc, char const *argv[]) {
   short Key{0};
   do {
     if (!Key) {
-      std::cout << "Enter Key [1.." << (int)(k_letters_count) << "]>";
+      std::cout << "Enter Key [1.." << k_letters_count << "]>";
     }
     std::cin >> Key;
   } while (!Key);
