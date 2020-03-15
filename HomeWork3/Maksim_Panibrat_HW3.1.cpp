@@ -15,6 +15,7 @@ int main(int argc, char* argv[]) {
         --end;
         i++;
     }
+    i=0;
     std::cout << "Result: ";
         while (i != kMaxSize) {
         array[i] = temp_array[i];
