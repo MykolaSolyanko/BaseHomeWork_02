@@ -142,7 +142,7 @@ void FillAndSortIntArray(int *array, int size) {
 
   while (i < size) {
     std::cout << "Enter the " << i + 1
-              << " th element of array of numbers integer (from 0 to 1024 ) "
+              << " th element of array of numbers integer (from 0 to 100) "
               << std::endl;
     std::cin >> array[i];
     ++i;
