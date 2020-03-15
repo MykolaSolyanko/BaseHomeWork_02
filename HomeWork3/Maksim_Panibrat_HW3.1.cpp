@@ -15,6 +15,13 @@ int main(int argc, char* argv[]) {
         --end;
         i++;
     }
-    std::cout << "Result: " << array    << std::endl;
+    std::cout << "Result: ";
+        while (i != kMaxSize) {
+        array[i] = temp_array[i];
+        if (temp_array[i] != 0) {
+            std::cout << array[i];
+        }
+        i++;
+    }
     return 0;
 }
