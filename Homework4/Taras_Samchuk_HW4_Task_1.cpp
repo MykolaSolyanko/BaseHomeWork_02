@@ -22,7 +22,7 @@ Choose the method of initiation
 Enter a method)"
             << std::endl;
 
-  unsigned char choise;
+  short choise;
   std::cin >> choise;
 
   int SrcArray[k_int_array_size]{};
