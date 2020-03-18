@@ -1,13 +1,33 @@
 #include "SortingAlgorithms.hpp"
 
+bool More(int a, int b) { return a > b; }
+bool Less(int a, int b) { return a < b; }
+
+void SwapInt(int *const first_ptr, int *const second_ptr) {
+  if (first_ptr == nullptr || second_ptr == nullptr ||
+      first_ptr == second_ptr) {
+    return;  // ERROR
+  }
+  int tmp_ptr = *first_ptr;
+  *first_ptr = *second_ptr;
+  *second_ptr = tmp_ptr;
+  // OK
+}
+
+void SwapInt(int &first, int &second) {
+  int tmp = first;
+  first = second;
+  second = tmp;
+}
+
 void BubleSort(int *const array_begin, int const *const array_end,
                Comparison comp) {
   if (array_begin == nullptr || array_end == nullptr) {
     return;  // ERROR
   }
-  for (int *pass_1 = array_begin; pass_1 <= array_end; ++pass_1) {
-    for (int *pass_2 = (array_begin); pass_2 <= array_end; ++pass_2) {
-      if (comp(*pass_1, *pass_2)) SwapInt(pass_1, pass_2);
+  for (int *pass_1 = array_begin; pass_1 != array_end; ++pass_1) {
+    for (int *pass_2 = (array_begin); pass_2 != array_end; ++pass_2) {
+      if (comp(*pass_1, *pass_2)) SwapInt(*pass_1, *pass_2);
     }
   }
   // OK
@@ -18,7 +38,7 @@ void SelectSort(int *const array_begin, int const *const array_end,
   if (array_begin == nullptr || array_end == nullptr) {
     return;  // ERROR
   }
-  int *remember;
+  int *remember{nullptr};
 
   for (int *first_pass = array_begin; first_pass != array_end; first_pass++) {
     remember = first_pass;
@@ -26,7 +46,7 @@ void SelectSort(int *const array_begin, int const *const array_end,
          second_pass++)
       remember = (comp(*second_pass, *remember)) ? second_pass : remember;
     if (first_pass != remember) {
-      SwapInt(first_pass, remember);
+      SwapInt(*first_pass, *remember);
     }
   }
   // OK
@@ -40,7 +60,7 @@ int *Separator(int *opening, int *closing, Comparison comp) {
   int *section = opening;
   for (int *index = opening; index != closing; index++) {
     if (comp(*index, pilot) /* *index <= pilot */) {
-      SwapInt(index, section);
+      SwapInt(*index, *section);
       section++;
     }
   }
