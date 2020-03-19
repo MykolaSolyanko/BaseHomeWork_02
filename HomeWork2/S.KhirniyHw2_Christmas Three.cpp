@@ -3,6 +3,7 @@
 #include <iostream>
 
 int main() {
+  std::cout << "Enter elements for build christmass three \n";
   char z = '*', space = ' ';
   int n;
   std::cin >> n;
@@ -33,4 +34,5 @@ int main() {
     }
     std::cout << space;
   }
+  std::cout << std::endl;
 }
