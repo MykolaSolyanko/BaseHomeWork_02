@@ -1,46 +1,42 @@
 #include <iostream>
 
-void insert_element(int *const ptr_array, const size_t size,
-                    const int element) {
-  auto *begin = ptr_array, *end = begin + size - 1;
+void insert_element(int *begin, int *end, int element) {
   while (*begin < element && *begin != 0 && begin <= end) {
     ++begin;
   }
-  while (begin < end) {
+  while (begin != end) {
     *end = *(end - 1);
     --end;
   }
   *begin = element;
 }
 
-void print_array(const int array[], const size_t size) {
+void print_array(int array[], const size_t kSize) {
   std::cout << "[";
-  for (size_t i = 0; i < size; i++) {
+  for (int i = 0; i < kSize; i++) {
     std::cout << array[i];
-    if (i != size - 1) {
+    if (i != kSize - 1) {
       std::cout << ",";
     }
   }
-  std::cout << "]";
+  std::cout << "]\n";
 }
 
-int main(int argc, char *argv[]) {
-  const size_t kMaxSize = 5;
-  std::cout << "This program inserts elements into array, and sorts them by "
-               "their size\n"
-               "Array's max size = "
-            << kMaxSize << "\n";
-  int array[kMaxSize]{};
-  for (size_t i = 0; i < kMaxSize; i++) {
-    int element;
-    do {
-      std::cout << "Insert element number " << i << " of " << kMaxSize
-                << " greater than 0\n";
-      std::cin >> element;
-    } while (element == 0);
-    insert_element(array, kMaxSize, element);
-    print_array(array, kMaxSize);
+int main() {
+  const size_t kSize = 5;
+  std::cout << "This programm sorts elements that user inserts into array.\n"
+               "Array size = "
+            << kSize << std::endl;
+  int array[kSize]{};
+  for (size_t i = 0; i < kSize; i++) {
+    int *begin = {array}, *end = begin + kSize - 1, element;
+    std::cout << "Enter '" << i << "' element: ";
+    std::cin >> element;
+
+    insert_element(begin, end, element);
+    print_array(array, kSize);
   }
 
   return 0;
 }
+
