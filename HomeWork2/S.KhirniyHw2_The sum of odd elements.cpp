@@ -1,25 +1,33 @@
+// The sum of odd elements.cpp
+
 #include <iostream>
-#include <vector>
 
-int main(int argc, const char **argv) {
-
-  int n;
-  std::cout << "Enter the number of elements in sequence" << std::endl;
-  std::cin >> n;
-  std::vector<int> a(n);
-  std::cout << "Enter the elements of sequence" << std::endl;
-
-  for (size_t i = 0; i < n; ++i) {
-    std::cin >> a[i];
+int main() {
+  const int kMinNumber = 1, kMaxNumber = 50;
+  std::cout << "Enter number of range [" << kMinNumber << "..." << kMaxNumber
+            << "]\n";
+  int number{};
+  std::cin >> number;
+  if (number < kMinNumber || number > kMaxNumber) {
+    std::cout << "Input number is out of range \n";
+    std::cin >> number;
   }
-  int sum = 0;
-
-  for (size_t i = 0; i < n; ++i) {
-    if (a[i] % 2 != 0) {
-      sum += a[i];
+  const int kMinValue = -60, kMaxValue = 90;
+  std::cout << "Enter numbers in range [" << kMinValue << "..." << kMaxValue
+            << "] \n";
+  size_t sum{}, iter{1};
+  while (iter <= number) {
+    int value;
+    std::cin >> value;
+    if (value < kMinValue || value > kMaxValue) {
+      std::cout << "Value is out of range, enter again \n";
+      continue;
     }
+    if (value % 2) {
+      sum += value;
+    }
+    ++iter;
   }
-  std::cout << "Sum of odd elements is " << sum << std::endl;
-
+  std::cout << "The sum of odd elements = " << sum << std::endl;
   return 0;
 }
