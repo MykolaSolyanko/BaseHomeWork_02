@@ -45,7 +45,7 @@ is ignored.)" << std::endl;
       std::cout << "Unknown choice.The program cannot be executed" << std::endl;
       return 0;
   }
-
+  // todo
   for (int Method = 0; Method < COUNT_ST; Method++) {
     const size_t memory_size = sizeof(SrcArray);
     int Victim[k_int_array_size]{};
