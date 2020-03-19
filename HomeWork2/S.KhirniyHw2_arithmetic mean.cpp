@@ -1,23 +1,24 @@
+// arithmetic mean.cpp
+
 #include <iostream>
 
 int main() {
-  std::cout << "Enter the number of items, and press Enter " << std::endl;
-  int n{0};
-  std::cin >> n;
-  std::cout << "Enter items, and press Enter" << std::endl;
-
-  int s{0};
-
-  for (size_t i = 0; i < n; i++) {
-    int val;
-    std::cin >> val;
-    s += val;
+  std::cout << "Enter the number of items, and Press Enter " << std::endl;
+  int number{0};
+  std::cin >> number;
+  while (number == 0) {
+    std::cout << "Enter number different than 0 \n";
+    std::cin >> number;
   }
-
-  double amean; // Arithmetic mean
-  amean = double(s) / double(n);
-
-  std::cout << "Sum is = " << s << std::endl;
-  std::cout << "Arithmetic mean is = " << amean << std::endl;
+  double sum{0};
+  int digits{0};
+  while (number > 0) {
+    sum += (number % 10);
+    number /= 10;
+    digits++;
+  }
+  std::cout << "Sum of digits = " << sum << std::endl;
+  double arithmetic_mean = sum / digits;
+  std::cout << "Arithmetic mean is = " << arithmetic_mean << std::endl;
   return 0;
 }
