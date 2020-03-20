@@ -4,10 +4,13 @@
 enum ARRAY_FILLING { DEFAULT = 1, RANDOM, CUSTOM };
 char *alloc_char_array(size_t kSize) {
   char *array = new char[kSize];
+
+  return array;
+}
+void fill_char_array(char *array, size_t kSize) {
   std::cout << "Please, enter char string with max " << kSize << " elements"
             << std::endl;
   std::cin >> array;
-  return array;
 }
 size_t length_char_array(char *array) {
   if (array == nullptr) {
@@ -25,29 +28,27 @@ void CharArrayReverse(char *array, int size) {
   };
   if (size != 0) {
     char *rev = new char[size];
-    for (int i{0}; i < size; ++i) {
-      rev[size - 1 - i] = array[i];
+    for (int i{0}; i < size / 2; ++i) {
+      int tmp{array[size - 1 - i]};
+      array[size - 1 - i] = array[i];
+      array[i] = tmp;
     }
-    for (int i{0}; i < size; ++i) {
-      array[i] = rev[i];
-    }
+
     delete[] rev;
   } else {
     std::cout << "Array is empty." << std::endl;
   }
 }
 void PrintCharArray(char *array, int size) {
-  if (array == nullptr) {
+  if (array == nullptr && size == 0) {
+    std::cout << "Array is empty." << std::endl;
     return;
   };
-  if (size != 0) {
-    for (int i{0}; i < size; ++i) {
-      std::cout << array[i];
-    }
-    std::cout << std::endl;
-  } else {
-    std::cout << "Array is empty." << std::endl;
+
+  for (int i{0}; i < size; ++i) {
+    std::cout << array[i];
   }
+  std::cout << std::endl;
 }
 void PrintUpperCaseCharArray(char *array, int size) {
   if (array == nullptr) {
@@ -56,7 +57,7 @@ void PrintUpperCaseCharArray(char *array, int size) {
   if (size != 0) {
     for (int i{0}; i < size; ++i) {
       if (array[i] >= 'a' && array[i] <= 'z') {
-        std::cout << char(array[i] - 32);
+        std::cout << static_cast<char>(array[i] - 32);
       } else {
         std::cout << array[i];
       }
@@ -67,59 +68,55 @@ void PrintUpperCaseCharArray(char *array, int size) {
   }
 }
 void PrintLowerCaseCharArray(char *array, int size) {
-  if (array == nullptr) {
-    return;
-  }
-  if (size != 0) {
-    for (int i{0}; i < size; ++i) {
-      if (array[i] >= 'A' && array[i] <= 'Z') {
-        std::cout << char(array[i] + 32);
-      } else {
-        std::cout << array[i];
-      }
-    }
-    std::cout << std::endl;
-  } else {
+  if (array == nullptr && size == 0) {
     std::cout << "Array is empty." << std::endl;
-  }
-}
-void is_digit(char *array, int size) {
-  if (array == nullptr) {
     return;
   }
-  if (size > 0) {
-    bool digit_found{false};
-    size_t iter{};
-    while (array[iter] != `\0`) {
-      if (array[iter] >= '0' && array[iter] <= '9') {
-        digit_found = true;
-        break;
-      }
-      ++iter;
-    }
-    if (d == true) {
-      char *dig_array = new char[size];
-      int j{};
-      for (int i{0}; i < size; ++i) {
-        if (array[i] >= 48 && array[i] <= 57) {
-          dig_array[j] = array[i];
-          ++j;
-        }
-      }
-      if (j > 0) {
-        std::cout << "is_digit: ";
-        for (int i = 0; i < j; ++i) {
-          std::cout << *(dig_array + i) << " ";
-        }
-      }
-      delete[] dig_array;
+
+  for (int i{0}; i < size; ++i) {
+    if (array[i] >= 'A' && array[i] <= 'Z') {
+      std::cout << static_cast<char>(array[i] + 32);
     } else {
-      std::cout << "No digits  in the string";
+      std::cout << array[i];
     }
-    std::cout << std::endl;
-  } else {
-    std::cout << "Array is empty." << std::endl;
   }
+  std::cout << std::endl;
+}
+void print_is_digit(char *array, int size) {
+  if (array == nullptr && size <= 0) {
+    std::cout << "Array is empty." << std::endl;
+    return;
+  }
+
+  bool digit_found{false};
+  size_t iter{};
+  while (array[iter] != '\0') {
+    if (array[iter] >= '0' && array[iter] <= '9') {
+      digit_found = true;
+      break;
+    }
+    ++iter;
+  }
+  if (digit_found == true) {
+    char *dig_array = new char[size];
+
+    for (int i{0}; i < size; ++i) {
+      if (array[i] >= '0' && array[i] <= '9') {
+        dig_array[i] = array[i];
+      }
+    }
+    if (digit_found) {
+      std::cout << "is_digit: ";
+      size_t digit_iter{};
+      while (dig_array[digit_iter] >= '0' && dig_array[digit_iter] <= '9') {
+        std::cout << dig_array[digit_iter++] << " ";
+      }
+    }
+    delete[] dig_array;
+  } else {
+    std::cout << "No digits  in the string";
+  }
+  std::cout << std::endl;
 }
 void PartialSortElemArray(int *array, int size) {
   for (int i = 0; i < size - 1; ++i) {
@@ -143,17 +140,17 @@ void FillAndSortIntArray(int *array, int size) {
 
   while (i < size) {
     std::cout << "Enter the " << i + 1
-              << " th element of array of numbers integer (from 0 to 100) "
+              << " th element of array of numbers integer (from 0 to 100 ) "
               << std::endl;
     std::cin >> array[i];
     ++i;
     PartialSortElemArray(array, i);
     PrintIntArray(array, size);
-    std::cout << "To continue press 1 otherwise press any key to break."
+    std::cout << "To continue press y otherwise press any key to break."
               << std::endl;
     char answer{};
     std::cin >> answer;
-    if (answer != '1') {
+    if (answer != 'y') {
       break;
     }
   };
@@ -172,14 +169,12 @@ void FillIntArrRandom(int *array, int size) {
   }
 }
 void FillIntArrCustom(int *array, int size) {
-  int i{};
-  while (i < size) {
+
+  for (int i{}; i < size; ++i) {
     std::cout << "Enter the " << i + 1
-              << " th element of array of numbers integer (from 0 to 1024 ) "
+              << " th element of array of numbers integer (from 0 to 100 ) "
               << std::endl;
     std::cin >> array[i];
-    ++i;
-    break;
   }
 }
 void FillingIntArray(int *array, int size) {
@@ -215,22 +210,32 @@ void DeleteElemArray(int *array, int &size) {
             << std::endl;
   int delete_num, count{};
   std::cin >> delete_num;
-  while (*(array + size - 1) == delete_num) {
-    --size;
-    ++count;
+
+  bool digit_found{false};
+  int iter{};
+  while (iter < size) {
+    if (array[iter] == delete_num) {
+      digit_found = true;
+      break;
+    }
+    ++iter;
   }
-  for (int i{}; i < size; ++i) {
-    if (*(array + i) == delete_num) {
-      *(array + i) = *(array + size - 1);
-      --size;
-    } else {
-      ++count;
-    };
-  }
-  if (--size == count) {
-    std::cout << " No number " << delete_num << " in the array. " << std::endl;
+  if (digit_found) {
+
+    int new_size{};
+    for (int i{0}; i < size; ++i) {
+      if (array[i] != delete_num) {
+        array[new_size++] = array[i];
+      }
+    }
+    if (digit_found) {
+      size = new_size;
+      std::cout << " Number " << delete_num << " deleted from array. "
+                << std::endl;
+    }
+
   } else {
-    std::cout << " Number " << delete_num << " deleted from array. "
-              << std::endl;
-  }
+    std::cout << " No number " << delete_num << " in the array. " << std::endl;
+  };
+  std::cout << std::endl;
 }
