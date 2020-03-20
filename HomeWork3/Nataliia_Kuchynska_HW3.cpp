@@ -1,8 +1,7 @@
 #include "Header.hpp"
 #include <iostream>
-#include <random>
 
-const rsize_t ksize = 100;
+const size_t ksize = 100;
 enum ARR_TYPE { CHAR_ARR = 1, INT_ARR };
 enum CHAR_ARR_OPTIONS {
   CHAR_ARR_REVERSE = 1,
@@ -22,7 +21,9 @@ int main() {
     switch (choise) {
     case ARR_TYPE::CHAR_ARR: {
       char *array = alloc_char_array(ksize);
+      fill_char_array(array, ksize);
       size_t asize = length_char_array(array);
+      bool eow{true};
       do {
         std::cout << "Please, choose function to work with char array:"
                   << std::endl;
@@ -30,10 +31,10 @@ int main() {
         std::cout << "2 print UPPERCASE char array;" << std::endl;
         std::cout << "3 print LOWERCASE char array;" << std::endl;
         std::cout << "4 print Try IS_DIGIT in char array;" << std::endl;
-        std::cout << " Press any other key to exit from this program."
-                  << std::endl;
+        std::cout << "0 press to finish work with char array." << std::endl;
         int choise1;
         std::cin >> choise1;
+
         switch (choise1) {
         case CHAR_ARR_OPTIONS::CHAR_ARR_REVERSE:
           CharArrayReverse(array, asize);
@@ -46,25 +47,25 @@ int main() {
           PrintLowerCaseCharArray(array, asize);
           break;
         case CHAR_ARR_OPTIONS::CHAR_ARR_IS_DIGIT:
-          is_digit(array, asize);
+          print_is_digit(array, asize);
           break;
         default:
-          std::cout << " End of work with array" << std::endl;
-          return false;
+          std::cout << "End of work with char array" << std::endl;
+          eow = false;
         }
-      } while (true);
+      } while (eow);
       delete[] array;
       break;
     }
     case ARR_TYPE::INT_ARR: {
+      bool eow{true};
       do {
         std::cout << "Please, choose function to work with int array:"
                   << std::endl;
         std::cout << "1 create and add elements to sorted int array;"
                   << std::endl;
         std::cout << "2 delete elements from int array;" << std::endl;
-        std::cout << " Press any other key to exit from this program."
-                  << std::endl;
+        std::cout << "0 Press to finish work with int array" << std::endl;
         int choise2;
         std::cin >> choise2;
         int *int_arr = new int[ksize]{};
@@ -85,11 +86,11 @@ int main() {
         }
         default:
           std::cout << " End of work with int array" << std::endl;
-          delete[] int_arr;
           return 0;
+          eow = false;
         }
         delete[] int_arr;
-      } while (true);
+      } while (eow);
       break;
     }
     default:
