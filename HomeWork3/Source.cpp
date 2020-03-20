@@ -88,14 +88,15 @@ void is_digit(char *array, int size) {
     return;
   }
   if (size > 0) {
-    bool d{false};
-    int k{};
-    do {
-      if (array[k] >= 48 && array[k] <= 57) {
-        d = true;
+    bool digit_found{false};
+    size_t iter{};
+    while (array[iter] != `\0`) {
+      if (array[iter] >= '0' && array[iter] <= '9') {
+        digit_found = true;
+        break;
       }
-      k++;
-    } while ((d == false) && (k < size));
+      ++iter;
+    }
     if (d == true) {
       char *dig_array = new char[size];
       int j{};
