@@ -3,6 +3,7 @@
 #include "DinListTS_HW5.hpp"
 
 int main(int argc, char const *argv[]) {
+#ifdef ONE
   node_one_ptr *list = new node_one_ptr;
   print_list(list);
   push_back(list, 1);
@@ -24,5 +25,17 @@ int main(int argc, char const *argv[]) {
   clear_list(list);
   print_list(list);
   delete list;
+#endif
+
+#ifdef TWO
+  node_two_ptr *head = new node_two_ptr;
+  node_two_ptr *tail = new node_two_ptr;
+
+  head->pNext = tail;
+  tail->pPrev = head;
+
+  // dgitelete ptrrr;
+
+#endif
   return 0;
 }
