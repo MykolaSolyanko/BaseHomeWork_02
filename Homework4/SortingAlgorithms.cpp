@@ -3,17 +3,6 @@
 bool More(int a, int b) { return a > b; }
 bool Less(int a, int b) { return a < b; }
 
-void SwapInt(int *const first_ptr, int *const second_ptr) {
-  if (first_ptr == nullptr || second_ptr == nullptr ||
-      first_ptr == second_ptr) {
-    return;  // ERROR
-  }
-  int tmp_ptr = *first_ptr;
-  *first_ptr = *second_ptr;
-  *second_ptr = tmp_ptr;
-  // OK
-}
-
 void SwapInt(int &first, int &second) {
   int tmp = first;
   first = second;
@@ -64,7 +53,7 @@ int *Separator(int *opening, int *closing, Comparison comp) {
       section++;
     }
   }
-  SwapInt(closing, section);
+  SwapInt(*closing, *section);
   return section;
 }
 void Quicksort(int *array_begin, int *array_end, Comparison comp) {

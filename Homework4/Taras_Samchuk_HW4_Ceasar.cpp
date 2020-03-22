@@ -11,15 +11,15 @@ const short k_letters_count = k_letter_BIG_Z - k_letter_BIG_A + 1;
 
 enum Code { OK, TO_BIG_KEY, TO_SMALL_KEY };
 
-Code CaesarCode(char *input, const int Key) {
+Code CaesarCode(char &input, const int Key) {
   if (Key == 0) {
     return Code::TO_SMALL_KEY;
   }
   if (Key > k_letters_count || Key < (-k_letters_count)) {
     return Code::TO_BIG_KEY;
   }
-  unsigned char temp_letter=static_cast<unsigned char>(*input);
-  unsigned char *Letter=&temp_letter;
+  unsigned char temp_letter = static_cast<unsigned char>(input);
+  unsigned char *Letter = &temp_letter;
   if ((*Letter >= k_letter_BIG_A && *Letter <= k_letter_BIG_Z) ||
       (*Letter >= k_letter_small_a && *Letter <= k_letter_small_z)) {
     if (*Letter >= k_letter_BIG_A && *Letter <= k_letter_BIG_Z) {
@@ -36,7 +36,7 @@ Code CaesarCode(char *input, const int Key) {
           (*Letter < k_letter_small_a) ? *Letter + k_letters_count : *Letter;
     }
   };
-  *input=static_cast<char>(temp_letter);
+  input = static_cast<char>(temp_letter);
   return Code::OK;
 }
 
@@ -68,7 +68,7 @@ int main(int argc, char const *argv[]) {
             << Message << "\n===" << std::endl;
   char *MesPtr = Message;
   do {
-    Code GetError = CaesarCode(MesPtr++, Key);
+    Code GetError = CaesarCode(*(MesPtr++), Key);
     if (GetError == TO_BIG_KEY) {
       std::cout << "TO_BIG_KEY";
       break;

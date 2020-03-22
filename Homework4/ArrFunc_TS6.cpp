@@ -5,7 +5,7 @@
 #include <random>
 
 // RANDOM INIT ARRAY
-void rInitArray(int *const array_begin, int const *const array_end) {
+void rundomInitArray(int *const array_begin, int const *const array_end) {
   if (array_begin == nullptr || array_end == nullptr ||
       array_begin >= array_end) {
     return;  // error
@@ -20,13 +20,12 @@ void rInitArray(int *const array_begin, int const *const array_end) {
   // ok
 }
 
-void fInitArray(int *const array_begin, int const *const array_end) {
+void fileInitArray(int *const array_begin, int const *const array_end) {
   if (array_begin == nullptr || array_end == nullptr ||
       array_begin >= array_end) {
     return;  // error
   }
-  std::ifstream InitFile;
-  InitFile.open(k_file_name);
+  std::ifstream InitFile{k_file_name};
   if (InitFile.is_open()) {
     int *read = array_begin;
     while (!InitFile.eof() && !(read == array_end)) {
@@ -38,7 +37,7 @@ void fInitArray(int *const array_begin, int const *const array_end) {
 }
 
 // USER INIT ARRAY
-void uInitArray(int *const array_begin, int const *const array_end) {
+void userInitArray(int *const array_begin, int const *const array_end) {
   if (array_begin == nullptr || array_end == nullptr ||
       array_begin >= array_end) {
     return;  // error

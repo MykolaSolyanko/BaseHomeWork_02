@@ -31,7 +31,7 @@ Enter a method)"
       std::cout << "Fill in an array of " << k_int_array_size
                 << " elements with a random number generator\n"
                 << std::endl;
-      rInitArray(SrcArray, SrcArray + k_int_array_size);
+      rundomInitArray(SrcArray, SrcArray + k_int_array_size);
       break;
     case TI_USER:
       std::cout << R"(
@@ -39,14 +39,14 @@ Enter a method)"
 in the file, the data array is filled with empty values.
 When filling the array, the remaining data from the file
 is ignored.)" << std::endl;
-      fInitArray(SrcArray, SrcArray + k_int_array_size);
+      fileInitArray(SrcArray, SrcArray + k_int_array_size);
       break;
     default:
       std::cout << "Unknown choice.The program cannot be executed" << std::endl;
       return 0;
   }
   // todo
-  for (int Method = 0; Method < COUNT_ST; Method++) {
+  for (int Method = 0; Method != SortType::COUNT_ST; Method++) {
     const size_t memory_size = sizeof(SrcArray);
     int Victim[k_int_array_size]{};
     memcpy(Victim, SrcArray, memory_size);
@@ -58,7 +58,6 @@ is ignored.)" << std::endl;
     auto more = [](int a, int b) { return a > b; };
     SysTimePoint BeginAt{};
     SysTimePoint FinishAt{};
-    SysTimeDuration TimeІpent{};
     switch (Method) {
       //
       case SortType::ST_BOBLE_SORT:
@@ -85,7 +84,7 @@ is ignored.)" << std::endl;
       default:
         break;
     }
-    TimeІpent = FinishAt - BeginAt;
+    SysTimeDuration TimeІpent = FinishAt - BeginAt;
     std::cout << "Elapsed time: " << TimeІpent.count() << "s" << std::endl;
   }
   return 0;
