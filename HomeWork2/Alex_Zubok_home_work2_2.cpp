@@ -1,13 +1,13 @@
 #include <iostream>
 #include <limits>
 
-int count(int &value){
+int count(int value){
     size_t count {};
     for ( size_t tmp = value; tmp > 0; tmp /= 10)
         ++count;
     return count;
 }
-int summa(int &value){
+int summa(int value){
     size_t summ{};
     const uint8_t kTen = 10;
     for ( size_t tmp = value; tmp > 0; tmp /= kTen)
