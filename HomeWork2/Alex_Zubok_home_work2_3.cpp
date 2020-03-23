@@ -1,10 +1,10 @@
 #include <iostream>
 #include <cmath>
 
-size_t count(int &value){
+size_t count(int value){
     size_t count {};
     const uint8_t kZero = 0;
-    for ( int tmp = ( value > kZero)? value:(value * ( -1 ) ) ; tmp > kZero; tmp /= 10 )
+    for ( int tmp = ( value > kZero)? value : -value; tmp > kZero; tmp /= 10 )
         ++count;
     return count;
 }
