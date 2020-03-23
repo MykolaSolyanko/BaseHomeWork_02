@@ -21,8 +21,7 @@ int main() {
   char symbol = 'y';
   while (symbol == 'y' || symbol == 'Y') {
     std::cout << "Please enter your happy ticket, and pess 'Enter': ";
-    while (!(std::cin >> happy_ticket) || std::cin.fail() ||
-           count(happy_ticket) != kHappy_Count) {
+    while (!(std::cin >> happy_ticket) || std::cin.fail() || count(happy_ticket) != kHappy_Count) {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits<int>::max(), '\n');
       std::cout << "You enter wrong ticket number, please try again and pess 'Enter': ";
