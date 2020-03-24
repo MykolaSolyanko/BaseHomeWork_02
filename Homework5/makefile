@@ -16,7 +16,7 @@ COMPILER=clang++
 # параметри
 PARAM=-c -Wall -Wpedantic -std=c++17
 # з яких вайлів збираємо
-SOURCES=Taras_Samchuk_HW5.cpp DinListTS_HW5.cpp
+SOURCES=Taras_Samchuk_HW5.cpp Classic_TS_HW5.cpp
 # формула імен о-файлів
 OBJECTS=$(SOURCES:.cpp=.o)
 # ім'я програми
