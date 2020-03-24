@@ -5,15 +5,11 @@
 static const char k_mes_arrow[]{"=->"};
 static const char k_mes_nullptr[]{"nullptr"};
 static const char k_mes_head[]{"}>"};
-// // static const char k_mes_tail[]{"<{"};
-// // static const char k_mes_empty[]{"empty"};
-// // static const char k_mes_reverse_arrow[]{"<=>"};
-//===============================================================
-bool print_list(node_one_ptr *root) {
+void print_list(node_one_ptr *root) {
   std::cout << k_mes_head;
   if (root == nullptr) {
     std::cout << k_mes_nullptr << std::endl;
-    return false;
+    return;
   }
   node_one_ptr *arrow = root;
   while (arrow != nullptr) {
@@ -21,7 +17,7 @@ bool print_list(node_one_ptr *root) {
     arrow = arrow->next;
   }
   std::cout << k_mes_nullptr << std::endl;
-  return true;
+  return;
 };
 
 void push_back(node_one_ptr **root, const int info) {
@@ -100,4 +96,3 @@ int view_back(node_one_ptr *root) {
   };
   return arrow->Data;
 };
-//===========================================
