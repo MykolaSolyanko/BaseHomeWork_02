@@ -9,7 +9,8 @@ struct layer {
   layer *next{nullptr};
 };
 
-// Implementing a stack using a linked list
+// stack is based on a unidirectional list
+
 class Stack {
  public:
   Stack();
@@ -33,6 +34,43 @@ class Stack {
 
  private:
   layer *head{nullptr};
+  size_t count{0};
+  const size_t k_max_size{k_defult_max_size};
+};
+
+// the queue is based on a bidirectional list
+
+struct node2directions {
+  int save{};
+  node2directions *next{nullptr};
+  node2directions *prev{nullptr};
+};
+
+class Equeue {
+ public:
+  Equeue();
+  Equeue(const size_t size);
+  ~Equeue();
+
+  bool enqueue(const int value);
+  result peek();
+  result dequeue();
+
+  bool printAllForward() const;
+  bool printAllBackward() const;
+
+  void clear();
+  bool swap();
+
+  bool isEmpty() const;
+  bool isFull() const;
+
+  size_t getCount() const;
+  size_t getMaxSize() const;
+
+ private:
+  node2directions *head{nullptr};
+  node2directions *tail{nullptr};
   size_t count{0};
   const size_t k_max_size{k_defult_max_size};
 };
