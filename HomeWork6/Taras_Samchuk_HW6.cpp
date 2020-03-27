@@ -23,8 +23,8 @@ int main(int argc, char const *argv[]) {
   // }
   {
     Equeue Demo(6);
-    // Demo.printAllBackward();
-    // Demo.printAllForward();
+    Demo.printAllBackward();
+    Demo.printAllForward();
     Demo.enqueue(1);
     Demo.enqueue(2);
     Demo.enqueue(3);
@@ -36,12 +36,12 @@ int main(int argc, char const *argv[]) {
     Demo.enqueue(9);
     Demo.enqueue(10);
     Demo.enqueue(11);
-    // Demo.printAllBackward();
-    // Demo.printAllForward();
+    Demo.printAllBackward();
+    Demo.printAllForward();
     Demo.swap();
 
     Demo.printAllBackward();
-    // Demo.printAllForward();
+    Demo.printAllForward();
   }
   // Stack Demo2(Demo);
   // Demo2.printAll();
