@@ -16,8 +16,6 @@ Stack::Stack() { head = new layer; }
 
 Stack::Stack(const size_t size) : k_max_size{size} { head = new layer; }
 
-// Stack::Stack(const Stack &Stack) = delete;
-
 Stack::~Stack() {
   if (count != 0) {
     clear();
@@ -107,23 +105,23 @@ size_t Stack::getCount() const { return count; }
 size_t Stack::getMaxSize() const { return k_max_size; }
 
 // the queue is based on a bidirectional list
+Equeue::Equeue(size_t size) : k_max_size{size} {
+  head = new node2directions;
+  tail = new node2directions;
+  head->next = tail;
+  tail->prev = head;
+}
 
 Equeue::Equeue() {
   Equeue::head = new node2directions;
   Equeue::tail = new node2directions;
-}
-
-Equeue::Equeue(size_t size) : k_max_size{size} {
-  head = new node2directions;
-
-  tail = new node2directions;
   head->next = tail;
   tail->prev = head;
 }
 
 Equeue::~Equeue() {
   if (count != 0) {
-    // clear();
+    clear();
   }
   delete Equeue::head;
   delete Equeue::tail;
@@ -140,6 +138,7 @@ bool Equeue::enqueue(int value) {
   NewComponent->prev = head;
   head->next = NewComponent;
   first->prev = NewComponent;
+  count++;
   return true;
 }
 

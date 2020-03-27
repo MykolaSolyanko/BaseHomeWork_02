@@ -15,7 +15,6 @@ class Stack {
  public:
   Stack();
   Stack(const size_t size);
-  // Stack(const Stack &Stack) = delete;
   ~Stack();
 
   bool push(const int value);
@@ -48,8 +47,9 @@ struct node2directions {
 
 class Equeue {
  public:
-  Equeue();
   Equeue(const size_t size);
+  Equeue();
+
   ~Equeue();
 
   bool enqueue(const int value);
