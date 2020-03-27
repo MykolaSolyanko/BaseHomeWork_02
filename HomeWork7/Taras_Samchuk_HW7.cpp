@@ -1,29 +1,46 @@
-#include <iostream>
+// #include <iostream>
 
-using str = char[25];
+#include <string>
 
 #include "Classic_TS_HW7.hpp"
 int main(int argc, char const *argv[]) {
-  /* code */
-  // Demo.printQueueFront();
-  Stack<str> DemoStack(11);
-  DemoStack.push("'1'");
-  DemoStack.push("'2'");
-  DemoStack.push("'3'");
-  DemoStack.push("'4'");
-  DemoStack.push("'5'");
-  DemoStack.push("'6'");
-  DemoStack.push("'7'");
-  DemoStack.push("'8'");
-  DemoStack.push("'9'");
-  // DemoStack.push(10);
-  // DemoStack.push(11);
-  DemoStack.printAll();
-  DemoStack.swap();
-  DemoStack.printAll();
-  // Stack Demo2(DemoStack);
-  // Demo2.printAll();
-  // std::cout << DemoStack.getCount() << std::endl
-  //           << DemoStack.top().first << std::endl;
+  Stack<short> Demo(11);
+  Demo.push(1);
+  Demo.push(2);
+  Demo.push(3);
+  Demo.push(4);
+  Demo.push(5);
+  Demo.push(6);
+  Demo.push(7);
+  Demo.push(8);
+  Demo.push(9);
+  Demo.push(10);
+  Demo.push(11);
+  Demo.printAll();
+  Demo.swap();
+  Demo.printAll();
+  Demo.clear();
+
+  Equeue<double> Demo2;
+  Demo2.printAllBackward();
+  Demo2.printAllForward();
+  Demo2.enqueue(1);
+  Demo2.enqueue(2);
+  Demo2.enqueue(3);
+  Demo2.enqueue(4);
+  Demo2.enqueue(5);
+  Demo2.enqueue(6);
+  Demo2.enqueue(7);
+  Demo2.enqueue(8);
+  Demo2.enqueue(9);
+  Demo2.enqueue(10);
+  Demo2.enqueue(11);
+  Demo2.printAllBackward();
+  Demo2.printAllForward();
+  Demo2.swap();
+  Demo2.printAllBackward();
+  Demo2.clear();
+  Demo2.printAllForward();
+
   return 0;
 }
