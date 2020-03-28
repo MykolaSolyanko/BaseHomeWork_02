@@ -15,7 +15,7 @@ void BubleSort(int *const array_begin, int const *const array_end,
     return;  // ERROR
   }
   for (int *pass_1 = array_begin; pass_1 != array_end; ++pass_1) {
-    for (int *pass_2 = (array_begin); pass_2 != array_end; ++pass_2) {
+    for (int *pass_2 = pass_1 + 1; pass_2 != array_end; ++pass_2) {
       if (comp(*pass_1, *pass_2)) SwapInt(*pass_1, *pass_2);
     }
   }

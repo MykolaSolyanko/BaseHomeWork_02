@@ -2,7 +2,7 @@
 #include <cstring>
 #include <iostream>
 
-#include "ArrFunc_TS6.hpp"
+#include "ArrFunc_TS4.hpp"
 #include "SortingAlgorithms.hpp"
 
 using SysTimePoint = std::chrono::time_point<std::chrono::system_clock>;
@@ -62,9 +62,11 @@ is ignored.)" << std::endl;
       //
       case SortType::ST_BOBLE_SORT:
         std::cout << "BOBLESORT" << std::endl;
+        ShowArray(Victim, Victim + k_int_array_size);
         BeginAt = std::chrono::system_clock::now();
         BubleSort(Victim, Victim + k_int_array_size, more);
         FinishAt = std::chrono::system_clock::now();
+        ShowArray(Victim, Victim + k_int_array_size);
         break;
         //
       case SortType::ST_SELECTION_SORT:

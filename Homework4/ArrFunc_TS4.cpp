@@ -1,8 +1,11 @@
-#include "ArrFunc_TS6.hpp"
+#include "ArrFunc_TS4.hpp"
 
 #include <fstream>
 #include <iostream>
 #include <random>
+
+static const int k_min_random_value{10};
+static const int k_max_random_value{99};
 
 // RANDOM INIT ARRAY
 void rundomInitArray(int *const array_begin, int const *const array_end) {
