@@ -4,7 +4,7 @@ bool range_check(long long x, int a, int b) {
   return (x >= a) && (x <= b); 
 }
 
-bool modul_remainder(int value, unsigned int modul_value) {
+bool modulo(int value, unsigned int modul_value) {
   return (value % modul_value) != 0;
 }
 
@@ -29,7 +29,7 @@ int main() {
     int tmp{};
     std::cout << "Enter " << index << " value: ";
     check_valid_input(tmp, kMin_inputs, kMax_inputs);
-    if (modul_remainder(tmp, kTwo))
+    if (modulo(tmp, kTwo))
       summ += tmp;
   }
 
