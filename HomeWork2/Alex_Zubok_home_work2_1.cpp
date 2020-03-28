@@ -22,9 +22,8 @@ int main() {
   const uint8_t kZero = 0;
   const uint8_t kTen = 10;
   for (size_t tmp = var, summ{}; tmp > kZero; tmp /= kTen) {
-    summ += tmp % kTen;
     ++index;
-    summ_var = summ;
+    summ_var += tmp % kTen;
   }
   std::cout << "Summ of ";
   for (size_t tmp = var, i = index; i > kZero; i--) {
