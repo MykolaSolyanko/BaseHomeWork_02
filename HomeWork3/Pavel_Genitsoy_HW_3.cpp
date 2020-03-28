@@ -8,24 +8,36 @@ const auto kNumForChangeRegister{ 32 };
 const auto kFirstNum{ '0' };
 const auto kLastNum{ '9' };
 
+enum UpOrDown : bool { UP = true, DOWN = false };
+
+void swap(char *const begin_ptr, char *const end_ptr) {
+  if (begin_ptr == nullptr || end_ptr == nullptr || begin_ptr == end_ptr) {
+    return;
+  }
+  char tmp = *begin_ptr;
+  *begin_ptr = *end_ptr;
+  *end_ptr = tmp;
+}
+
 void reverse_array() {
   const size_t kAr_size{100};
   char ar[kAr_size]{};
   std::cout << "Enter word: ";
   std::cin >> ar;
   const size_t size = strlen(ar);
-  char re_ar[kAr_size]{};
 
   if (size >= kAr_size) {
     std::cout << "Wrong size of word." << std::endl;
     return;
   }
 
-  for (int i = size; i>=0; i--) {
-		re_ar[size-i] = ar[i];
-		std::cout << re_ar[size - i];
-	}
-  std::cout << "\n\n";
+  char *begin_ptr{ar};
+  char *end_ptr{begin_ptr + size - 1};
+
+  while (begin_ptr < end_ptr) {
+    swap(begin_ptr++, end_ptr--);
+  }
+  std::cout << "Reverse word: " << ar << std::endl;
 }
 
 void print_array(const unsigned int array[], const size_t size) {
@@ -43,14 +55,14 @@ void print_array(const unsigned int array[], const size_t size) {
   std::cout << "]" << std::endl;
 }
 
-void sort_for_insert(unsigned int* begin, unsigned int* end,
+void sort_for_insert_in_valid_range(unsigned int* begin, unsigned int* end,
                      const unsigned int num_element) {
   if (begin == nullptr && end == nullptr) {
     std::cout << "Error/nullptr" << std::endl;
     return;
   }
 
-  while (*begin < num_element && *begin != 0 && begin <= end) {
+  while (*begin < num_element && *begin != 0 && begin < end) {
     ++begin;
   }
 
@@ -83,28 +95,21 @@ void insert_element() {
 
     sort_for_insert(array, array + kArraySize - 1, num_element);
 
-    bool check{true};
-    do {
-      std::cout << "\n\nInsert (1) if you want to see a content of tha array."
-                << std::endl;
-      std::cout << "Insert (any other) if you don't want to see." << std::endl;
-      int key{};
-      std::cin >> key;
-      switch (key) {
-      case 1:
-        print_array(array, kArraySize);
-        check = false;
-        break;
-      default:
-        check = false;
-        break;
-      }
-    } while (check);
+    std::cout
+        << "\n\nInsert (any number) if you want to see a content of tha array."
+        << std::endl;
+    std::cout << "Insert (any only 1 letter) if you don't want to see."
+              << std::endl;
+    char key{};
+    std::cin >> key;
+    if (isdigit(key)) {
+      print_array(array, kArraySize);
+    }
   }
   std::cout << std::endl;
 }
 
-void sort_upOrdownto(char *const begin, bool choice) {
+void sort_upOrdownto(char *const begin, UpOrDown choice) {
   if (begin == nullptr) {
     std::cout << "Error/nullptr" << std::endl;
     return;
@@ -121,20 +126,20 @@ void sort_upOrdownto(char *const begin, bool choice) {
   }
 }
 
-void UPorDOWNto(bool choice) {
+void UPorDOWNto(UpOrDown choice) {
   char word[_MAX_PATH]{};
   std::cout << "Input word: ";
   std::cin >> word;
   char *begin = word;
   if (choice) {
     while (*begin) {
-      sort_upOrdownto(begin++, true);
+      sort_upOrdownto(begin++, UpOrDown::UP);
     }
     std::cout << "Word in upper register: " << word << "\n" << std::endl;
     return;
   }
   while (*begin) {
-    sort_upOrdownto(begin++, false);
+    sort_upOrdownto(begin++, UpOrDown::DOWN);
   }
   std::cout << "Word in lower register: " << word << "\n" << std::endl;
 }
@@ -177,10 +182,10 @@ int main() {
       insert_element();
       break;
     case UPPER_WORD:
-      UPorDOWNto(true);
+      UPorDOWNto(UpOrDown::UP);
       break;
     case DOWN_WORD:
-      UPorDOWNto(false);
+      UPorDOWNto(UpOrDown::DOWN);
       break;
     case IS_DIGIT:
       is_digit();
