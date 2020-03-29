@@ -27,14 +27,12 @@ void CharArrayReverse(char *array, int size) {
     return;
   };
   if (size != 0) {
-    char *rev = new char[size];
-    for (int i{0}; i < size / 2; ++i) {
+    int half_size = size / 2;
+    for (int i{0}; i < half_size; ++i) {
       int tmp{array[size - 1 - i]};
       array[size - 1 - i] = array[i];
       array[i] = tmp;
     }
-
-    delete[] rev;
   } else {
     std::cout << "Array is empty." << std::endl;
   }
@@ -87,7 +85,6 @@ void print_is_digit(char *array, int size) {
     std::cout << "Array is empty." << std::endl;
     return;
   }
-
   bool digit_found{false};
   size_t iter{};
   while (array[iter] != '\0') {
@@ -99,18 +96,16 @@ void print_is_digit(char *array, int size) {
   }
   if (digit_found == true) {
     char *dig_array = new char[size];
-
+    size_t iter{};
     for (int i{0}; i < size; ++i) {
       if (array[i] >= '0' && array[i] <= '9') {
-        dig_array[i] = array[i];
+        dig_array[iter++] = array[i];
       }
     }
-    if (digit_found) {
-      std::cout << "is_digit: ";
-      size_t digit_iter{};
-      while (dig_array[digit_iter] >= '0' && dig_array[digit_iter] <= '9') {
-        std::cout << dig_array[digit_iter++] << " ";
-      }
+    std::cout << "is_digit: ";
+    size_t digit_iter{};
+    while (digit_iter < iter) {
+      std::cout << dig_array[digit_iter++] << " ";
     }
     delete[] dig_array;
   } else {
@@ -142,8 +137,7 @@ void FillAndSortIntArray(int *array, int size) {
     std::cout << "Enter the " << i + 1
               << " th element of array of numbers integer (from 0 to 100 ) "
               << std::endl;
-    std::cin >> array[i];
-    ++i;
+    std::cin >> array[i++];
     PartialSortElemArray(array, i);
     PrintIntArray(array, size);
     std::cout << "To continue press y otherwise press any key to break."
@@ -210,7 +204,6 @@ void DeleteElemArray(int *array, int &size) {
             << std::endl;
   int delete_num, count{};
   std::cin >> delete_num;
-
   bool digit_found{false};
   int iter{};
   while (iter < size) {
@@ -228,14 +221,10 @@ void DeleteElemArray(int *array, int &size) {
         array[new_size++] = array[i];
       }
     }
-    if (digit_found) {
-      size = new_size;
-      std::cout << " Number " << delete_num << " deleted from array. "
-                << std::endl;
-    }
-
+    size = new_size;
+    std::cout << " Number " << delete_num << " deleted from array. "
+              << std::endl;
   } else {
     std::cout << " No number " << delete_num << " in the array. " << std::endl;
   };
-  std::cout << std::endl;
 }
