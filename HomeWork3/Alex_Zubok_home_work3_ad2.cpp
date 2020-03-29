@@ -11,6 +11,7 @@ void upper_string(char *string) {
 }
 
 int main() {
+  std::cout << "Please enter string: ";
   char *tmp_string = new char;
   std::cin >> tmp_string;
   char *string = new char[std::strlen(tmp_string) + 1];
