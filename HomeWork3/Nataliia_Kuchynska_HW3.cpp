@@ -86,7 +86,6 @@ int main() {
         }
         default:
           std::cout << " End of work with int array" << std::endl;
-          return 0;
           eow = false;
         }
         delete[] int_arr;
