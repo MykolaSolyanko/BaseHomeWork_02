@@ -23,7 +23,6 @@ void Christmas_Tree() {
         }
         std::cout << std::endl;
     }
-    return;
 }
 
 void Bit_Counter() {
@@ -37,7 +36,6 @@ void Bit_Counter() {
         }
     }
     std::cout << "Number of set bits: " << set_bits << std::endl;
-    return;
 }
 
 void Set_Bit() {
@@ -49,7 +47,6 @@ void Set_Bit() {
     int bit;
     std::cin >> bit;
     std::cout << ((input & bit) > 0 ? "Yes" : "No" );
-    return;
 }
 
 enum { CHRISTMAS_TREE = 1, BIT_COUNTER, SET_BIT };
