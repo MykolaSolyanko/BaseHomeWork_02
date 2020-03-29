@@ -11,13 +11,12 @@ void upper_case() {
   std::cin >> array;
   char *begin = array, *end = begin + kSize - 1;
   while (begin != end) {
-    if (*begin > 90) {
+    if (*begin >= 'a') {
       *begin = *begin - 32;
     }
     ++begin;
   }
   std::cout << "Result: " << array << std::endl;
-  return;
 }
 
 void lower_case() {
@@ -29,13 +28,12 @@ void lower_case() {
   std::cin >> array;
   char *begin = array, *end = begin + kSize - 1;
   while (begin != end) {
-    if (*begin > 64 && *begin < 91) {
+    if (*begin >= 'A' && *begin <= 'Z') {
       *begin = *begin + 32;
     }
     ++begin;
   }
   std::cout << "Result: " << array << std::endl;
-  return;
 }
 
 void is_digit() {
@@ -53,7 +51,6 @@ void is_digit() {
     }
     ++begin;
   }
-  return;
 }
 
 int main() {
@@ -83,3 +80,4 @@ int main() {
   }
   return 0;
 }
+
