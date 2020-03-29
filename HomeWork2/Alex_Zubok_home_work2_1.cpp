@@ -10,7 +10,7 @@ void check_valid_input(long long &value) {
 }
 
 int main() {
-  long long var{}, summ_var{};
+  long long var{};
   std::cout << "Please enter a positive integer value:";
   check_valid_input(var);
   if (var == 0) {
@@ -21,7 +21,8 @@ int main() {
   size_t index{};
   const uint8_t kZero = 0;
   const uint8_t kTen = 10;
-  for (size_t tmp = var, summ{}; tmp > kZero; tmp /= kTen) {
+  long long summ_var{}
+  for (size_t tmp = var; tmp > kZero; tmp /= kTen) {
     ++index;
     summ_var += tmp % kTen;
   }
