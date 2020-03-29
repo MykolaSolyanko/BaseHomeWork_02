@@ -15,7 +15,7 @@ int main() {
   std::cout << "Please enter your number that need to reverse: ";
   std::cin >> value;
   size_t count_var = count(value);
-  for (int tmp = value, i = count_var; i > 0; i--, tmp /= kTen)
+  for (int tmp = value; count_var > 0; count_var--, tmp /= kTen)
     rev_value += ((tmp % kTen) * pow(kTen, (count(tmp) - 1)));
 
   std::cout << "My reverse value = " << rev_value << std::endl;
