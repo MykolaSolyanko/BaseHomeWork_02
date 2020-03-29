@@ -37,5 +37,5 @@ void CreateIntArray(int *array, int size);
 void SortArray(int *array, int size);
 void CreateDoubleArray(double *array, int size);
 void SortDoubleArray(double *array, int size);
-std::pair<char *, int> CreateCharArray(char *array);
+std::pair<char *, int> CreateCharArray();
 void SortCharArray(char *array, int size);
