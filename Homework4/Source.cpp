@@ -1,390 +1,68 @@
-#include <chrono>
+#include "Header.hpp"
 #include <functional>
 #include <iostream>
-#include <random>
-enum ARRAY_CREATON { RANDOM = 1, CUSTOM };
-enum ORDER { MORE = 1, LESS };
-static const int kSize;
-using IntCompare = std::function<bool(int, int)>;
-using DoubleCompare = std::function<bool(double, double)>;
-using CharCompare = std::function<bool(char, char)>;
-char *AllocCharArray(size_t kSize) {
-  char *array = new char[kSize];
-  std::cout << "Please, enter char string with max " << kSize << " elements"
-            << std::endl;
-  std::cin >> array;
-  return array;
-}
-size_t LengthCharArray(char *array) {
-  if (array == nullptr) {
-    return 0;
-  };
-  size_t arr_size{0};
-  while (array[arr_size] != '\0') {
-    ++arr_size;
-  }
-  return arr_size;
-}
-void CreateRandArray(char *array, const int size) {
-  std::random_device rd;
-  std::mt19937 mersenne{rd()};
-  // std::knuth_b gen1;
-  std::uniform_int_distribution<> dist('0', 'z');
-  for (int i = 0; i < size; i++) {
-    int rand = dist(mersenne);
-    if (((rand > '@') && (rand < '[')) || (rand > '`') || (rand < ':')) {
-      *(array + i) = rand;
-    } else {
-      --i;
-    }
-  }
-}
-void CreateRandArray(int *array, const int size) {
-  std::random_device rd;
-  std::mt19937 mersenne{rd()};
-  std::uniform_int_distribution<int> dist(0, size);
-  for (int i{}; i < size; ++i) {
-    *(array + i) = dist(mersenne);
-  };
-}
-void CreateRandArray(double *array, const int size) {
-  std::random_device rd;
-  std::mt19937 mersenne{rd()};
-  std::uniform_real_distribution<double> dist(0, size);
-  for (int i{}; i < size; ++i) {
-    *(array + i) = dist(mersenne);
-  }
-}
-void CreateCustomArray(int *array, const int size) {
-  int a{};
-  for (int i{}; i < size; ++i) {
-    std::cout << "Please, enter the " << i + 1
-              << "th element of array:" << std::endl;
-    std::cin >> a;
-    *(array + i) = a;
-  };
-}
-void CreateCustomArray(double *array, const int size) {
-  double a{};
-  for (int i{}; i < size; ++i) {
-    std::cout << "Please, enter the " << i + 1
-              << "th element of array:" << std::endl;
-    std::cin >> a;
-    *(array + i) = a;
-  };
-}
-void PrintArray(int *array, const int size) {
-  for (int i{}; i < size; ++i) {
-    std::cout << *(array + i) << " ";
-  }
-  std::cout << std::endl;
-}
-void PrintArray(double *array, const int size) {
-  for (int i{}; i < size; ++i) {
-    std::cout << *(array + i) << " ";
-  }
-  std::cout << std::endl;
-}
-void PrintArray(char *array, const int size) {
-  for (int i{}; i < size; ++i) {
-    std::cout << *(array + i);
-  }
-  std::cout << std::endl;
-}
-void swap(int &a, int &b) {
-  int t = a;
-  a = b;
-  b = t;
-}
-void swap(double &a, double &b) {
-  double t = a;
-  a = b;
-  b = t;
-}
-void swap(char &a, char &b) {
-  char t = a;
-  a = b;
-  b = t;
-}
 
-bool more(int a, int b) { return a > b; }
-bool more(double a, double b) { return a > b; }
-bool more(char a, char b) { return a > b; }
-bool less(int a, int b) { return a < b; }
-bool less(double a, double b) { return a < b; }
-bool less(char a, char b) { return a < b; }
-void BubbleSort(int *array, int size, IntCompare compare) {
-  for (int i = 0; i < size - 1; ++i) {
-    for (int j = 0; j < size - i - 1; ++j) {
-      if (compare(*(array + j), *(array + j + 1))) {
-        swap(array[j], array[j + 1]);
+const int kSize = 10000;
+enum ARRAY_TYPE { INT = 1, DOUBLE, CHAR, EXIT };
+int main() {
+
+  int choise;
+  do {
+    std::cout << "Please, choose the type of elements of array:" << std::endl;
+    std::cout << "1 integer;" << std::endl;
+    std::cout << "2 double;" << std::endl;
+    std::cout << "3 char." << std::endl;
+    std::cout << "4 EXIT." << std::endl;
+    std::cin >> choise;
+    switch (choise) {
+    case ARRAY_TYPE::INT: {
+      std::cout << "Please, choose the size of array (from 1 to 10 000)"
+                << std::endl;
+      int int_arr_size{};
+      std::cin >> int_arr_size;
+      int *int_arr = new int[int_arr_size]{};
+      if (int_arr_size <= kSize && int_arr_size > 0) {
+
+        CreateIntArray(int_arr, int_arr_size);
+        SortArray(int_arr, int_arr_size);
       }
+      delete[] int_arr;
+      break;
     }
-  }
-}
-void BubbleSortTime(int *array, int size, IntCompare compare) {
-  auto begin = std::chrono::steady_clock::now();
-  BubbleSort(array, size, compare);
-  auto end = std::chrono::steady_clock::now();
-  auto elapsed_ms =
-      std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-  std::cout << "The Bubble sort time: " << elapsed_ms.count() << " ms\n";
-}
-void BubbleSort(double *array, int size, DoubleCompare compare) {
-  for (int i = 0; i < size - 1; ++i) {
-    for (int j = 0; j < size - i - 1; ++j) {
-      if (compare(*(array + j), *(array + j + 1))) {
-        swap(array[j], array[j + 1]);
+    case ARRAY_TYPE::DOUBLE: {
+      std::cout << "Please, choose the size of array (from 1 to 10 000)"
+                << std::endl;
+      int double_arr_size{};
+      std::cin >> double_arr_size;
+      double *d_arr = new double[double_arr_size]{};
+
+      if (double_arr_size <= kSize && double_arr_size > 0) {
+        CreateDoubleArray(d_arr, double_arr_size);
+        SortDoubleArray(d_arr, double_arr_size);
       }
+      delete[] d_arr;
+      break;
     }
-  }
-}
-void BubbleSortTime(double *array, int size, DoubleCompare compare) {
-  auto begin = std::chrono::steady_clock::now();
-  BubbleSort(array, size, compare);
-  auto end = std::chrono::steady_clock::now();
-  auto elapsed_ms =
-      std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-  std::cout << "The Bubble sort time: " << elapsed_ms.count() << " ms\n";
-}
-void BubbleSort(char *array, int size, CharCompare compare) {
-  auto begin = std::chrono::steady_clock::now();
-  for (int i = 0; i < size - 1; ++i) {
-    for (int j = 0; j < size - i - 1; ++j) {
-      if (compare(*(array + j), *(array + j + 1))) {
-        swap(array[j], array[j + 1]);
+    case ARRAY_TYPE::CHAR: {
+
+      auto p = CreateCharArray();
+      char *c_arr = p.first;
+      int char_arr_size = p.second;
+      if (c_arr != nullptr) {
+        SortCharArray(c_arr, char_arr_size);
+      } else {
+        std::cout << "Error creation of char array" << std::endl;
       }
+      // delete[] c_arr;
+      break;
     }
-  }
-}
-void BubbleSortTime(char *array, int size, CharCompare compare) {
-  auto begin = std::chrono::steady_clock::now();
-  BubbleSort(array, size, compare);
-  auto end = std::chrono::steady_clock::now();
-  auto elapsed_ms =
-      std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-  std::cout << "The Bubble sort time: " << elapsed_ms.count() << " ms\n";
-}
-void QuickSort(int *array, int low, int high, IntCompare compare) {
+    case ARRAY_TYPE::EXIT: {
+      return 0;
+    }
+    default:
+      break;
+    }
+  } while (true);
 
-  int i{low};
-  int j{high};
-  int pivot = array[(i + j) / 2];
-  while (i <= j) {
-    while (!(compare(array[i], pivot) || (array[i] == pivot)))
-      i++;
-    while (compare(array[j], pivot))
-      j--;
-    if (i <= j) {
-      swap(array[j], array[i]);
-      i++;
-      j--;
-    }
-  }
-  if (j > low)
-    QuickSort(array, low, j, compare);
-  if (i < high)
-    QuickSort(array, i, high, compare);
-}
-void QuickSort(double *array, int low, int high, DoubleCompare compare) {
-  int i{low};
-  int j{high};
-  double pivot = array[(i + j) / 2];
-  while (i <= j) {
-    while (!(compare(array[i], pivot) || (array[i] == pivot)))
-      i++;
-    while (compare(array[j], pivot))
-      j--;
-    if (i <= j) {
-      swap(array[j], array[i]);
-      i++;
-      j--;
-    }
-  }
-  if (j > low)
-    QuickSort(array, low, j, compare);
-  if (i < high)
-    QuickSort(array, i, high, compare);
-}
-void QuickSort(char *array, int low, int high, CharCompare compare) {
-  int i{low};
-  int j{high};
-  char pivot = array[(i + j) / 2];
-  while (i <= j) {
-    while (!(compare(array[i], pivot) || (array[i] == pivot)))
-      i++;
-    while (compare(array[j], pivot))
-      j--;
-    if (i <= j) {
-      swap(array[j], array[i]);
-      i++;
-      j--;
-    }
-  }
-  if (j > low)
-    QuickSort(array, low, j, compare);
-  if (i < high)
-    QuickSort(array, i, high, compare);
-}
-void QuickSortTime(int *array, int low, int high, IntCompare compare) {
-  auto begin = std::chrono::steady_clock::now();
-  QuickSort(array, low, high, compare);
-  auto end = std::chrono::steady_clock::now();
-  auto elapsed_ms =
-      std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-  std::cout << "The Quick sort time: " << elapsed_ms.count() << " ms\n";
-}
-void QuickSortTime(double *array, int low, int high, DoubleCompare compare) {
-  auto begin = std::chrono::steady_clock::now();
-  QuickSort(array, low, high, compare);
-  auto end = std::chrono::steady_clock::now();
-  auto elapsed_ms =
-      std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-  std::cout << "The Quick sort time: " << elapsed_ms.count() << " ms\n";
-}
-void CreateIntArray(int *array, int size) {
-  std::cout << "Please, choose the type of array:" << std::endl;
-  std::cout << "1 random;" << std::endl;
-  std::cout << "2 custom." << std::endl;
-  int choise2;
-  std::cin >> choise2;
-  switch (choise2) {
-  case ARRAY_CREATON::RANDOM: {
-    CreateRandArray(array, size);
-    PrintArray(array, size);
-    break;
-  }
-  case ARRAY_CREATON::CUSTOM: {
-    CreateCustomArray(array, size);
-    PrintArray(array, size);
-    break;
-  }
-  default:
-    break;
-  }
-}
-void SortArray(int *array, int size) {
-  std::cout << "Please, choose the type of array sorting:" << std::endl;
-  std::cout << "1 more (from smaller to bigger);" << std::endl;
-  std::cout << "2 less (from bigger to smaller)." << std::endl;
-  int choise2{};
-  std::cin >> choise2;
-  switch (choise2) {
-  case ORDER::MORE: {
-    auto Fptr = static_cast<bool (*)(int, int)>(&more);
-    BubbleSortTime(array, size, Fptr);
-    PrintArray(array, size);
-    QuickSortTime(array, 0, size - 1, Fptr);
-    PrintArray(array, size);
-    break;
-  }
-  case ORDER::LESS: {
-    auto Fptr = static_cast<bool (*)(int, int)>(&less);
-    BubbleSortTime(array, size, Fptr);
-    PrintArray(array, size);
-    QuickSortTime(array, 0, size - 1, Fptr);
-    PrintArray(array, size);
-    break;
-  }
-  default:
-    break;
-  }
-}
-void CreateDoubleArray(double *array, int size) {
-  std::cout << "Please, choose the type of array:" << std::endl;
-  std::cout << "1 random;" << std::endl;
-  std::cout << "2 custom." << std::endl;
-  int choise2;
-  std::cin >> choise2;
-  switch (choise2) {
-  case ARRAY_CREATON::RANDOM: {
-    CreateRandArray(array, size);
-    PrintArray(array, size);
-    break;
-  }
-  case ARRAY_CREATON::CUSTOM: {
-    CreateCustomArray(array, size);
-    PrintArray(array, size);
-    break;
-  }
-  default:
-    break;
-  }
-}
-void SortDoubleArray(double *array, int size) {
-
-  std::cout << "Please, choose the type of array sorting:" << std::endl;
-  std::cout << "1 more (from smaller to bigger);" << std::endl;
-  std::cout << "2 less (from bigger to smaller)." << std::endl;
-  int choise2{};
-  std::cin >> choise2;
-  switch (choise2) {
-  case ORDER::MORE: {
-    auto Fptr = static_cast<bool (*)(double, double)>(&more);
-    BubbleSortTime(array, size, Fptr);
-    PrintArray(array, size);
-    QuickSortTime(array, 0, size - 1, Fptr);
-    PrintArray(array, size);
-    break;
-  }
-  case ORDER::LESS: {
-    auto Fptr = static_cast<bool (*)(double, double)>(&less);
-    BubbleSortTime(array, size, Fptr);
-    PrintArray(array, size);
-    QuickSortTime(array, 0, size - 1, Fptr);
-    PrintArray(array, size);
-    break;
-  }
-  default:
-    break;
-  }
-}
-
-std::pair<char *, int> CreateCharArray(char *array) {
-  std::cout << "Please, choose the type of array:" << std::endl;
-  std::cout << "1 random;" << std::endl;
-  std::cout << "2 custom." << std::endl;
-  int choise3{}, size{};
-  std::cin >> choise3;
-  switch (choise3) {
-  case ARRAY_CREATON::RANDOM: {
-    std::cout << "Please, choose the size of array (from 1 to 10 000)"
-              << std::endl;
-    std::cin >> size;
-    CreateRandArray(array, size);
-    PrintArray(array, size);
-    return std::pair<char *, int>(array, size);
-  }
-  case ARRAY_CREATON::CUSTOM: {
-    array = AllocCharArray(kSize);
-    size = LengthCharArray(array);
-    PrintArray(array, size);
-    return std::pair<char *, int>(array, size);
-  }
-  default:
-    return std::pair<char *, int>(nullptr, 0);
-  }
-}
-void SortCharArray(char *array, int size) {
-  std::cout << "Please, choose the type of array sorting:" << std::endl;
-  std::cout << "1 more (from smaller to bigger);" << std::endl;
-  std::cout << "2 less (from bigger to smaller)." << std::endl;
-  int choise3{};
-  std::cin >> choise3;
-  switch (choise3) {
-  case ORDER::MORE: {
-    auto Fptr = static_cast<bool (*)(char, char)>(&more);
-    BubbleSortTime(array, size, Fptr);
-    PrintArray(array, size);
-    break;
-  }
-  case ORDER::LESS: {
-    auto Fptr = static_cast<bool (*)(char, char)>(&less);
-    BubbleSortTime(array, size, Fptr);
-    PrintArray(array, size);
-    break;
-  }
-  default:
-    break;
-  }
+  return 0;
 }
