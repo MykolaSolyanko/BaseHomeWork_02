@@ -13,7 +13,6 @@ void Manual_array(int* begin, int* end) {
             std::cin >> *begin;
         }
     }
-    return;
 }
 
 
@@ -25,7 +24,6 @@ void Random_array(int* begin, int* end) {
     {
         *begin = distribution(generator);
     }
-    return;
 }
 
 void Array_result(int* begin, int* end, const size_t kSize) {
@@ -34,7 +32,6 @@ void Array_result(int* begin, int* end, const size_t kSize) {
         std::cout << *begin << ",";
     }
     std::cout << *begin << "}\n";
-    return;
 }
 
 static void Swap(int* lhs, int* rhs) {
@@ -43,7 +40,6 @@ static void Swap(int* lhs, int* rhs) {
     *lhs = *rhs;
     *rhs = tmp;
     std::cout << "swap result: lhs" << *lhs << ", rhs " << *rhs << "\n";
-    return;
 }
 
 void Bubble_sort(int* begin, int* end, Comparison comp) {
@@ -54,7 +50,6 @@ void Bubble_sort(int* begin, int* end, Comparison comp) {
             }
         }
     }
-    return;
 }
 
 int* partition(int* begin, int* end, Comparison comp) {
@@ -76,5 +71,4 @@ void Quick_sort(int* begin, int*end, Comparison comp) {
         Quick_sort(begin, (pi - 1), comp);
         Quick_sort((pi + 1), end, comp);
     }
-    return;
 }
