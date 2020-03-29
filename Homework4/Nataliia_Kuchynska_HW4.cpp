@@ -44,14 +44,16 @@ int main() {
       break;
     }
     case ARRAY_TYPE::CHAR: {
-      char *c_arr = new char[kSize]{};
-      int char_arr_size{};
-      auto p = CreateCharArray(c_arr);
-      c_arr = p.first;
-      char_arr_size = p.second;
 
-      SortCharArray(c_arr, char_arr_size);
-      delete[] c_arr;
+      auto p = CreateCharArray();
+      char *c_arr = p.first;
+      int char_arr_size = p.second;
+      if (c_arr != nullptr) {
+        SortCharArray(c_arr, char_arr_size);
+      } else {
+        std::cout << "Error creation of char array" << std::endl;
+      }
+      // delete[] c_arr;
       break;
     }
     case ARRAY_TYPE::EXIT: {
