@@ -95,7 +95,7 @@ void print_is_digit(char *array, int size) {
     ++iter;
   }
   if (digit_found == true) {
-    char *dig_array = new char[size];
+    char *dig_array = new char[size]{};
     size_t iter{};
     for (int i{0}; i < size; ++i) {
       if (array[i] >= '0' && array[i] <= '9') {
@@ -104,7 +104,7 @@ void print_is_digit(char *array, int size) {
     }
     std::cout << "is_digit: ";
     size_t digit_iter{};
-    while (digit_iter < iter) {
+    while (dig_array[digit_iter] != '\0') {
       std::cout << dig_array[digit_iter++] << " ";
     }
     delete[] dig_array;
