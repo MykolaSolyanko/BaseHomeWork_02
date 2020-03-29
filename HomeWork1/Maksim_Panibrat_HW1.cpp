@@ -1,11 +1,9 @@
-#include <cmath>
 #include <iostream>
 #include <limits>
-
-void input_check(int &value, const int kMinNum, const int kMaxNum,
-                 const char check) {
+int input_check(const int kMinNum, const int kMaxNum, const char check) {
   std::cout << "Enter ' " << check << " ' number in range [ " << kMinNum
             << " ... " << kMaxNum << " ]\n";
+  int value;
   while (!(std::cin >> value) || value < kMinNum || value > kMaxNum) {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -17,9 +15,8 @@ void input_check(int &value, const int kMinNum, const int kMaxNum,
       std::cout << "Error, less than minimum" << std::endl;
     }
   }
-  return;
+  return value;
 }
-
 void Discriminant_check(int a, int b, int c) {
   double D{}, x1{}, x2{};
   const double cons4 = 4, cons2 = 2;
@@ -35,17 +32,16 @@ void Discriminant_check(int a, int b, int c) {
   std::cout << "x1 = " << x1 << "\n x2 = " << x2 << std::endl;
   return;
 }
-
 int main(int argc, char *argv[]) {
   const int kMinNum = 2, kMaxNum = 255;
   std::cout << "This programm calculates discriminant \n"
                "ax^2+bx+c=0\n"
                "D = b^2 - 4 * a * c\n";
-  int a, b, c;
-  const char a_check = 97, b_check = 98, c_check = 99;
-  input_check(a, kMinNum, kMaxNum, a_check);
-  input_check(b, kMinNum, kMaxNum, b_check);
-  input_check(c, kMinNum, kMaxNum, c_check);
+  const char a_check = 'a', b_check = 'b', c_check = 'c';
+  int a{input_check(kMinNum, kMaxNum, a_check)},
+      b{input_check(kMinNum, kMaxNum, b_check)},
+      c{input_check(kMinNum, kMaxNum, c_check)};
   Discriminant_check(a, b, c);
   return 0;
 }
+
