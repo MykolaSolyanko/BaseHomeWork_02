@@ -24,7 +24,6 @@ void Discriminant_check(int a, int b, int c) {
   if (D <= 0) {
     std::cout << (D < 0 ? "D<0, no real roots" : "D=0, not quadratic")
               << std::endl;
-    return;
   }
   std::cout << "D>0\t Initilizating...\n";
   x1 = ((-b) + sqrt(pow(b, 2) - (cons4 * a * c))) / (cons2 * a);
