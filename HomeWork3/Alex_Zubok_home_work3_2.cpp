@@ -30,6 +30,6 @@ int main() {
     sort_array(sorted_array, i);
     print_array(sorted_array, arr_size);
   }
-
+  delete[] sorted_array;
   return 0;
 }
