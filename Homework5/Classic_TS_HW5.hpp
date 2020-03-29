@@ -3,11 +3,13 @@ struct node_one_ptr {
   node_one_ptr *next{nullptr};
 };
 
-void print_list(node_one_ptr *root);
+bool print_list(node_one_ptr *root);
 void push_back(node_one_ptr **root, const int info);
 void push_front(node_one_ptr **root, const int info);
 void pop_back(node_one_ptr **root);
 void pop_front(node_one_ptr **root);
-void clear_list(node_one_ptr **root);
-int view_front(node_one_ptr *root);
-int view_back(node_one_ptr *root);
+void clear_list(node_one_ptr *root);
+int viewfront(node_one_ptr *root);
+int viewback(node_one_ptr *root);
+// node_one_ptr *insert(node_one_ptr *pos, int value);
+// node_one_ptr *find(int value);
