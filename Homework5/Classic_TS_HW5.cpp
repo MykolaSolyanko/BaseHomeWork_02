@@ -20,8 +20,8 @@ void print_list(node_one_ptr *head) {
 };
 
 void push_back(node_one_ptr *&head, const int info) {
-  node_one_ptr *NewNode = new node_one_ptr;
-  NewNode->Data = info;
+  node_one_ptr *NewNode = new node_one_ptr{info, nullptr};
+  // NewNode->Data = info;
   if (head == nullptr) {
     head = NewNode;
     return;
@@ -42,6 +42,11 @@ void pop_back(node_one_ptr *&head) {
   if (head == nullptr) {
     return;
   }
+  if (head->next == nullptr) {
+    delete head;
+    head = nullptr;
+    return;
+  }
   node_one_ptr *step_back{nullptr};
   node_one_ptr *arrow = head;
   while (arrow->next != nullptr) {
@@ -52,7 +57,7 @@ void pop_back(node_one_ptr *&head) {
   delete arrow;
 };
 
-void pop_front(node_one_ptr *&head) {  //*&
+void pop_front(node_one_ptr *&head) {
   if (head == nullptr) {
     return;
   }
@@ -62,19 +67,19 @@ void pop_front(node_one_ptr *&head) {  //*&
   *head = *hold;
 };
 
-void clear_list(node_one_ptr *head) {
+void clear_list(node_one_ptr *&head) {
   node_one_ptr *arrow = head;
-  while (arrow->next != nullptr) {
+  head = nullptr;
+  while (arrow != nullptr) {
     node_one_ptr *hold = arrow;
     arrow = arrow->next;
     delete hold;
   };
-  delete head;
 };
 
 int viewfront(node_one_ptr *head) {
   if (head == nullptr) {
-    return {};
+    return 0;
   }
   return head->Data;
 };
@@ -88,4 +93,36 @@ int viewback(node_one_ptr *head) {
     arrow = arrow->next;
   };
   return arrow->Data;
+};
+
+node_one_ptr *insert(node_one_ptr *&head, node_one_ptr *pos, const int value) {
+  if (pos == nullptr) {
+    return nullptr;
+  }
+  node_one_ptr *NewNode = new node_one_ptr{value, nullptr};
+  if (head == nullptr) {
+    head = NewNode;
+    return head;
+  }
+  node_one_ptr *arrow = head;
+  while (arrow->next != nullptr && arrow != pos) {
+    arrow = arrow->next;
+  }
+  NewNode->next = arrow->next;
+  arrow->next = NewNode;
+  return NewNode;
+};
+
+node_one_ptr *find(node_one_ptr *head, const int value) {
+  if (head == nullptr) {
+    return nullptr;  // empty
+  }
+  node_one_ptr *arrow = head;
+  while (arrow != nullptr) {
+    if (arrow->Data == value) {
+      return arrow;  // first found
+    }
+    arrow = arrow->next;
+  }
+  return nullptr;  // did not find anything;
 };
