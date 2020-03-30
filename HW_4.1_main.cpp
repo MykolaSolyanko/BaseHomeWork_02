@@ -33,8 +33,7 @@ int main()
     }
     Array_result(begin, end, kSize);
 
-    auto direction = [](int a, int b) { return a < b; }; /*sort less to left side  return a < b
-                                                           sort less to right side return a > b*/
+    auto direction = [](int a, int b) { return a < b; }; 
 
     std::cout << "Sort methods list:\n"
         "\t1 - Bubble sort\n"
