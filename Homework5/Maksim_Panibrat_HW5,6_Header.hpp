@@ -1,44 +1,59 @@
-#include "Header.h"
+#pragma once
+#include <utility>
+#include <iostream>
 
-int main() {
-  std::cout
-      << "This program realize one of classic data structures - Stack. \n";
-  Stack st;
-  std::cout << "Stack size: " << st.GetSizeStack() << std::endl;
-  int value;
-  {
-    Pair pair{true, ""};
-    while (pair.status == true) {
-      std::cin >> value;
-      pair = st.push(value);
-    }
-    std::cout << pair.msg << std::endl;
-  }
-  std::cout << "top " << st.top() << std::endl;
-  {
-    Pair pair{true, ""};
-    for (int i = 0; i != 6; i++) {
-      pair = st.pop();
-    }
-    std::cout << pair.msg << std::endl;
-  }
-  st.clear();
-  std::cout << "new top after clear: " << st.top() << std::endl;
+struct Pair {
+	bool status;
+	const char* msg;
+};
 
-  {
-    Pair pair{true, ""};
-    for (int i = 0; i != 6; i++) {
-      std::cin >> value;
-      pair = st.push(value);
-    }
-    std::cout << pair.msg << std::endl;
-  }
-  std::cout << "top after iter push: " << st.top() << std::endl;
+class Stack {
+public:
+	Pair push(int value) {
+		Pair pair{ true, " " };
+		std::cout << "Push index: " << index << std::endl;
+		if (index == 9) {
+			pair.status = false;
+			pair.msg = "Stack full";
+			return pair;
+		}
+		std::cout << "Pushed: " << value << std::endl;
+		array[++index] = value;
+		pair.msg = "Push success";
+		return pair;
+	}
+	Pair pop() {
+		Pair pair{ true, " " };
+		if (index == 0) {
+			pair.status = false;
+			pair.msg = "Stack clear";
+			return pair;
+		}
+		std::cout << "Popped " << array[index] << std::endl;
+		--index;
+		pair.msg = "Pop success";
+		return pair;
+	}
+	void clear() {
+		if (index == 0) {
+			return;
+		}
+		index = 0;
+	}
+	int top() const {
+		if (index == 0) {
+			return 0;
+		}
+		return array[index];
+	}
 
-  for (Pair pair{true, ""}; pair.status == true; pair = st.pop()) {
-  }
+	unsigned long long GetSizeStack() {
+		return kSize;
+	}
 
-  std::cout << "new top after popping " << st.top() << std::endl;
 
-  return 0;
-}
+private:
+	static const unsigned long long kSize{ 10 };
+	int array[kSize]{};
+	unsigned long long index{};
+};
