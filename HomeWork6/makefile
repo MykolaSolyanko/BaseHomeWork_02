@@ -20,7 +20,7 @@ SOURCES=Taras_Samchuk_HW6.cpp Classic_TS_HW6.cpp
 # формула імен о-файлів
 OBJECTS=$(SOURCES:.cpp=.o)
 # ім'я програми
-EXECUTABLE=Taras_Samchuk_HW6.bin
+EXECUTABLE=Taras_Samchuk_HW6
 
 # скопіпащено початок
 all: $(SOURCES) $(EXECUTABLE)

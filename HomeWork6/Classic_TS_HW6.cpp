@@ -12,9 +12,9 @@ static const char k_mes_nullptr[]{"]"};
 static const char k_mes_tail[]{"{"};
 
 // stack is based on a unidirectional list
-Stack::Stack() { head = new layer; }
+Stack::Stack(){};
 
-Stack::Stack(const size_t size) : k_max_size{size} { head = new layer; }
+Stack::Stack(const size_t size) : k_max_size{size} {};
 
 Stack::~Stack() {
   if (count != 0) {
@@ -27,10 +27,10 @@ bool Stack::push(const int value) {
   if (count == k_max_size) {
     return false;
   }
-  layer *NewLayer = new layer;
-  NewLayer->inf = value;
-  NewLayer->next = head->next;
-  head->next = NewLayer;
+  layer *NewLayer = new layer{value, head};
+  // NewLayer->inf = value;
+  // NewLayer->next = head->next;
+  head = NewLayer;
   count++;
   return true;
 }
@@ -39,17 +39,17 @@ result Stack::top() {
   if (count == 0) {
     return {{}, false};
   }
-  return {head->next->inf, true};
+  return {head->inf, true};
 }
 
 result Stack::pop() {
-  if (head->next == nullptr) {
+  if (head == nullptr) {
     return {{}, false};
   }
-  layer *to_delete = head->next;
+  layer *to_delete = head;
   layer *hold = to_delete->next;
   delete to_delete;
-  head->next = hold;
+  head = hold;
   count--;
   return {hold->inf, true};
 }
@@ -64,18 +64,19 @@ void Stack::clear() {
     arrow = arrow->next;
     delete hold;
   };
+  head = nullptr;
   count = 0;
 }
 
 bool Stack::swap() {
-  if (head->next == nullptr || head->next->next == nullptr) {
+  if (head == nullptr || head->next == nullptr) {
     return false;
   }
-  layer *first = head->next;
+  layer *first = head;
   layer *second = first->next;
   layer *hold = second->next;
 
-  head->next = second;
+  head = second;
   second->next = first;
   first->next = hold;
   return true;
@@ -87,7 +88,7 @@ bool Stack::printAll() const {
     std::cout << k_mes_empty << k_mes_nullptr << std::endl;
     return false;
   }
-  layer *arrow = head->next;
+  layer *arrow = head;
   while (arrow != nullptr) {
     std::cout << arrow->inf << k_mes_arrow;
     arrow = arrow->next;
@@ -100,21 +101,55 @@ bool Stack::isEmpty() const { return count == 0; }
 
 bool Stack::isFull() const { return count == k_max_size; }
 
+size_t Stack::find(const int value) {
+  if (head == nullptr) {
+    return 0;
+  };
+  layer *arrow = head;
+  size_t index{0};
+  while (arrow != nullptr) {
+    if (arrow->inf == value) {
+      break;
+    }
+    index++;
+    arrow = arrow->next;
+  }
+  return index;
+};
+
+void Stack::insertAfter(const int value, size_t pos) {
+  if (count >= k_max_size) {
+    return;
+  }
+  layer *NewLayer = new layer{value, nullptr};
+  if (head == nullptr) {
+    head = NewLayer;
+    return;
+  };
+  layer *arrow = head;
+  size_t index{0};
+  while (arrow->next != nullptr && index != pos) {
+    if (index == pos) {
+      // break;
+    }
+    index++;
+    arrow = arrow->next;
+  }
+  NewLayer->next = arrow->next;
+  arrow->next = NewLayer;
+};
+
 size_t Stack::getCount() const { return count; }
 
 size_t Stack::getMaxSize() const { return k_max_size; }
 
 // the queue is based on a bidirectional list
 Equeue::Equeue(size_t size) : k_max_size{size} {
-  head = new node2directions;
-  tail = new node2directions;
   head->next = tail;
   tail->prev = head;
 }
 
 Equeue::Equeue() {
-  Equeue::head = new node2directions;
-  Equeue::tail = new node2directions;
   head->next = tail;
   tail->prev = head;
 }

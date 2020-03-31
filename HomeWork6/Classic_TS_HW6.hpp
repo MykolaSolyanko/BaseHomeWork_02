@@ -28,6 +28,9 @@ class Stack {
   bool isEmpty() const;
   bool isFull() const;
 
+  size_t find(const int value);
+  void insertAfter(const int value, size_t pos);
+
   size_t getCount() const;
   size_t getMaxSize() const;
 
