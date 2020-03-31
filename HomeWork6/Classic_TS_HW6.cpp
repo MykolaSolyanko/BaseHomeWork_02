@@ -37,7 +37,7 @@ bool Stack::push(const int value) {
 
 result Stack::top() {
   if (count == 0) {
-    return {{}, false};
+    return {{nullptr}, false};
   }
   return {head->next->inf, true};
 }
