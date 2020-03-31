@@ -1,17 +1,19 @@
 #include <cstring>
 #include <iostream>
 
-void reverse_string(char *tmp_string) {
-  char *reverse_string = new char[std::strlen(tmp_string)];
-  std::strcpy(reverse_string, tmp_string);
+void reverse_string(char *string) {
+  if (string == nullptr || string+std::strlen(string) == nullptr || std::strlen(string) == 0)
+    return;
+  char *tmp_string = new char[std::strlen(string)];
+  std::strcpy(tmp_string, string);
   std::cout << "Your reverse string is : ";
-  for (size_t index = std::strlen(reverse_string) - 1, i = 0; i < std::strlen(reverse_string); index--, i++) {
-    *(tmp_string + i) = *(reverse_string + index);
-    std::cout << *(reverse_string + index);
+  for (size_t index = std::strlen(tmp_string) - 1, i = 0; i < std::strlen(tmp_string); index--, i++) {
+    *(string + i) = *(tmp_string + index);
+    std::cout << *(tmp_string + index);
   }
-
+  *(string + (std::strlen(tmp_string) - 1)) = *tmp_string;
   std::cout << std::endl;
-  delete[] reverse_string;
+  delete[] tmp_string;
 }
 
 int main() {
