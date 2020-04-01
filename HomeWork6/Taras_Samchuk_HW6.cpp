@@ -1,6 +1,7 @@
 #include <iostream>
 
-#include "Classic_TS_HW6.hpp"
+#include "Queue_TS_HW6.hpp"
+#include "Stack_TS_HW6.hpp"
 int main(int argc, char const *argv[]) {
   Stack Demo(11);
   Demo.push(1);
@@ -14,14 +15,11 @@ int main(int argc, char const *argv[]) {
   Demo.push(9);
   Demo.push(10);
   Demo.push(11);
-  Demo.printAll();
-  Demo.swap();
-  Demo.printAll();
   Demo.clear();
 
   Equeue Demo2;
-  Demo2.printAllBackward();
   Demo2.printAllForward();
+  Demo2.printAllBackward();
   Demo2.enqueue(1);
   Demo2.enqueue(2);
   Demo2.enqueue(3);
@@ -33,12 +31,6 @@ int main(int argc, char const *argv[]) {
   Demo2.enqueue(9);
   Demo2.enqueue(10);
   Demo2.enqueue(11);
-  Demo2.printAllBackward();
-  Demo2.printAllForward();
-  Demo2.swap();
-  Demo2.printAllBackward();
   Demo2.clear();
-  Demo2.printAllForward();
-
   return 0;
 }

@@ -16,7 +16,7 @@ COMPILER=clang++
 # параметри
 PARAM=-c -Wall -Wpedantic -std=c++17 -O3
 # з яких вайлів збираємо
-SOURCES=Taras_Samchuk_HW6.cpp Classic_TS_HW6.cpp
+SOURCES=Taras_Samchuk_HW6.cpp  Stack_TS_HW6.cpp Queue_TS_HW6.cpp
 # формула імен о-файлів
 OBJECTS=$(SOURCES:.cpp=.o)
 # ім'я програми
