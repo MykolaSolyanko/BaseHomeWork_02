@@ -24,6 +24,8 @@ bool Stack::push(const int value) {
 
 result Stack::top() {
   if (count == 0) {
+    // return {{nullptr},false};  // error: no matching constructor for
+    // initialization of 'result' (aka 'pair<int, bool>')
     return {{}, false};
   }
   return {head->inf, true};
