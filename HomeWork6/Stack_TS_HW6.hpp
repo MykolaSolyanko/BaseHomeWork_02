@@ -20,8 +20,6 @@ class Stack {
 
   void clear();
 
-  bool printAll() const;
-
   bool isEmpty() const;
   bool isFull() const;
 
