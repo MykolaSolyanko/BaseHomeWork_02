@@ -35,7 +35,7 @@ result Queue::peek() {
   if (count == 0) {
     return {{}, false};
   }
-  return {head->next->Inf, true};
+  return {head->Inf, true};
 }
 
 result Queue::dequeue() {
