@@ -54,20 +54,10 @@ static const char k_this_is_elipse[]{
 
 class Coordinates {
  public:
-  Coordinates() {
-    pos = new sPoint{};
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  }
-  Coordinates(const sPoint Pos) {
-    pos = new sPoint{Pos};
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  }
-  Coordinates(const double X, const double Y) {
-    pos = new sPoint{X, Y};
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  }
+  Coordinates() { pos = new sPoint{}; }
+  Coordinates(const sPoint Pos) { pos = new sPoint{Pos}; }
+  Coordinates(const double X, const double Y) { pos = new sPoint{X, Y}; }
   Coordinates(const Coordinates &Src) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
     pos = new sPoint;
     pos = Src.pos;
   }
@@ -78,11 +68,8 @@ class Coordinates {
     pos->x = x;
     pos->y = y;
   };
-  virtual void setPosition(sPoint Pos) final { *pos = Pos; };
-  virtual ~Coordinates() {
-    delete pos;
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
+  virtual void setPos(sPoint Pos) final { *pos = Pos; };
+  virtual ~Coordinates() { delete pos; };
   friend class Shape;
 
  protected:
@@ -91,58 +78,38 @@ class Coordinates {
 
 class Point : public Coordinates {
  public:
-  Point() : Coordinates() { std::cout << __PRETTY_FUNCTION__ << std::endl; };
-  Point(sPoint Pos) : Coordinates(Pos) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Point(double X, double Y) : Coordinates(X, Y) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Point(Point &Src) : Coordinates(Src) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Point(Coordinates &Src) : Coordinates(Src) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
+  Point() : Coordinates(){};
+  Point(sPoint Pos) : Coordinates(Pos){};
+  Point(double X, double Y) : Coordinates(X, Y){};
+  Point(Point &Src) : Coordinates(Src){};
+  Point(Coordinates &Src) : Coordinates(Src){};
   virtual void draw() override {
     printf(k_point_printf, k_this_is_point, pos->x, pos->y);
   };
-  virtual ~Point() override { std::cout << __PRETTY_FUNCTION__ << std::endl; };
+  virtual ~Point() override{};
 };
 
 class Shape : public Point {
  public:
-  Shape() : Point() {
-    size = new sPoint{};
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Shape(sPoint Pos, sPoint Size) : Point(Pos) {
-    size = new sPoint{Size};
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
+  Shape() : Point() { size = new sPoint{}; };
+  Shape(sPoint Pos, sPoint Size) : Point(Pos) { size = new sPoint{Size}; };
   Shape(double X1, double Y1, double X2, double Y2) : Point(X1, X2) {
     size = new sPoint{X2, Y2};
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
   };
   Shape(Shape &Src) : Point(Src) {
     size = new sPoint;
     size = Src.size;
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
   }
   Shape(Coordinates &Pos, Coordinates &Size) : Point(Pos) {
     size = new sPoint;
     size = Size.pos;
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
   };
   virtual void setHeihgt(double Height) final { size->y = Height; };
   virtual void setWidth(double Width) final { size->x = Width; };
   virtual void setSize(sPoint Size) final { *size = Size; };
   virtual double calc_square() = 0;
   virtual void draw() override{};
-  virtual ~Shape() override {
-    delete size;
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
+  virtual ~Shape() override { delete size; };
 
  protected:
   sPoint *size;
@@ -150,67 +117,42 @@ class Shape : public Point {
 
 class Line : public Shape {
  public:
-  Line() : Shape() { std::cout << __PRETTY_FUNCTION__ << std::endl; };
-  Line(sPoint Pos, sPoint Size) : Shape(Pos, Size) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Line(double X1, double Y1, double X2, double Y2) : Shape(X1, Y1, X2, Y2) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Line(Shape &Src) : Shape(Src) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  }
-  Line(Coordinates &Pos, Coordinates &Size) : Shape(Pos, Size) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
+  Line() : Shape(){};
+  Line(sPoint Pos, sPoint Size) : Shape(Pos, Size){};
+  Line(double X1, double Y1, double X2, double Y2) : Shape(X1, Y1, X2, Y2){};
+  Line(Shape &Src) : Shape(Src) {}
+  Line(Coordinates &Pos, Coordinates &Size) : Shape(Pos, Size){};
   virtual double calc_square() override { return 0; };
   virtual void draw() override {
     printf(k_shape_printf, k_this_is_line, pos->x, pos->y, pos->x + size->x,
            pos->y + size->y);
   }
-  virtual ~Line() override { std::cout << __PRETTY_FUNCTION__ << std::endl; };
+  virtual ~Line() override{};
 };
 
 class Square : public Shape {
  public:
-  Square() : Shape() { std::cout << __PRETTY_FUNCTION__ << std::endl; };
-  Square(sPoint Pos, sPoint Size) : Shape(Pos, Size) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Square(double X1, double Y1, double X2, double Y2) : Shape(X1, Y1, X2, Y2) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Square(Shape &Src) : Shape(Src) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Square(Coordinates &Pos, Coordinates &Size) : Shape(Pos, Size) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
+  Square() : Shape(){};
+  Square(sPoint Pos, sPoint Size) : Shape(Pos, Size){};
+  Square(double X1, double Y1, double X2, double Y2) : Shape(X1, Y1, X2, Y2){};
+  Square(Shape &Src) : Shape(Src){};
+  Square(Coordinates &Pos, Coordinates &Size) : Shape(Pos, Size){};
   virtual double calc_square() override { return size->x * size->x; };
   virtual void draw() override {
     printf(k_shape_printf, k_this_is_square, pos->x, pos->y, pos->x + size->x,
            pos->y + size->x);
   }
-
-  virtual ~Square() override { std::cout << __PRETTY_FUNCTION__ << std::endl; };
+  virtual ~Square() override{};
 };
 
 class Rectangle : public Shape {
  public:
-  Rectangle() : Shape() { std::cout << __PRETTY_FUNCTION__ << std::endl; };
-  Rectangle(sPoint Pos, sPoint Size) : Shape(Pos, Size) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
+  Rectangle() : Shape(){};
+  Rectangle(sPoint Pos, sPoint Size) : Shape(Pos, Size){};
   Rectangle(double X1, double Y1, double X2, double Y2)
-      : Shape(X1, Y1, X2, Y2) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Rectangle(Shape &Src) : Shape(Src) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  }
-  Rectangle(Coordinates &Pos, Coordinates &Size) : Shape(Pos, Size) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
+      : Shape(X1, Y1, X2, Y2){};
+  Rectangle(Shape &Src) : Shape(Src) {}
+  Rectangle(Coordinates &Pos, Coordinates &Size) : Shape(Pos, Size){};
   virtual double calc_square() override { return size->x * size->y; };
   virtual void draw() override {
     printf(k_shape_printf, k_this_is_rectangle, pos->x, pos->y,
@@ -221,44 +163,27 @@ class Rectangle : public Shape {
 
 class Triangle : public Shape {
  public:
-  Triangle() : Shape() { std::cout << __PRETTY_FUNCTION__ << std::endl; };
-  Triangle(sPoint Pos, sPoint Size) : Shape(Pos, Size) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Triangle(double X1, double Y1, double X2, double Y2) : Shape(X1, Y1, X2, Y2) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Triangle(Shape &Src) : Shape(Src) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  }
-  Triangle(Coordinates &Pos, Coordinates &Size) : Shape(Pos, Size) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
+  Triangle() : Shape(){};
+  Triangle(sPoint Pos, sPoint Size) : Shape(Pos, Size){};
+  Triangle(double X1, double Y1, double X2, double Y2)
+      : Shape(X1, Y1, X2, Y2){};
+  Triangle(Shape &Src) : Shape(Src) {}
+  Triangle(Coordinates &Pos, Coordinates &Size) : Shape(Pos, Size){};
   virtual double calc_square() override { return (size->x * size->y) / 2; };
   virtual void draw() override {
     printf(k_shape_printf, k_this_is_triangle, pos->x, pos->y, pos->x + size->x,
            pos->y + size->y);
   }
-  virtual ~Triangle() override {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
+  virtual ~Triangle() override{};
 };
 
 class Ellipse : public Shape {
  public:
-  Ellipse() : Shape() { std::cout << __PRETTY_FUNCTION__ << std::endl; };
-  Ellipse(sPoint Pos, sPoint Size) : Shape(Pos, Size) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Ellipse(double X1, double Y1, double X2, double Y2) : Shape(X1, Y1, X2, Y2) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
-  Ellipse(Shape &Src) : Shape(Src) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  }
-  Ellipse(Coordinates &Pos, Coordinates &Size) : Shape(Pos, Size) {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
+  Ellipse() : Shape(){};
+  Ellipse(sPoint Pos, sPoint Size) : Shape(Pos, Size){};
+  Ellipse(double X1, double Y1, double X2, double Y2) : Shape(X1, Y1, X2, Y2){};
+  Ellipse(Shape &Src) : Shape(Src) {}
+  Ellipse(Coordinates &Pos, Coordinates &Size) : Shape(Pos, Size){};
   virtual double calc_square() override {
     return (size->x / 2) * (size->y / 2) * k_PI;
   };
@@ -266,7 +191,5 @@ class Ellipse : public Shape {
     printf(k_shape_printf, k_this_is_elipse, pos->x, pos->y, pos->x + size->x,
            pos->y + size->y);
   }
-  virtual ~Ellipse() override {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-  };
+  virtual ~Ellipse() override{};
 };
