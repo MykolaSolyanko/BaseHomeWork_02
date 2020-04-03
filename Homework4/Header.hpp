@@ -4,6 +4,7 @@ using IntCompare = std::function<bool(int, int)>;
 using DoubleCompare = std::function<bool(double, double)>;
 using CharCompare = std::function<bool(char, char)>;
 char *AllocCharArray(size_t kSize);
+void DeleteAllocCharArray(char *array);
 size_t LengthCharArray(char *array);
 void CreateRandArray(char *array, const int size);
 void CreateRandArray(int *array, const int size);
