@@ -53,7 +53,7 @@ int main() {
       } else {
         std::cout << "Error creation of char array" << std::endl;
       }
-      // delete[] c_arr;
+      DeleteAllocCharArray(c_arr);
       break;
     }
     case ARRAY_TYPE::EXIT: {
