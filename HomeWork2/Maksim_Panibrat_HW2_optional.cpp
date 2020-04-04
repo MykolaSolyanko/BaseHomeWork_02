@@ -26,9 +26,10 @@ void Christmas_Tree() {
 }
 
 void Bit_Counter() {
-    std::cout << "This programm counts set bits in range [0...64].\n";
-    int check = 64;
-    size_t set_bits{}, input;
+    size_t check = 131072;
+    std::cout << "This programm counts set bits in range [0..."<<check<<"].\n";
+    size_t input;
+    short set_bits{};
     std::cout << "Enter number for analize: ";
     for (std::cin >> input; check != 0; check = check >> 1) {
         if ((input & check) != 0) {
@@ -41,12 +42,14 @@ void Bit_Counter() {
 void Set_Bit() {
     std::cout << "This programm checks if bit is set.\n"
         "Enter number for analize: ";
-    int input;
+    size_t input;
     std::cin >> input;
     std::cout << "Enter bit for check: ";
-    int bit;
+    size_t bit;
     std::cin >> bit;
-    std::cout << ((input & bit) > 0 ? "Yes" : "No" );
+    size_t check = 1LL << bit;
+    std::cout << "Selected bit-number: " << check << std::endl;
+    std::cout << ((check & input) ? "Yes" : "No");
 }
 
 enum { CHRISTMAS_TREE = 1, BIT_COUNTER, SET_BIT };
