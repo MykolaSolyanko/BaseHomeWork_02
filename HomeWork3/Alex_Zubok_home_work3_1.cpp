@@ -2,10 +2,10 @@
 #include <iostream>
 
 void reverse_string(char *string) {
-  if (string == nullptr || string+std::strlen(string) == nullptr || std::strlen(string) == 0)
+  if (string == nullptr || string + std::strlen(string) == nullptr || std::strlen(string) == 0)
     return;
   char *tmp_string = new char[std::strlen(string)];
-  std::strcpy(tmp_string, string);
+  std::strncpy(tmp_string, string, std::strlen(string));
   std::cout << "Your reverse string is : ";
   for (size_t index = std::strlen(tmp_string) - 1, i = 0; i < std::strlen(tmp_string); index--, i++) {
     *(string + i) = *(tmp_string + index);
@@ -22,7 +22,7 @@ int main() {
   std::cin >> tmp_string;
 
   char *string_full = new char[std::strlen(tmp_string) + 1];
-  std::strcpy(string_full, tmp_string);
+  std::strncpy(string_full, tmp_string, std::strlen(tmp_string) + 1);
   delete tmp_string;
 
   std::cout << "Your origin string is: " << string_full << std::endl;
