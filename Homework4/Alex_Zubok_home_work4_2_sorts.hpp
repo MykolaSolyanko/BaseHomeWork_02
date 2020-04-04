@@ -22,5 +22,5 @@ using Comp_char = bool (*)(char, char);
 bool More(char a, char b);
 bool Less(char a, char b);
 int *user_partiotion(char *begin, char *end, Comp_char func = Less);
-void bSort(char *begin, char *end, Comp_char func = Less);
+void bSort(char *begin, const char *const end, Comp_char func = Less);
 void print_array(const char *begin, const char *const end);
