@@ -1,4 +1,3 @@
-// stack is based on a unidirectional list
 #pragma once
 #include "Common_TS_HW6.hpp"
 
