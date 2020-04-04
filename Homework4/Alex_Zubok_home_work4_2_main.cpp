@@ -50,7 +50,7 @@ int main() {
 
   std::cout << "Origin array for char type is: ";
   print_array(array_char, array_char + arr_size);
-  bSort(array_char, array_char + arr_size, [](char a, char b) { return a < b; });
+  bSort(array_char, array_char + arr_size, [](char a, char b) { return a > b; });
   std::cout << "Result of sort array: ";
   print_array(array_char, array_char + arr_size);
   delete[] array_char;
