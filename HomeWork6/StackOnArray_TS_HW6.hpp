@@ -10,7 +10,6 @@ class Stack {
  public:
   Stack();
   Stack(const size_t size);
-  Stack(Stack &) = delete;
   ~Stack();
 
   bool push(const int value);
