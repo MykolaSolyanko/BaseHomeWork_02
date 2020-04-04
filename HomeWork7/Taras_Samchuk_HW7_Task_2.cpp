@@ -5,6 +5,14 @@
 #include "ArrFunc_TS7Template.hpp"
 #include "SortingAlgorithmsTemplete.hpp"
 
+enum SortType { ST_BOBLE_SORT, ST_SELECTION_SORT, ST_QUICK_SORT, COUNT_ST };
+
+void (*Sort[COUNT_ST])(float *, float *, Comparison<float>) = {
+    BubleSort, SelectSort, Quicksort};
+const unsigned k_Name_Length{20};
+const char k_MethodName[COUNT_ST][k_Name_Length]{"BOBLESORT", "SELECTION SORT",
+                                                 "QUICK SORT"};
+
 int main() {
   std::cout << R"(
     Cropped homework code # 4.
@@ -26,26 +34,11 @@ A program for demonstrating some sort algorithms.)"
 
     std::cout << "Launching ";
 
-    switch (Method) {
-      //
-      case SortType::ST_BOBLE_SORT:
-        std::cout << "BOBLESORT" << std::endl;
-        BubleSort<float>(Victim, Victim + k_int_array_size, More<float>);
-        break;
-        //
-      case SortType::ST_SELECTION_SORT:
-        std::cout << "SELECTION SORT" << std::endl;
-        SelectSort<float>(Victim, Victim + k_int_array_size, More<float>);
-        break;
-        //
-      case SortType::ST_QUICK_SORT:
-        std::cout << "QUICK SORT" << std::endl;
-        Quicksort<float>(Victim, Victim + k_int_array_size, More<float>);
-        break;
-        //
-      default:
-        break;
-    }
+    const auto more = [](int a, int b) { return a > b; };
+
+    std::cout << k_MethodName[Method] << std::endl;
+
+    (*Sort[Method])(Victim, Victim + k_int_array_size, More<float>);
   }
   return 0;
 }

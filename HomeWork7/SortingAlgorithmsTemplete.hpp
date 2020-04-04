@@ -1,9 +1,9 @@
 #pragma once
 #include <functional>
 
-enum SortType { ST_BOBLE_SORT, ST_SELECTION_SORT, ST_QUICK_SORT, COUNT_ST };
-
 // / Sorting function template
+template <typename T>
+using Comparison = std::function<bool(T, T)>;
 
 template <typename T>
 bool More(T a, T b) {
@@ -23,8 +23,7 @@ void SwapInt(T &first, T &second) {
 }
 
 template <typename T>
-void BubleSort(T *const array_begin, T const *const array_end,
-               std::function<bool(T, T)> comp) {
+void BubleSort(T *array_begin, T *const array_end, Comparison<T> comp) {
   if (array_begin == nullptr || array_end == nullptr) {
     return;  // ERROR
   }
@@ -37,8 +36,7 @@ void BubleSort(T *const array_begin, T const *const array_end,
 }
 
 template <typename T>
-void SelectSort(T *const array_begin, T const *const array_end,
-                std::function<bool(T, T)> comp) {
+void SelectSort(T *array_begin, T *array_end, Comparison<T> comp) {
   if (array_begin == nullptr || array_end == nullptr) {
     return;  // ERROR
   }
@@ -60,7 +58,7 @@ void SelectSort(T *const array_begin, T const *const array_end,
 
 // function used in QuickSort
 template <typename T>
-T *Separator(T *opening, T *closing, std::function<bool(T, T)> comp) {
+T *Separator(T *opening, T *closing, Comparison<T> comp) {
   T pilot = *closing;
   T *section = opening;
   for (T *index = opening; index != closing; index++) {
@@ -73,7 +71,7 @@ T *Separator(T *opening, T *closing, std::function<bool(T, T)> comp) {
   return section;
 }
 template <typename T>
-void Quicksort(T *array_begin, T *array_end, std::function<bool(T, T)> comp) {
+void Quicksort(T *array_begin, T *array_end, Comparison<T> comp) {
   if (array_begin < array_end) {
     if (array_begin == nullptr || array_end == nullptr) {
       return;  // ERROR
