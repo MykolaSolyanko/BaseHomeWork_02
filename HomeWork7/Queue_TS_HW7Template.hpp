@@ -36,16 +36,20 @@ class Queue {
   const size_t k_max_size{k_defult_max_size};
 };
 
+template <typename T>
 Queue<T>::Queue(size_t size) : k_max_size{size} {}
 
+template <typename T>
 Queue<T>::Queue() {}
 
+template <typename T>
 Queue<T>::~Queue() {
   if (count != 0) {
     clear();
   }
 }
 
+template <typename T>
 bool Queue<T>::enqueue(T value) {
   if (count == k_max_size) {
     return false;
@@ -68,6 +72,7 @@ bool Queue<T>::enqueue(T value) {
   return true;
 }
 
+template <typename T>
 result<T> Queue<T>::peek() {
   if (count == 0) {
     return {{}, false};
@@ -75,6 +80,7 @@ result<T> Queue<T>::peek() {
   return {head->Inf, true};
 }
 
+template <typename T>
 result<T> Queue<T>::dequeue() {
   if (head == nullptr) {
     return {{}, false};
@@ -88,6 +94,7 @@ result<T> Queue<T>::dequeue() {
   return {{hold->Inf}, true};
 }
 
+template <typename T>
 void Queue<T>::clear() {
   if (count == 0) {
     return;
@@ -103,10 +110,22 @@ void Queue<T>::clear() {
   }
 }
 
-bool Queue<T>::isEmpty() const { return count == 0; }
+template <typename T>
+bool Queue<T>::isEmpty() const {
+  return count == 0;
+}
 
-bool Queue<T>::isFull() const { return count == k_max_size; }
+template <typename T>
+bool Queue<T>::isFull() const {
+  return count == k_max_size;
+}
 
-size_t Queue<T>::getCount() const { return count; }
+template <typename T>
+size_t Queue<T>::getCount() const {
+  return count;
+}
 
-size_t Queue<T>::getMaxSize() const { return k_max_size; }
+template <typename T>
+size_t Queue<T>::getMaxSize() const {
+  return k_max_size;
+}

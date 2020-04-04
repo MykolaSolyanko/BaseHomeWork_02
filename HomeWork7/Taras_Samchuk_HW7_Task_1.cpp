@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "Queue_TS_HW7Template.hpp"
-#include "StackOnArray_TS_HW7.hpp"
+// #include "StackOnArray_TS_HW7.hpp"
 // #include "Stack_TS_HW7.hpp" //Such a stack is also entitled to life
 int main(int argc, char const *argv[]) {
   Stack<short> Demo(11);
