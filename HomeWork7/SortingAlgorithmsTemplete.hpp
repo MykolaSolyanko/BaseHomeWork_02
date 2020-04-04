@@ -16,20 +16,20 @@ bool Less(T a, T b) {
 }
 
 template <typename T>
-void SwapInt(T &first, T &second) {
+void Swap(T &first, T &second) {
   int tmp = first;
   first = second;
   second = tmp;
 }
 
 template <typename T>
-void BubleSort(T *array_begin, T *const array_end, Comparison<T> comp) {
+void BubleSort(T *array_begin, T *array_end, Comparison<T> comp) {
   if (array_begin == nullptr || array_end == nullptr) {
     return;  // ERROR
   }
   for (T *pass_1 = array_begin; pass_1 != array_end; ++pass_1) {
     for (T *pass_2 = pass_1 + 1; pass_2 != array_end; ++pass_2) {
-      if (comp(*pass_1, *pass_2)) SwapInt(*pass_1, *pass_2);
+      if (comp(*pass_1, *pass_2)) Swap(*pass_1, *pass_2);
     }
   }
   // OK
@@ -48,7 +48,7 @@ void SelectSort(T *array_begin, T *array_end, Comparison<T> comp) {
          second_pass++)
       remember = (comp(*second_pass, *remember)) ? second_pass : remember;
     if (first_pass != remember) {
-      SwapInt(*first_pass, *remember);
+      Swap(*first_pass, *remember);
     }
   }
   // OK
@@ -62,12 +62,12 @@ T *Separator(T *opening, T *closing, Comparison<T> comp) {
   T pilot = *closing;
   T *section = opening;
   for (T *index = opening; index != closing; index++) {
-    if (comp(*index, pilot) /* *index <= pilot */) {
-      SwapInt(*index, *section);
+    if (comp(*index, pilot)) {
+      Swap(*index, *section);
       section++;
     }
   }
-  SwapInt(*closing, *section);
+  Swap(*closing, *section);
   return section;
 }
 template <typename T>

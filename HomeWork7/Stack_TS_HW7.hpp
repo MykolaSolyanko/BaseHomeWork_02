@@ -1,0 +1,118 @@
+// stack is based on a unidirectional list
+#pragma once
+#include "Common_TS_HW7.hpp"
+
+template <typename T>
+struct layer {
+  T inf{};
+  layer<T> *next{nullptr};
+};
+
+template <typename T>
+class Stack {
+ public:
+  Stack();
+  Stack(const size_t size);
+  Stack(Stack<T> &) = delete;
+  ~Stack();
+
+  bool push(const T value);
+  result<T> top();
+  result<T> pop();
+
+  void clear();
+
+  bool isEmpty() const;
+  bool isFull() const;
+
+  size_t getCount() const;
+  size_t getMaxSize() const;
+
+ private:
+  layer<T> *head{nullptr};
+  size_t count{0};
+  const size_t k_max_size{k_defult_max_size};
+};
+
+template <typename T>
+Stack<T>::Stack(){};
+
+template <typename T>
+Stack<T>::Stack(const size_t size) : k_max_size{size} {};
+
+template <typename T>
+Stack<T>::~Stack() {
+  if (count != 0) {
+    clear();
+  }
+  delete head;
+}
+
+template <typename T>
+bool Stack<T>::push(const T value) {
+  if (count == k_max_size) {
+    return false;
+  }
+  layer<T> *NewLayer = new layer<T>{value, head};
+  head = NewLayer;
+  count++;
+  return true;
+}
+
+template <typename T>
+result<T> Stack<T>::top() {
+  if (count == 0) {
+    // return {{nullptr},false};  // error: no matching constructor for
+    // initialization of 'result' (aka 'pair<int, bool>')
+    return {{}, false};
+  }
+  return {head->inf, true};
+}
+
+template <typename T>
+result<T> Stack::pop() {
+  if (head == nullptr) {
+    return {{}, false};
+  }
+  layer<T> *to_delete = head;
+  layer<T> *hold = to_delete->next;
+  delete to_delete;
+  head = hold;
+  count--;
+  return {hold->inf, true};
+}
+
+template <typename T>
+void Stack<T>::clear() {
+  if (count == 0) {
+    return;
+  }
+  layer<T> *arrow = head;
+  while (arrow != nullptr) {
+    layer<T> *hold = arrow;
+    arrow = arrow->next;
+    delete hold;
+  };
+  head = nullptr;
+  count = 0;
+}
+
+template <typename T>
+bool Stack<T>::isEmpty() const {
+  return count == 0;
+}
+
+template <typename T>
+bool Stack<T>::isFull() const {
+  return count == k_max_size;
+}
+
+template <typename T>
+size_t Stack<T>::getCount() const {
+  return count;
+}
+
+template <typename T>
+size_t Stack<T>::getMaxSize() const {
+  return k_max_size;
+}
