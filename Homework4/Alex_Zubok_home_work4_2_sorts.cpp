@@ -83,7 +83,19 @@ void print_array(const char *begin, const char *const end) {
   std::cout << " ]" << std::endl;
 }
 
-void bSort(char *begin, char *end, Comp_char func = More) {
+void Sort(char *begin, const char *const end, Comp_char func = More) {
+  for (char *c_l1 = begin; c_l1 != end; c_l1++) {
+    for (char *c_l2 = c_l1 + 1; c_l2 != end; c_l2++) {
+      if (!func(*c_l2, *c_l1)) {
+        int tmp = *c_l1;
+        *c_l1 = *c_l2;
+        *c_l2 = tmp;
+      }
+    }
+  }
+}
+
+void bSort(char *begin, const char *const end, Comp_char func = More) {
   char *array1; // for Upper case
   char *array2; // for lower case
   char *array3; // for digits
@@ -122,65 +134,17 @@ void bSort(char *begin, char *end, Comp_char func = More) {
       l++;
     }
   }
-  if (std::strlen(array1) > 1) {
-    for (char *c_l1 = array1; c_l1 != array1 + size_arr1; c_l1++) {
-      for (char *c_l2 = c_l1 + 1; c_l2 != array1 + size_arr1; c_l2++) {
-        if (!func(*c_l2, *c_l1)) {
-          char tmp = *c_l2;
-          *c_l2 = *c_l1;
-          *c_l1 = tmp;
-        }
-      }
-    }
-  }
-  if (std::strlen(array2) > 1) {
-    for (char *c_l1 = array2; c_l1 != array2 + size_arr2; c_l1++) {
-      for (char *c_l2 = c_l1 + 1; c_l2 != array2 + size_arr2; c_l2++) {
-        if (!func(*c_l2, *c_l1)) {
-          char tmp = *c_l2;
-          *c_l2 = *c_l1;
-          *c_l1 = tmp;
-        }
-      }
-    }
-  }
-  if (std::strlen(array3) > 1) {
-    for (char *c_l1 = array3; c_l1 != array3 + size_arr3; c_l1++) {
-      for (char *c_l2 = c_l1 + 1; c_l2 != array3 + size_arr3; c_l2++) {
-        if (!func(*c_l2, *c_l1)) {
-          char tmp = *c_l2;
-          *c_l2 = *c_l1;
-          *c_l1 = tmp;
-        }
-      }
-    }
-  }
-  if (std::strlen(array4) > 1) {
-    for (char *c_l1 = array4; c_l1 != array4 + size_arr4; c_l1++) {
-      for (char *c_l2 = c_l1 + 1; c_l2 != array4 + size_arr4; c_l2++) {
-        if (!func(*c_l2, *c_l1)) {
-          char tmp = *c_l2;
-          *c_l2 = *c_l1;
-          *c_l1 = tmp;
-        }
-      }
-    }
-  }
-  for (size_t i{}, j{}, k{}, l{};
-       i < (size_arr1 + size_arr2 + size_arr3 + size_arr4); i++) {
-    if (i < size_arr1) {
-      *(begin + i) = *(array1 + i);
-    } else if (j < size_arr2) {
-      *(begin + i) = *(array2 + j);
-      j++;
-    } else if (k < size_arr3) {
-      *(begin + i) = *(array3 + k);
-      k++;
-    } else {
-      *(begin + i) = *(array4 + l);
-      l++;
-    }
-  }
+  Sort(array1, array1 + size_arr1, func);
+  Sort(array2, array2 + size_arr2, func);
+  Sort(array3, array3 + size_arr3, func);
+  Sort(array4, array4 + size_arr4, func);
+  char *tmp_string = new char[size_arr1 + size_arr2 + size_arr3 + size_arr4];
+  std::strncpy(tmp_string, array1, size_arr1);
+  std::strncat(tmp_string, array2, size_arr2);
+  std::strncat(tmp_string, array3, size_arr3);
+  std::strncat(tmp_string, array4, size_arr4);
+  std::strncpy(begin, tmp_string, size_arr1 + size_arr2 + size_arr3 + size_arr4);
+  delete[] tmp_string;
   delete[] array1;
   delete[] array2;
   delete[] array3;
