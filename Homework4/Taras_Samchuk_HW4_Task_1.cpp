@@ -5,6 +5,14 @@
 #include "ArrFunc_TS4.hpp"
 #include "SortingAlgorithms.hpp"
 
+enum SortType { ST_BOBLE_SORT, ST_SELECTION_SORT, ST_QUICK_SORT, COUNT_ST };
+
+void (*Sort[COUNT_ST])(int *, int *, Comparison) = {BubleSort, SelectSort,
+                                                    Quicksort};
+const unsigned k_Name_Length{20};
+const char k_MethodName[COUNT_ST][k_Name_Length]{"BOBLESORT", "SELECTION SORT",
+                                                 "QUICK SORT"};
+
 using SysTimePoint = std::chrono::time_point<std::chrono::system_clock>;
 using SysTimeDuration = std::chrono::duration<double>;
 
@@ -45,7 +53,7 @@ is ignored.)" << std::endl;
       std::cout << "Unknown choice.The program cannot be executed" << std::endl;
       return 0;
   }
-  // todo
+
   for (int Method = 0; Method != SortType::COUNT_ST; Method++) {
     const size_t memory_size = sizeof(SrcArray);
     int Victim[k_int_array_size]{};
@@ -55,37 +63,15 @@ is ignored.)" << std::endl;
 
     std::cout << "Launching ";
 
-    auto more = [](int a, int b) { return a > b; };
-    SysTimePoint BeginAt{};
-    SysTimePoint FinishAt{};
-    switch (Method) {
-      //
-      case SortType::ST_BOBLE_SORT:
-        std::cout << "BOBLESORT" << std::endl;
-        ShowArray(Victim, Victim + k_int_array_size);
-        BeginAt = std::chrono::system_clock::now();
-        BubleSort(Victim, Victim + k_int_array_size, more);
-        FinishAt = std::chrono::system_clock::now();
-        ShowArray(Victim, Victim + k_int_array_size);
-        break;
-        //
-      case SortType::ST_SELECTION_SORT:
-        std::cout << "SELECTION SORT" << std::endl;
-        BeginAt = std::chrono::system_clock::now();
-        SelectSort(Victim, Victim + k_int_array_size, more);
-        FinishAt = std::chrono::system_clock::now();
-        break;
-        //
-      case SortType::ST_QUICK_SORT:
-        std::cout << "QUICK SORT" << std::endl;
-        BeginAt = std::chrono::system_clock::now();
-        Quicksort(Victim, Victim + k_int_array_size, more);
-        FinishAt = std::chrono::system_clock::now();
-        break;
-        //
-      default:
-        break;
-    }
+    const auto more = [](int a, int b) { return a > b; };
+    std::cout << k_MethodName[Method] << std::endl;
+    // ShowArray(Victim, Victim + k_int_array_size);
+
+    SysTimePoint BeginAt = std::chrono::system_clock::now();
+    (*Sort[Method])(Victim, Victim + k_int_array_size, more);
+    SysTimePoint FinishAt = std::chrono::system_clock::now();
+
+    // ShowArray(Victim, Victim + k_int_array_size);
     SysTimeDuration TimeІpent = FinishAt - BeginAt;
     std::cout << "Elapsed time: " << TimeІpent.count() << "s" << std::endl;
   }
