@@ -4,15 +4,14 @@ void FamilyTree() {
 
 Inheritance of classes
 
- >Coordinates
+ >ICoordinates
     +--Point
-        +->Shape
+        +->IShape
             +--Line
             +--Square
             +--Rectangle
             +--Triangle
             +--Ellipse
->abstract class
 
   )" << std::endl;
 };
@@ -20,7 +19,7 @@ int main(int argc, char const *argv[]) {
   std::cout << __PRETTY_FUNCTION__ << std::endl;
   FamilyTree();
   sPoint point{22, 66};
-  // Coordinates Decard;  // here mast be error
+  // ICoordinates Decard;  // here mast be error
   std::cout << "This is point" << std::endl;
 
   std::cout << "Point defPoint;" << std::endl;
@@ -43,7 +42,7 @@ int main(int argc, char const *argv[]) {
 
   std::cout << "Point don`t have calc_square()" << std::endl;
 
-  // Shape s(45, 54);  // here mast be error
+  // IShape s(45, 54);  // here mast be error
 
   std::cout << "This is line" << std::endl;
   Line defLine;
