@@ -4,13 +4,6 @@
 #include <iostream>
 #include <random>
 
-using Comp_int = bool (*)(int, int);
-bool More(int a, int b);
-bool Less(int a, int b);
-int *user_partiotion(int *begin, int *end, Comp_int func = More);
-void qSort(int *begin, int *end, Comp_int func = More);
-void print_array(const int *begin, const int *const end);
-
 using Comp_unsigned = bool (*)(unsigned, unsigned);
 bool More(unsigned a, unsigned b);
 bool Less(unsigned a, unsigned b);
