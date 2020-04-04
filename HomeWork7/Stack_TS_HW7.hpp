@@ -13,7 +13,6 @@ class Stack {
  public:
   Stack();
   Stack(const size_t size);
-  Stack(Stack<T> &) = delete;
   ~Stack();
 
   bool push(const T value);
@@ -62,15 +61,13 @@ bool Stack<T>::push(const T value) {
 template <typename T>
 result<T> Stack<T>::top() {
   if (count == 0) {
-    // return {{nullptr},false};  // error: no matching constructor for
-    // initialization of 'result' (aka 'pair<int, bool>')
     return {{}, false};
   }
   return {head->inf, true};
 }
 
 template <typename T>
-result<T> Stack::pop() {
+result<T> Stack<T>::pop() {
   if (head == nullptr) {
     return {{}, false};
   }

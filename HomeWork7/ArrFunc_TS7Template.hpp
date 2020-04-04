@@ -17,8 +17,8 @@ void rundomInitArray(T *const array_begin, T const *const array_end) {
   }
   std::random_device rd;
   std::mt19937 mt(rd());
-  std::uniform_int_distribution << T >>
-      GenRandVal(k_min_random_value, k_max_random_value);
+  std::uniform_real_distribution<T> GenRandVal(k_min_random_value,
+                                               k_max_random_value);
   for (T *index = array_begin; index != array_end; index++) {
     *index = GenRandVal(mt);
   }

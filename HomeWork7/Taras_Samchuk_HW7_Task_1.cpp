@@ -40,7 +40,6 @@ int main(int argc, char const *argv[]) {
   Demo2.dequeue();
   Demo2.dequeue();
   Demo2.clear();
+
   return 0;
-}
-return 0;
 }

@@ -39,6 +39,8 @@ A program for demonstrating some sort algorithms.)"
     std::cout << k_MethodName[Method] << std::endl;
 
     (*Sort[Method])(Victim, Victim + k_int_array_size, More<float>);
+
+    ShowArray<float>(Victim, Victim + k_int_array_size);
   }
   return 0;
 }

@@ -59,8 +59,6 @@ bool Stack<T>::push(const T value) {
 template <typename T>
 result<T> Stack<T>::top() {
   if (count == 0) {
-    // return {{nullptr},false};  // error: no matching constructor for
-    // initialization of 'result' (aka 'pair<int, bool>')
     return {{}, false};
   }
   return {Layers[count - 1], true};

@@ -14,7 +14,6 @@ class Queue {
  public:
   Queue(const size_t size);
   Queue();
-  Queue(Queue &) = delete;
   ~Queue();
 
   bool enqueue(const T value);
