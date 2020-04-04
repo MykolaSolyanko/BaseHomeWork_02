@@ -9,8 +9,7 @@ void SwapInt(int &first, int &second) {
   second = tmp;
 }
 
-void BubleSort(int *const array_begin, int const *const array_end,
-               Comparison comp) {
+void BubleSort(int *array_begin, int *array_end, Comparison comp) {
   if (array_begin == nullptr || array_end == nullptr) {
     return;  // ERROR
   }
@@ -22,8 +21,7 @@ void BubleSort(int *const array_begin, int const *const array_end,
   // OK
 }
 
-void SelectSort(int *const array_begin, int const *const array_end,
-                Comparison comp) {
+void SelectSort(int *array_begin, int *array_end, Comparison comp) {
   if (array_begin == nullptr || array_end == nullptr) {
     return;  // ERROR
   }
