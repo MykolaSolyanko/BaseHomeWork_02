@@ -6,11 +6,11 @@ void is_diget(char *string) {
   for (size_t i = 0; i < std::strlen(string); i++) {
     if (*(string + i) > 47 && *(string + i) < 58 && is_first != 0)
       std::cout << ", " << *(string + i);
-    else if (*(string + i) > 47 && *(string + i) < 58 && is_first == 0){
+    else if (*(string + i) > 47 && *(string + i) < 58 && is_first == 0) {
       std::cout << *(string + i);
       ++is_first;
     }
-  } 
+  }
   std::cout << std::endl;
 }
 
