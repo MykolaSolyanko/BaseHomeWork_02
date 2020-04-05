@@ -11,10 +11,9 @@ void print_list(node_one_ptr *head) {
     std::cout << k_mes_nullptr << std::endl;
     return;
   }
-  node_one_ptr *arrow = head;
-  while (arrow != nullptr) {
-    std::cout << arrow->Data << k_mes_arrow;
-    arrow = arrow->next;
+  while (head != nullptr) {
+    std::cout << head->Data << k_mes_arrow;
+    head = head->next;
   }
   std::cout << k_mes_nullptr << std::endl;
 };
@@ -47,14 +46,12 @@ void pop_back(node_one_ptr *&head) {
     head = nullptr;
     return;
   }
-  node_one_ptr *step_back{nullptr};
   node_one_ptr *arrow = head;
-  while (arrow->next != nullptr) {
-    step_back = arrow;
+  while (arrow->next->next != nullptr) {
     arrow = arrow->next;
   }
-  step_back->next = nullptr;
-  delete arrow;
+  delete arrow->next;
+  arrow->next = nullptr;
 };
 
 void pop_front(node_one_ptr *&head) {
@@ -64,22 +61,22 @@ void pop_front(node_one_ptr *&head) {
   node_one_ptr *delete_this = head;
   node_one_ptr *hold = delete_this->next;
   delete delete_this;
-  *head = *hold;
+  head = hold;
 };
 
 void clear_list(node_one_ptr *&head) {
   node_one_ptr *arrow = head;
-  head = nullptr;
   while (arrow != nullptr) {
     node_one_ptr *hold = arrow;
     arrow = arrow->next;
     delete hold;
   };
+  head = nullptr;
 };
 
 int viewfront(node_one_ptr *head) {
   if (head == nullptr) {
-    return 0;
+    return {};
   }
   return head->Data;
 };
@@ -88,11 +85,10 @@ int viewback(node_one_ptr *head) {
   if (head == nullptr) {
     return {};
   }
-  node_one_ptr *arrow = head;
-  while (arrow->next != nullptr) {
-    arrow = arrow->next;
+  while (head->next != nullptr) {
+    head = head->next;
   };
-  return arrow->Data;
+  return head->Data;
 };
 
 node_one_ptr *insert(node_one_ptr *&head, node_one_ptr *pos, const int value) {
@@ -100,10 +96,6 @@ node_one_ptr *insert(node_one_ptr *&head, node_one_ptr *pos, const int value) {
     return nullptr;
   }
   node_one_ptr *NewNode = new node_one_ptr{value, nullptr};
-  if (head == nullptr) {
-    head = NewNode;
-    return head;
-  }
   node_one_ptr *arrow = head;
   while (arrow->next != nullptr && arrow != pos) {
     arrow = arrow->next;
