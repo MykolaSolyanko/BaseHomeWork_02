@@ -20,7 +20,6 @@ void print_list(node_one_ptr *head) {
 
 void push_back(node_one_ptr *&head, const int info) {
   node_one_ptr *NewNode = new node_one_ptr{info, nullptr};
-  // NewNode->Data = info;
   if (head == nullptr) {
     head = NewNode;
     return;
