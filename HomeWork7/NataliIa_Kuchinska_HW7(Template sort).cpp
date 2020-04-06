@@ -1,6 +1,7 @@
 #include "Header.hpp"
 #include <functional>
 #include <iostream>
+#include <random>
 
 const int kSize = 10000;
 enum ARRAY_TYPE { INT = 1, DOUBLE, CHAR, EXIT };
@@ -23,7 +24,7 @@ int main() {
       std::cin >> int_arr_size;
       int *int_arr = new int[int_arr_size]{};
       if (int_arr_size <= kSize && int_arr_size > 0) {
-        CreateRandArray(int_arr, int_arr_size);
+        CreateIntRandArray(int_arr, int_arr_size);
         PrintArray(int_arr, int_arr_size);
         BubbleSort(int_arr, int_arr_size, [](int a, int b) { return (a < b); });
         PrintArray(int_arr, int_arr_size);
@@ -38,7 +39,7 @@ int main() {
       std::cin >> double_arr_size;
       double *d_arr = new double[double_arr_size]{};
       if (double_arr_size <= kSize && double_arr_size > 0) {
-        CreateRandArray(d_arr, double_arr_size);
+        CreateDoubleRandArray(d_arr, double_arr_size);
         PrintArray(d_arr, double_arr_size);
         BubbleSort(d_arr, double_arr_size,
                    [](int a, int b) { return (a < b); });
@@ -54,7 +55,7 @@ int main() {
       std::cin >> c_arr_size;
       char *c_arr = new char[c_arr_size]{};
       if (c_arr_size <= kSize && c_arr_size > 0) {
-        CreateRandArray(c_arr, c_arr_size);
+        CreateCharRandArray(c_arr, c_arr_size);
         PrintArray(c_arr, c_arr_size);
         BubbleSort(c_arr, c_arr_size, [](int a, int b) { return (a < b); });
         PrintArray(c_arr, c_arr_size);
