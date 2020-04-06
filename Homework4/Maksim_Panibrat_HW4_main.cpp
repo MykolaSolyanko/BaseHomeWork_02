@@ -13,7 +13,8 @@ int main()
 
     const size_t kSize = 30;
     int array[kSize]{};
-    int* begin = { array }, * end = begin + kSize;
+    int* begin = { array };
+    int* end = begin + kSize;
     int select;
     std::cin >> select;
     switch(select){
