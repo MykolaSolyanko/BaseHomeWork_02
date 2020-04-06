@@ -14,7 +14,7 @@ private:
 };
 template <typename T> class smart_ptr<T[]> {
 public:
-  smart_ptr(T *ptr = 0) : data{ptr} {
+  smart_ptr(T *ptr) : data{ptr} {
     set_size(ptr);
     std::cout << __FUNCSIG__ << std::endl;
   }
