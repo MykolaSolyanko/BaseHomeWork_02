@@ -13,8 +13,8 @@ enum SORT {
     QUICKSORT
 };
 
-void Manual_array(int* begin, int* end);
-void Random_array(int* begin, int* end);
-void Array_result(int* begin, int* end, const size_t kSize);
-void Bubble_sort(int* begin, int* end, Comparison comp);
+void Manual_array(int* begin, const int* end);
+void Random_array(int* begin, const int* end);
+void Array_result(int* begin, const int* end, const size_t kSize);
+void Bubble_sort(int* begin, const int* end, Comparison comp);
 void Quick_sort(int* begin, int* end, Comparison comp);
