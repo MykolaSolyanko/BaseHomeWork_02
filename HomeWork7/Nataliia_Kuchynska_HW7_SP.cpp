@@ -1,10 +1,5 @@
 #include <iostream>
 
-//Дополнить реализованный на лекции шаблоный класс smart_pointer,
-//реализовав для него частичную специализацию для динамического массива
-//(т.е.вызывать delete[] вместо delete).
-//Задание опциональное
-
 template <typename T> class smart_ptr {
 public:
   smart_ptr(T *ptr) : data{ptr} { std::cout << __FUNCSIG__ << std::endl; }
@@ -17,9 +12,9 @@ public:
 private:
   T *data;
 };
-template <typename T> class smart_ptr<T *> {
+template <typename T> class smart_ptr<T[]> {
 public:
-  smart_ptr(T *ptr) : data{ptr} {
+  smart_ptr(T *ptr = 0) : data{ptr} {
     set_size(ptr);
     std::cout << __FUNCSIG__ << std::endl;
   }
@@ -45,7 +40,7 @@ int main() {
     std::cout
         << "\nSmart-pointer specialization template demonstration for int array"
         << std::endl;
-    smart_ptr<int *> sptr2{new int[4]{0, 1, 2, 3}};
+    smart_ptr<int[]> sptr2{new int[4]{0, 1, 2, 3}};
     std::cout << sptr2.get_size() << std::endl;
     for (int i = 0; i < sptr2.get_size(); ++i) {
       std::cout << *(sptr2.get() + i) << std::endl;
@@ -55,9 +50,11 @@ int main() {
     std::cout << "\nsSmart-pointer specialization template demonstration for "
                  "double array"
               << std::endl;
-    smart_ptr<double *> sptr3{new double[11]{6.1}};
+    smart_ptr<double[]> sptr3{new double[5]{6.1, 0.1}};
     std::cout << sptr3.get_size() << std::endl;
-    std::cout << *sptr3.get() << std::endl;
+    for (int i = 0; i < sptr3.get_size(); ++i) {
+      std::cout << *(sptr3.get() + i) << std::endl;
+    }
   }
   return 0;
 }
