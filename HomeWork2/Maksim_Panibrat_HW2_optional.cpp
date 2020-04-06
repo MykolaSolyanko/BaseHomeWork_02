@@ -26,13 +26,14 @@ void Christmas_Tree() {
 }
 
 void Bit_Counter() {
-    size_t check = 131072;
-    std::cout << "This programm counts set bits in range [0..."<<check<<"].\n";
+    std::cout << "This programm counts set bits.\n";
     size_t input;
     short set_bits{};
     std::cout << "Enter number for analize: ";
-    for (std::cin >> input; check != 0; check = check >> 1) {
-        if ((input & check) != 0) {
+    size_t size_bit{ sizeof(input) * 8 };
+    size_t current_index_bit{};
+    for (std::cin >> input; current_index_bit != size_bit; ++current_index_bit) {
+        if ((input & 1 << current_index_bit) != 0) {
             set_bits++;
         }
     }
