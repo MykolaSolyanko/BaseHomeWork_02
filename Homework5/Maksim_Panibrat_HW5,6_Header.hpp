@@ -11,7 +11,7 @@ class Stack {
 public:
 	Pair push(int value, Pair pair) {
 		std::cout << "Push index: " << index << std::endl;
-		if (index == 9) {
+		if (index == (kSize - 1)) {
 			return {false, "Stack full" };
 		}
 		std::cout << "Pushed: " << value << std::endl;
