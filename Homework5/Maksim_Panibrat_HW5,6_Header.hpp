@@ -9,30 +9,21 @@ struct Pair {
 
 class Stack {
 public:
-	Pair push(int value) {
-		Pair pair{ true, " " };
+	Pair push(int value, Pair pair) {
 		std::cout << "Push index: " << index << std::endl;
 		if (index == 9) {
-			pair.status = false;
-			pair.msg = "Stack full";
-			return pair;
+			return {false, "Stack full" };
 		}
 		std::cout << "Pushed: " << value << std::endl;
 		array[++index] = value;
-		pair.msg = "Push success";
-		return pair;
+		return {true, "Push success" };
 	}
-	Pair pop() {
-		Pair pair{ true, " " };
+	Pair pop(Pair pair) {
 		if (index == 0) {
-			pair.status = false;
-			pair.msg = "Stack clear";
-			return pair;
+			return { false, "Stack clear" };
 		}
-		std::cout << "Popped " << array[index] << std::endl;
-		--index;
-		pair.msg = "Pop success";
-		return pair;
+		std::cout << "Popped " << array[index--] << std::endl;
+		return {true, "Pop success"};
 	}
 	void clear() {
 		if (index == 0) {
@@ -47,7 +38,7 @@ public:
 		return array[index];
 	}
 
-	unsigned long long GetSizeStack() {
+	const unsigned long long GetSizeStack() {
 		return kSize;
 	}
 
@@ -57,3 +48,4 @@ private:
 	int array[kSize]{};
 	unsigned long long index{};
 };
+
