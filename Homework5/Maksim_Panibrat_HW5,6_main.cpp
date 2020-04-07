@@ -10,7 +10,7 @@ int main() {
     Pair pair{true, ""};
     while (pair.status == true) {
       std::cin >> value;
-      pair = st.push(value);
+      pair = st.push(value, pair);
     }
     std::cout << pair.msg << std::endl;
   }
@@ -18,7 +18,7 @@ int main() {
   {
     Pair pair{true, ""};
     for (int i = 0; i != 6; i++) {
-      pair = st.pop();
+      pair = st.pop(pair);
     }
     std::cout << pair.msg << std::endl;
   }
@@ -29,16 +29,17 @@ int main() {
     Pair pair{true, ""};
     for (int i = 0; i != 6; i++) {
       std::cin >> value;
-      pair = st.push(value);
+      pair = st.push(value, pair);
     }
     std::cout << pair.msg << std::endl;
   }
   std::cout << "top after iter push: " << st.top() << std::endl;
 
-  for (Pair pair{true, ""}; pair.status == true; pair = st.pop()) {
+  for (Pair pair{true, ""}; pair.status == true; pair = st.pop(pair)) {
   }
 
   std::cout << "new top after popping " << st.top() << std::endl;
 
   return 0;
 }
+
