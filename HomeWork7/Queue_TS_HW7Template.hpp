@@ -1,6 +1,12 @@
 #pragma once
-#include "Common_TS_HW7.hpp"
+#include <iostream>
+
 // the queue is based on a bidirectional list
+
+template <typename T>
+using result = std::pair<T, bool>;
+
+const size_t k_defult_max_size{100};
 
 template <typename T>
 struct node2directions {
@@ -13,7 +19,7 @@ template <typename T>
 class Queue {
  public:
   Queue(const size_t size);
-  Queue();
+  Queue() = default;
   ~Queue();
 
   bool enqueue(const T value);
@@ -37,9 +43,6 @@ class Queue {
 
 template <typename T>
 Queue<T>::Queue(size_t size) : k_max_size{size} {}
-
-template <typename T>
-Queue<T>::Queue() {}
 
 template <typename T>
 Queue<T>::~Queue() {

@@ -1,5 +1,10 @@
 #pragma once
-#include "Common_TS_HW7.hpp"
+#include <iostream>
+
+template <typename T>
+using result = std::pair<T, bool>;
+
+const size_t k_defult_max_size{100};
 
 template <typename T>
 struct layer {

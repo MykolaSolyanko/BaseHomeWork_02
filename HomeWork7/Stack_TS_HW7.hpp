@@ -1,6 +1,11 @@
 // stack is based on a unidirectional list
 #pragma once
-#include "Common_TS_HW7.hpp"
+#include <iostream>
+
+template <typename T>
+using result = std::pair<T, bool>;
+
+const size_t k_defult_max_size{100};
 
 template <typename T>
 struct layer {
@@ -11,7 +16,7 @@ struct layer {
 template <typename T>
 class Stack {
  public:
-  Stack();
+  Stack() = default;
   Stack(const size_t size);
   ~Stack();
 
@@ -32,9 +37,6 @@ class Stack {
   size_t count{0};
   const size_t k_max_size{k_defult_max_size};
 };
-
-template <typename T>
-Stack<T>::Stack(){};
 
 template <typename T>
 Stack<T>::Stack(const size_t size) : k_max_size{size} {};

@@ -5,10 +5,14 @@
 #include "ArrFunc_TS7Template.hpp"
 #include "SortingAlgorithmsTemplete.hpp"
 
+const size_t k_int_array_size{10'000};
+
+using SortFunc = std::function<void(float *, float *, Comparison<float>)>;
+
 enum SortType { ST_BOBLE_SORT, ST_SELECTION_SORT, ST_QUICK_SORT, COUNT_ST };
 
-void (*Sort[COUNT_ST])(float *, float *, Comparison<float>) = {
-    BubleSort, SelectSort, Quicksort};
+SortFunc Sort[COUNT_ST] = {BubleSort<float>, SelectSort<float>,
+                           Quicksort<float>};
 const unsigned k_Name_Length{20};
 const char k_MethodName[COUNT_ST][k_Name_Length]{"BOBLESORT", "SELECTION SORT",
                                                  "QUICK SORT"};
@@ -34,11 +38,11 @@ A program for demonstrating some sort algorithms.)"
 
     std::cout << "Launching ";
 
-    const auto more = [](int a, int b) { return a > b; };
+    // const auto more = [](float a, float b) { return a > b; };
 
     std::cout << k_MethodName[Method] << std::endl;
 
-    (*Sort[Method])(Victim, Victim + k_int_array_size, More<float>);
+    Sort[Method](Victim, Victim + k_int_array_size, More<float>);
 
     ShowArray<float>(Victim, Victim + k_int_array_size);
   }

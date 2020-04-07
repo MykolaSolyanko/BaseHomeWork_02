@@ -3,14 +3,12 @@
 #include <fstream>
 #include <iostream>
 #include <random>
-const size_t k_int_array_size{10'000};
-
-static const int k_min_random_value{10};
-static const int k_max_random_value{99};
 
 // RANDOM INIT ARRAY
 template <typename T>
 void rundomInitArray(T *const array_begin, T const *const array_end) {
+  const int k_min_random_value{10};
+  const int k_max_random_value{99};
   if (array_begin == nullptr || array_end == nullptr ||
       array_begin >= array_end) {
     return;  // error
