@@ -4,7 +4,7 @@
 template <typename T>
 using result = std::pair<T, bool>;
 
-const size_t k_defult_max_size{100};
+static const size_t k_defult_stack_max_size{100};
 
 template <typename T>
 struct layer {
@@ -15,42 +15,27 @@ struct layer {
 template <typename T>
 class Stack {
  public:
-  Stack();
-  Stack(const size_t size);
-  ~Stack();
+  Stack() = default;
+  Stack(const size_t size) : k_max_size{size} {};
+  ~Stack() { delete[] Layers; };
 
   bool push(const T value);
   result<T> top();
   result<T> pop();
 
-  void clear();
+  void clear() { count = 0; };
 
-  bool isEmpty() const;
-  bool isFull() const;
+  bool isEmpty() const { return count == 0; };
+  bool isFull() const { return count == k_max_size; };
 
-  size_t getCount() const;
-  size_t getMaxSize() const;
+  size_t getCount() const { return count; };
+  size_t getMaxSize() const { return k_max_size; };
 
  private:
-  const size_t k_max_size{k_defult_max_size};
+  const size_t k_max_size{k_defult_stack_max_size};
   size_t count{0};
-  T *Layers;
+  T *Layers = new T[k_max_size]{};
 };
-
-template <typename T>
-Stack<T>::Stack() {
-  Layers<T> = new T[k_max_size]{};
-};
-
-template <typename T>
-Stack<T>::Stack(const size_t size) : k_max_size{size} {
-  Stack();
-};
-
-template <typename T>
-Stack<T>::~Stack() {
-  delete[] Layers;
-}
 
 template <typename T>
 bool Stack<T>::push(const T value) {
@@ -75,29 +60,4 @@ result<T> Stack<T>::pop() {
     return {{}, false};
   }
   return {Layers[--count], true};
-}
-
-template <typename T>
-void Stack<T>::clear() {
-  count = 0;
-}
-
-template <typename T>
-bool Stack<T>::isEmpty() const {
-  return count == 0;
-}
-
-template <typename T>
-bool Stack<T>::isFull() const {
-  return count == k_max_size;
-}
-
-template <typename T>
-size_t Stack<T>::getCount() const {
-  return count;
-}
-
-template <typename T>
-size_t Stack<T>::getMaxSize() const {
-  return k_max_size;
 }

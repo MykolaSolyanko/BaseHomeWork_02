@@ -24,7 +24,7 @@ int main(int argc, char const *argv[]) {
   Demo.pop();
   Demo.clear();
 
-  Queue<int> Demo2;
+  Queue<float> Demo2;
   Demo2.enqueue(1.1);
   Demo2.enqueue(2.2);
   Demo2.enqueue(3.3);

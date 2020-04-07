@@ -6,50 +6,49 @@
 template <typename T>
 using result = std::pair<T, bool>;
 
-const size_t k_defult_max_size{100};
+static const size_t k_defult_queue_max_size{100};
 
 template <typename T>
 struct node2directions {
   T Inf{};
-  node2directions *next<T>{nullptr};
-  node2directions *prev<T>{nullptr};
+  node2directions<T> *next{nullptr};
+  node2directions<T> *prev{nullptr};
 };
 
 template <typename T>
 class Queue {
  public:
-  Queue(const size_t size);
   Queue() = default;
-  ~Queue();
+  Queue(const size_t size) : k_max_size{size} {};
+  ~Queue() {
+    if (count != 0) {
+      clear();
+    }
+  };
 
   bool enqueue(const T value);
-  result<T> peek();
+  result<T> peek() {
+    if (count == 0) {
+      return {{}, false};
+    }
+    return {head->Inf, true};
+  };
   result<T> dequeue();
 
   void clear();
 
-  bool isEmpty() const;
-  bool isFull() const;
+  bool isEmpty() const { return count == 0; };
+  bool isFull() const { return count == k_max_size; };
 
-  size_t getCount() const;
-  size_t getMaxSize() const;
+  size_t getCount() const { return count; };
+  size_t getMaxSize() const { return k_max_size; };
 
  private:
   node2directions<T> *head{nullptr};
   node2directions<T> *tail{nullptr};
   size_t count{0};
-  const size_t k_max_size{k_defult_max_size};
+  const size_t k_max_size{k_defult_queue_max_size};
 };
-
-template <typename T>
-Queue<T>::Queue(size_t size) : k_max_size{size} {}
-
-template <typename T>
-Queue<T>::~Queue() {
-  if (count != 0) {
-    clear();
-  }
-}
 
 template <typename T>
 bool Queue<T>::enqueue(T value) {
@@ -75,21 +74,12 @@ bool Queue<T>::enqueue(T value) {
 }
 
 template <typename T>
-result<T> Queue<T>::peek() {
-  if (count == 0) {
-    return {{}, false};
-  }
-  return {head->Inf, true};
-}
-
-template <typename T>
 result<T> Queue<T>::dequeue() {
   if (head == nullptr) {
     return {{}, false};
   }
-  node2directions<T> *to_delete = head;
-  node2directions<T> *hold = to_delete->next;
-  delete to_delete;
+  node2directions<T> *hold = head->next;
+  delete head;
   head = hold;
   hold->prev = nullptr;
   count--;
@@ -102,32 +92,12 @@ void Queue<T>::clear() {
     return;
   }
   node2directions<T> *arrow = head;
-  head = nullptr;
-  tail = nullptr;
   count = 0;
   while (arrow != tail) {
     node2directions<T> *hold = arrow;
     arrow = arrow->next;
     delete hold;
   }
-}
-
-template <typename T>
-bool Queue<T>::isEmpty() const {
-  return count == 0;
-}
-
-template <typename T>
-bool Queue<T>::isFull() const {
-  return count == k_max_size;
-}
-
-template <typename T>
-size_t Queue<T>::getCount() const {
-  return count;
-}
-
-template <typename T>
-size_t Queue<T>::getMaxSize() const {
-  return k_max_size;
+  head = nullptr;
+  tail = nullptr;
 }
