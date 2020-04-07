@@ -72,7 +72,7 @@ int main(int argc, char const *argv[]) {
   }
   {
     std::cout << "This is elipse" << std::endl;
-    Ellipse el(XYPoint, XYPoint);
+    Ellipse el(33, 25, 89.3, 98.2);
     el.draw();
     std::cout << "squre=" << el.calc_square() << std::endl;
   }

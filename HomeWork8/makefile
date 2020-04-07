@@ -16,7 +16,7 @@ COMPILER=clang++
 # параметри
 PARAM=-c -Wall -Wpedantic -std=c++17 -O3
 # з яких вайлів збираємо
-SOURCES=Taras_Samchuk_HW8.cpp
+SOURCES=Taras_Samchuk_HW8.cpp geometry_TS_HW8.cpp
 # формула імен о-файлів
 OBJECTS=$(SOURCES:.cpp=.o)
 # ім'я програми
@@ -39,6 +39,5 @@ clean:
 
 # запуск програми
 run:
-	reset
 	./$(EXECUTABLE)
 
