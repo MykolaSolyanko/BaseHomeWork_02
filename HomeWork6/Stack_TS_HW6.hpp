@@ -9,9 +9,8 @@ struct layer {
 
 class Stack {
  public:
-  Stack();
-  Stack(const size_t size);
-  Stack(Stack &) = delete;
+  Stack() = default;
+  Stack(const size_t size) : k_max_size{size} {};
   ~Stack();
 
   bool push(const int value);

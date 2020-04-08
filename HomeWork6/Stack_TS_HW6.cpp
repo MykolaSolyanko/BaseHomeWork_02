@@ -1,10 +1,6 @@
 // stack is based on a unidirectional list
 #include "Stack_TS_HW6.hpp"
 
-Stack::Stack(){};
-
-Stack::Stack(const size_t size) : k_max_size{size} {};
-
 Stack::~Stack() {
   if (count != 0) {
     clear();
@@ -35,9 +31,8 @@ result Stack::pop() {
   if (head == nullptr) {
     return {{}, false};
   }
-  layer *to_delete = head;
-  layer *hold = to_delete->next;
-  delete to_delete;
+  layer *hold = head->next;
+  delete head;
   head = hold;
   count--;
   return {hold->inf, true};

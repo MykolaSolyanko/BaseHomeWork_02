@@ -1,11 +1,4 @@
 #include "StackOnArray_TS_HW6.hpp"
-
-Stack::Stack() { Layers = new int[k_max_size]{}; };
-
-Stack::Stack(const size_t size) : k_max_size{size} { Stack(); };
-
-Stack::~Stack() { delete[] Layers; }
-
 bool Stack::push(const int value) {
   if (count == k_max_size) {
     return false;

@@ -9,10 +9,9 @@ struct layer {
 
 class Stack {
  public:
-  Stack();
-  Stack(const size_t size);
-  Stack(Stack &) = delete;
-  ~Stack();
+  Stack() = default;
+  Stack(const size_t size) : k_max_size{size} {};
+  ~Stack() { delete[] Layers; };
 
   bool push(const int value);
   result top();
@@ -29,5 +28,5 @@ class Stack {
  private:
   const size_t k_max_size{k_defult_max_size};
   size_t count{0};
-  int *Layers;
+  int *Layers = new int[k_max_size];
 };

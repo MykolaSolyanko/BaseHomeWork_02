@@ -1,8 +1,5 @@
 #include "Queue_TS_HW6.hpp"
 // the queue is based on a bidirectional list
-Queue::Queue(size_t size) : k_max_size{size} {}
-
-Queue::Queue() {}
 
 Queue::~Queue() {
   if (count != 0) {
@@ -42,9 +39,8 @@ result Queue::dequeue() {
   if (head == nullptr) {
     return {{}, false};
   }
-  node2directions *to_delete = head;
-  node2directions *hold = to_delete->next;
-  delete to_delete;
+  node2directions *hold = head->next;
+  delete head;
   head = hold;
   hold->prev = nullptr;
   count--;

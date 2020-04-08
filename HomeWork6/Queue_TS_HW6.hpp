@@ -10,9 +10,8 @@ struct node2directions {
 
 class Queue {
  public:
-  Queue(const size_t size);
-  Queue();
-  Queue(Queue &) = delete;
+  Queue(const size_t size) : k_max_size{size} {};
+  Queue() = default;
   ~Queue();
 
   bool enqueue(const int value);
