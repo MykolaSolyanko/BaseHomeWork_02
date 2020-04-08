@@ -58,4 +58,5 @@ int main() {
   print_q(q1);
   pop_q_elmnt(q1);
   print_q(q1);
+  return 0;
 }
