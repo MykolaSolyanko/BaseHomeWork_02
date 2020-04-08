@@ -1,6 +1,6 @@
 #include "Header.hpp"
 #include <iostream>
-void Square::draw() {
+const void Square::draw() {
   for (int i = 0; i < side; ++i) {
     for (int j = 0; j < side; ++j) {
       std::cout << '*';
@@ -8,39 +8,40 @@ void Square::draw() {
     std::cout << std::endl;
   }
 }
-int Square::calc_square() {
+double Square::calc_square() {
   std::cout << __FUNCSIG__ << std::endl;
   return side * side;
 }
-int Square::get_side() { return side; }
+const int Square::get_side() { return side; }
 void Square::set_side(int side) { this->side = side; }
 
-void RightTriangle::draw() {
-  if (height > side) {
-    int tmp;
-    tmp = side;
-    side = height;
-    height = tmp;
+const void RightTriangle::draw() {
+  if (height < side) {
+    std::swap(height, side);
   }
-  for (int i = 0; i <= side; ++i) {
+  for (int i = 0; i < height; ++i) {
     if (i <= side) {
       for (int j = 0; j < i; ++j) {
+        std::cout << '*';
+      }
+    } else {
+      for (int j = 0; j < side; ++j) {
         std::cout << '*';
       }
     }
     std::cout << std::endl;
   }
 }
-int RightTriangle::calc_square() {
+double RightTriangle::calc_square() {
   std::cout << __FUNCSIG__ << std::endl;
-  return static_cast<int>(side * height) / 2;
+  return static_cast<double>(side * height) / 2;
 }
-int RightTriangle::get_side() { return side; }
-int RightTriangle::get_height() { return height; }
+const int RightTriangle::get_side() { return side; }
+const int RightTriangle::get_height() { return height; }
 void RightTriangle::set_side(int side) { this->side = side; }
 void RightTriangle::set_height(int height) { this->height = height; }
 
-void Rectangle::draw() {
+const void Rectangle::draw() {
   for (int i = 0; i <= height; ++i) {
     for (int j = 0; j <= width; ++j) {
       std::cout << '*';
@@ -48,12 +49,12 @@ void Rectangle::draw() {
     std::cout << std::endl;
   }
 }
-int Rectangle::calc_square() {
+double Rectangle::calc_square() {
   std::cout << __FUNCSIG__ << std::endl;
   return width * height;
 }
-int Rectangle::get_width() { return width; }
-int Rectangle::get_height() { return height; }
+const int Rectangle::get_width() { return width; }
+const int Rectangle::get_height() { return height; }
 void Rectangle::set_width(int width) { this->width = width; }
 void Rectangle::set_height(int height) { this->height = height; }
 
