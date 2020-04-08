@@ -1,6 +1,10 @@
 #pragma once
-#include "Common_TS_HW6.hpp"
+#include <iostream>
 // the queue is based on a bidirectional list
+
+using result = std::pair<int, bool>;
+
+static unsigned const k_defult_max_size{100};
 
 struct node2directions {
   int Inf{};

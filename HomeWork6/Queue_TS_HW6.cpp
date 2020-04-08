@@ -1,5 +1,6 @@
 #include "Queue_TS_HW6.hpp"
 // the queue is based on a bidirectional list
+using result = std::pair<int, bool>;
 
 Queue::~Queue() {
   if (count != 0) {
@@ -32,7 +33,7 @@ result Queue::peek() {
   if (count == 0) {
     return {{}, false};
   }
-  return {head->next->Inf, true};
+  return {head->Inf, true};
 }
 
 result Queue::dequeue() {

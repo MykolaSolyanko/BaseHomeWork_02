@@ -1,6 +1,10 @@
 // stack is based on a unidirectional list
 #pragma once
-#include "Common_TS_HW6.hpp"
+#include <iostream>
+
+static const unsigned k_defult_max_stack_size{100};
+
+using result = std::pair<int, bool>;
 
 struct layer {
   int inf{};
@@ -28,5 +32,5 @@ class Stack {
  private:
   layer *head{nullptr};
   size_t count{0};
-  const size_t k_max_size{k_defult_max_size};
+  const size_t k_max_size{k_defult_max_stack_size};
 };
