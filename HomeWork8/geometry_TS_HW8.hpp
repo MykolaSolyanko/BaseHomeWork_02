@@ -75,6 +75,7 @@ class Rectangle : public IShape {
   virtual ~Rectangle() override;
 };
 
+// for rectangular triangle
 class Triangle : public IShape {
  public:
   Triangle() = default;

@@ -122,7 +122,10 @@ Triangle::Triangle(sPoint Pos, sPoint Size) : IShape(Pos, Size){};
 Triangle::Triangle(double X1, double Y1, double X2, double Y2)
     : IShape(X1, Y1, X2, Y2){};
 Triangle::Triangle(IShape &Src) : IShape(Src) {}
-double Triangle::calc_square() { return (size->x * size->y) / 2; };
+double Triangle::calc_square() {
+  // for rectangular triangle
+  return (size->x * size->y) / 2;
+};
 void Triangle::draw() {
   printf(k_shape_printf, k_this_is_triangle, pos->x, pos->y, pos->x + size->x,
          pos->y + size->y);
