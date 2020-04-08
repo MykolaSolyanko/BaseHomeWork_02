@@ -3,7 +3,8 @@
 
 enum { SQUARE = 1, TRIANGLE, RECTANGLE, EXIT };
 void func(Shape &sh) {
-  sh.calc_square();
+  auto sq = sh.calc_square();
+  std::cout << "calc_square = " << sq << std::endl;
   sh.draw();
 }
 int main() {
