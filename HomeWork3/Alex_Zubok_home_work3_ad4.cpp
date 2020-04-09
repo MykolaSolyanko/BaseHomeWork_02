@@ -13,7 +13,7 @@ void lower_string(char *string) {
   std::cout << std::endl;
 }
 
-char *ret_lower_string(char *string) {
+char *ret_lower_string(char * string) {
   if (string == nullptr || string + strlen(string) == nullptr ||
       strlen(string) == 0)
     return string;
