@@ -4,8 +4,8 @@
 #include <iostream>
 #include <random>
 
-using Comp = bool (*)(int, int);
-bool More(int a, int b);
+bool More(int a, int b) { return a > b; }
+using Comp = decltype(&More);
 void bSort(int *begin, int *end, Comp func = More);
 int *user_partiotion(int *begin, int *end, Comp func = More);
 void qSort(int *begin, int *end, Comp func = More);
