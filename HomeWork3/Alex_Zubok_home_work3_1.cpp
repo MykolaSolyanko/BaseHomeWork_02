@@ -15,6 +15,7 @@ void reverse_string(char *string) {
 
 int main() {
   size_t kMaxSizeString = 1000;
+  const char kEnter = '\n';
   char *tmp_string = new char[kMaxSizeString]{};
   std::cout << "Please enter your string that you want reverse to "
             << kMaxSizeString << " symbols and press 'Enter': ";
