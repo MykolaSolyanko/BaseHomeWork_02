@@ -1,8 +1,8 @@
 #include <cstring>
 #include <iostream>
 
-using Comp = bool (*)(int, int);
 bool More(int a, int b) { return a > b; }
+using Comp = decltype(&More);
 
 void swap(int *a, int *b) {
   int tmp = *a;
