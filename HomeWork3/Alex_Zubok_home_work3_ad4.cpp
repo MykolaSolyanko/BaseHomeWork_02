@@ -16,7 +16,7 @@ void lower_string(char *string) {
 char *ret_lower_string(char *string) {
   if (string == nullptr || string + strlen(string) == nullptr ||
       strlen(string) == 0)
-    return;
+    return string;
   for (size_t i = 0; i < strlen(string); i++) {
     if (*(string + i) >= 'A' && *(string + i) <= 'Z')
       *(string + i) += 32;
