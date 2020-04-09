@@ -17,17 +17,19 @@ char *ret_lower_string(char *string) {
   if (string == nullptr || string + strlen(string) == nullptr ||
       strlen(string) == 0)
     return string;
+  char *ret_string = new char[strlen(string) + 1]{};
+  strncpy(ret_string, string,strlen(string)); 
   for (size_t i = 0; i < strlen(string); i++) {
-    if (*(string + i) >= 'A' && *(string + i) <= 'Z')
-      *(string + i) += 32;
+    if (*(ret_string + i) >= 'A' && *(ret_string + i) <= 'Z')
+      *(ret_string + i) += 32;
   }
-  return string;
+  return ret_string;
 }
 
 int main() {
   const size_t kMaxStringSize = 1000;
   const char kEnter = '\n';
-  std::cout << "Please enter string to : ";
+  std::cout << "Please enter string to " << kMaxStringSize << " symbols: ";
   char *tmp_string = new char[kMaxStringSize]{};
   std::cin.get(tmp_string, kMaxStringSize, kEnter);
   char *string = new char[strlen(tmp_string) + 1]{};
