@@ -1,99 +1,91 @@
 #include <iostream>
-struct sPoint {
-  double x{};
-  double y{};
-};
+
 class ICoordinates {
  public:
-  ICoordinates();
-  virtual void draw() = 0;
-  virtual void setTop(double Top) final;
-  virtual void setLeft(double Left) final;
-  virtual void setPos(double x, double y) final;
-  virtual void setPos(sPoint Pos) final;
-  virtual ~ICoordinates();
-
- protected:
-  sPoint *pos;
+  virtual void setTop(double Top) = 0;
+  virtual void setLeft(double Left) = 0;
+  virtual void setPos(double Left, double Top) = 0;
+  virtual ~ICoordinates() = default;
 };
 
-class Point : public ICoordinates {
+class Point : public virtual ICoordinates {
  public:
   Point() = default;
-  Point(sPoint Pos);
-  Point(double X, double Y);
-  virtual void draw() override;
-  virtual ~Point();
-};
-
-class IShape : public Point {
- public:
-  IShape();
-  IShape(sPoint Pos, sPoint Size);
-  IShape(double X1, double Y1, double X2, double Y2);
-  IShape(IShape &Src);
-  virtual void setHeihgt(double Height) final;
-  virtual void setWidth(double Width) final;
-  virtual void setSize(sPoint Size) final;
-  virtual double calc_square() = 0;
-  virtual ~IShape() override;
+  Point(double Left, double Top);
+  void setTop(double Top) final;
+  void setLeft(double Left) final;
+  void setPos(double Left, double Top) final;
+  virtual void draw();
+  virtual ~Point() = default;
 
  protected:
-  sPoint *size;
+  double left{};
+  double top{};
 };
 
-class Line : public IShape {
+class IShape : public virtual ICoordinates {
+ public:
+  virtual void setHeihgt(double Height) = 0;
+  virtual void setWidth(double Width) = 0;
+  virtual void setSize(double Width, double Height) = 0;
+  virtual ~IShape() = default;
+};
+/*  */
+class Shape : public IShape, public Point {
+ public:
+  void setHeihgt(double Height) final;
+  void setWidth(double Width) final;
+  void setSize(double Width, double Height) final;
+  virtual double calc_square() = 0;
+  ~Shape() = default;
+
+ protected:
+  double width{};
+  double heght{};
+};
+
+class Line : public Shape {
  public:
   Line() = default;
-  Line(sPoint Pos, sPoint Size);
-  Line(double X1, double Y1, double X2, double Y2);
-  Line(IShape &Src);
-  virtual double calc_square() override;
-  virtual void draw() override;
-  virtual ~Line() override;
+  Line(double Left, double Top, double Width, double Height);
+  double calc_square() override;
+  void draw() override;
+  virtual ~Line() = default;
 };
 
-class Square : public IShape {
+class Square : public Shape {
  public:
   Square() = default;
-  Square(sPoint Pos, sPoint Size);
-  Square(double X1, double Y1, double X2, double Y2);
-  Square(IShape &Src);
-  virtual double calc_square() override;
-  virtual void draw() override;
-  virtual ~Square() override;
+  Square(double Left, double Top, double Width, double Height /*ignoring*/);
+  double calc_square() override;
+  void draw() override;
+  virtual ~Square() = default;
 };
 
-class Rectangle : public IShape {
+class Rectangle : public Shape {
  public:
   Rectangle() = default;
-  Rectangle(sPoint Pos, sPoint Size);
-  Rectangle(double X1, double Y1, double X2, double Y2);
-  Rectangle(IShape &Src);
-  virtual double calc_square() override;
-  virtual void draw() override;
-  virtual ~Rectangle() override;
+  Rectangle(double Left, double Top, double Width, double Height);
+  double calc_square() override;
+  void draw() override;
+  virtual ~Rectangle() = default;
 };
 
 // for rectangular triangle
-class Triangle : public IShape {
+class Triangle : public Shape {
  public:
   Triangle() = default;
-  Triangle(sPoint Pos, sPoint Size);
-  Triangle(double X1, double Y1, double X2, double Y2);
-  Triangle(IShape &Src);
-  virtual double calc_square() override;
-  virtual void draw() override;
-  virtual ~Triangle() override;
+  Triangle(double Left, double Top, double Width, double Height);
+  double calc_square() override;
+  void draw() override;
+  virtual ~Triangle() = default;
 };
 
-class Ellipse : public IShape {
+class Ellipse : public Shape {
  public:
   Ellipse() = default;
-  Ellipse(sPoint Pos, sPoint Size);
-  Ellipse(double X1, double Y1, double X2, double Y2);
-  Ellipse(IShape &Src);
-  virtual double calc_square() override;
-  virtual void draw() override;
-  virtual ~Ellipse() override;
+  Ellipse(double Left, double Top, double Width, double Height);
+  double calc_square() override;
+  void draw() override;
+  virtual ~Ellipse() = default;
 };

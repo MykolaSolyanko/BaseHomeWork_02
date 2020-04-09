@@ -46,99 +46,73 @@ static const char k_this_is_triangle[]{"\n|\\\n| \\\n|  \\\n|   \\\n|____\\\n"};
 */
 static const char k_this_is_elipse[]{
     "\n  ______\n /      \\\n(        )\n \\______/\n"};
-
-ICoordinates::ICoordinates() { pos = new sPoint{}; }
-void ICoordinates::setTop(double Top) { pos->y = Top; };
-void ICoordinates::setLeft(double Left) { pos->x = Left; };
-void ICoordinates::setPos(double x, double y) {
-  pos->x = x;
-  pos->y = y;
+/*Point*/
+Point ::Point(double Left, double Top) : left{Left}, top{Top} {};
+void Point::setTop(double Top) { top = Top; };
+void Point::setLeft(double Left) { left = Left; };
+void Point::setPos(double Left, double Top) {
+  setTop(Left);
+  setLeft(Top);
 };
-void ICoordinates::setPos(sPoint Pos) { *pos = Pos; };
-ICoordinates::~ICoordinates() { delete pos; };
-
-Point ::Point(sPoint Pos) : Point(Pos.x, Pos.y){};
-Point ::Point(double X, double Y) : Point() {
-  pos->x = X;
-  pos->y = Y;
+void Point ::draw() { printf(k_point_printf, k_this_is_point, left, top); };
+/*Shape*/
+void Shape::setHeihgt(double Height) { heght = Height; };
+void Shape::setWidth(double Width) { width = Width; };
+void Shape::setSize(double Width, double Height) {
+  setWidth(Width);
+  setHeihgt(Height);
 };
-void Point ::draw() {
-  printf(k_point_printf, k_this_is_point, pos->x, pos->y);
-};
-Point ::~Point(){};
-
-IShape::IShape() : Point() { size = new sPoint{}; };
-IShape::IShape(sPoint Pos, sPoint Size)
-    : IShape(Pos.x, Pos.y, Size.x, Size.y){};
-IShape::IShape(double X1, double Y1, double X2, double Y2) : IShape() {
-  pos->x = X1;
-  pos->y = Y1;
-  size->x = X2;
-  size->y = Y2;
-};
-IShape::IShape(IShape &Src) : IShape() {
-  pos = Src.pos;
-  size = Src.size;
+/*Line*/
+Line::Line(double Left, double Top, double Width, double Height) : Line() {
+  Shape::setPos(Left, Top);
+  Shape::setSize(Width, Height);
 }
-void IShape::setHeihgt(double Height) { size->y = Height; };
-void IShape::setWidth(double Width) { size->x = Width; };
-void IShape::setSize(sPoint Size) { *size = Size; };
-IShape::~IShape() { delete size; };
-
-Line::Line(sPoint Pos, sPoint Size) : IShape(Pos, Size){};
-Line::Line(double X1, double Y1, double X2, double Y2)
-    : IShape(X1, Y1, X2, Y2){};
-Line::Line(IShape &Src) : IShape(Src) {}
 double Line::calc_square() { return 0; };
 void Line::draw() {
-  printf(k_shape_printf, k_this_is_line, pos->x, pos->y, pos->x + size->x,
-         pos->y + size->y);
+  printf(k_shape_printf, k_this_is_line, left, top, left + width, top + heght);
 }
-Line::~Line(){};
-
-Square::Square(sPoint Pos, sPoint Size) : IShape(Pos, Size){};
-Square::Square(double X1, double Y1, double X2, double Y2)
-    : IShape(X1, Y1, X2, Y2){};
-Square::Square(IShape &Src) : IShape(Src){};
-double Square::calc_square() { return size->x * size->x; };
-void Square::draw() {
-  printf(k_shape_printf, k_this_is_square, pos->x, pos->y, pos->x + size->x,
-         pos->y + size->x);
-}
-Square::~Square(){};
-
-Rectangle::Rectangle(sPoint Pos, sPoint Size) : IShape(Pos, Size){};
-Rectangle::Rectangle(double X1, double Y1, double X2, double Y2)
-    : IShape(X1, Y1, X2, Y2){};
-Rectangle::Rectangle(IShape &Src) : IShape(Src) {}
-double Rectangle::calc_square() { return size->x * size->y; };
-void Rectangle::draw() {
-  printf(k_shape_printf, k_this_is_rectangle, pos->x, pos->y, pos->x + size->x,
-         pos->y + size->y);
-}
-Rectangle::~Rectangle(){};
-
-Triangle::Triangle(sPoint Pos, sPoint Size) : IShape(Pos, Size){};
-Triangle::Triangle(double X1, double Y1, double X2, double Y2)
-    : IShape(X1, Y1, X2, Y2){};
-Triangle::Triangle(IShape &Src) : IShape(Src) {}
-double Triangle::calc_square() {
-  // for rectangular triangle
-  return (size->x * size->y) / 2;
+/*Squre*/
+Square::Square(double Left, double Top, double Width,
+               double Height /*ignoring*/)
+    : Square() {
+  Shape::setPos(Left, Top);
+  Shape::setSize(Width, 0 /*ignoring*/);
 };
+double Square::calc_square() { return width * width; };
+void Square::draw() {
+  printf(k_shape_printf, k_this_is_square, left, top, left + width,
+         top + width);
+}
+/* Rectangle */
+Rectangle::Rectangle(double Left, double Top, double Width, double Height)
+    : Rectangle() {
+  Shape::setPos(Left, Top);
+  Shape::setSize(Width, Height);
+};
+double Rectangle::calc_square() { return heght * width; };
+void Rectangle::draw() {
+  printf(k_shape_printf, k_this_is_rectangle, left, top, left + width,
+         top + heght);
+}
+/*rectangular Triangle*/
+Triangle::Triangle(double Left, double Top, double Width, double Height)
+    : Triangle() {
+  Shape::setPos(Left, Top);
+  Shape::setSize(Width, Height);
+};
+double Triangle::calc_square() { return (heght * width) / 2; };
 void Triangle::draw() {
-  printf(k_shape_printf, k_this_is_triangle, pos->x, pos->y, pos->x + size->x,
-         pos->y + size->y);
+  printf(k_shape_printf, k_this_is_triangle, left, top, left + width,
+         top + heght);
 }
-Triangle::~Triangle(){};
-
-Ellipse::Ellipse(sPoint Pos, sPoint Size) : IShape(Pos, Size){};
-Ellipse::Ellipse(double X1, double Y1, double X2, double Y2)
-    : IShape(X1, Y1, X2, Y2){};
-Ellipse::Ellipse(IShape &Src) : IShape(Src) {}
-double Ellipse::calc_square() { return (size->x / 2) * (size->y / 2) * k_PI; };
+/*Ellipse*/
+Ellipse::Ellipse(double Left, double Top, double Width, double Height)
+    : Ellipse() {
+  Shape::setPos(Left, Top);
+  Shape::setSize(Width, Height);
+};
+double Ellipse::calc_square() { return (width / 2) * (heght / 2) * k_PI; };
 void Ellipse::draw() {
-  printf(k_shape_printf, k_this_is_elipse, pos->x, pos->y, pos->x + size->x,
-         pos->y + size->y);
+  printf(k_shape_printf, k_this_is_elipse, left, top, left + width,
+         top + heght);
 }
-Ellipse::~Ellipse(){};

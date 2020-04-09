@@ -4,21 +4,31 @@ void FamilyTree() {
 
 Inheritance of classes
 
- >ICoordinates
-    +--Point
-        +->IShape
-            +--Line
-            +--Square
-            +--Rectangle
-            +--Triangle
-            +--Ellipse
+ 0>ICoordinates
+       /\
+      /  \
+     /    \
+    /      \
+   /        \
+Point   0>IShape
+   \        /
+    \      /
+     \    /
+      \  /
+       \/
+    0 Shape
+        |
+        +--Line
+        +--Square
+        +--Rectangle
+        +--Triangle
+        +--Ellipse
 
   )" << std::endl;
 };
 int main(int argc, char const *argv[]) {
   std::cout << __PRETTY_FUNCTION__ << std::endl;
   FamilyTree();
-  sPoint point{22, 66};
   // ICoordinates Decard;  // here mast be error
   std::cout << "This is point" << std::endl;
 
@@ -28,17 +38,9 @@ int main(int argc, char const *argv[]) {
   defPoint.setTop(120);
   defPoint.draw();
 
-  std::cout << "Point pointPoint(S);" << std::endl;
-  Point pointPoint(point);
-  pointPoint.draw();
-
   std::cout << "Point pointPoint(X,Y);" << std::endl;
   Point XYPoint(230, 586);
   XYPoint.draw();
-
-  std::cout << "Point pointPoint(O);" << std::endl;
-  Point CopyPoint(defPoint);
-  CopyPoint.draw();
 
   std::cout << "Point don`t have calc_square()" << std::endl;
 
@@ -46,14 +48,14 @@ int main(int argc, char const *argv[]) {
 
   std::cout << "This is line" << std::endl;
   Line defLine;
-  defLine.setPos(point);
-  defLine.setSize(point);
+  defLine.setPos(33.0, 0.3);
+  defLine.setSize(78.2, 56.2);
   defLine.draw();
   std::cout << "squre=" << defLine.calc_square() << std::endl;
 
   {
     std::cout << "This is rectangle" << std::endl;
-    Rectangle RecPoint(point, sPoint{22, 16});
+    Rectangle RecPoint(186, 2, 22, 16);
     RecPoint.draw();
     std::cout << "squre=" << RecPoint.calc_square() << std::endl;
   }
@@ -66,9 +68,13 @@ int main(int argc, char const *argv[]) {
   }
   {
     std::cout << "This is triangle" << std::endl;
-    Triangle CopyTriangle(defLine);
-    CopyTriangle.draw();
-    std::cout << "squre=" << CopyTriangle.calc_square() << std::endl;
+    Triangle SetTriangle;
+    SetTriangle.setLeft(22);
+    SetTriangle.setTop(66);
+    SetTriangle.setHeihgt(55);
+    SetTriangle.setWidth(99);
+    SetTriangle.draw();
+    std::cout << "squre=" << SetTriangle.calc_square() << std::endl;
   }
   {
     std::cout << "This is elipse" << std::endl;
