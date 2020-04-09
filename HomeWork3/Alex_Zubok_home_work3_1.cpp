@@ -19,7 +19,7 @@ int main() {
   char *tmp_string = new char[kMaxSizeString]{};
   std::cout << "Please enter your string that you want reverse to "
             << kMaxSizeString << " symbols and press 'Enter': ";
-  std::cin.get(tmp_string, kMaxSizeString, '\n');
+  std::cin.get(tmp_string, kMaxSizeString, kEnter);
 
   char *string_full = new char[strlen(tmp_string) + 1]{};
   strncpy(string_full, tmp_string, strlen(tmp_string));
