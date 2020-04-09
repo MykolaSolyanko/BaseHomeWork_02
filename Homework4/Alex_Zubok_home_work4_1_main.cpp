@@ -9,10 +9,10 @@ int main() {
   std::cin >> fill_array;
   int *array_quick = new int[arr_size];
   int *array_buble = new int[arr_size];
-  if (fill_array == 1) {
+  if (fill_array == eManual) {
     for (size_t i = 0; i < arr_size; i++)
       std::cin >> array_quick[i];
-  } else if (fill_array == 2) {
+  } else if (fill_array == eAuto) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> uid(0, 100);
@@ -20,14 +20,13 @@ int main() {
       array_quick[i] = uid(gen);
   } else
     std::cout << "You don't entered the type of filling the array!";
-  std::memcpy(array_buble, array_quick, sizeof(int) * arr_size);
+  memcpy(array_buble, array_quick, sizeof(int) * arr_size);
   std::cout << "Origin array for both sorts is : ";
   print_array(array_quick, array_quick + arr_size);
-  std::chrono::time_point<std::chrono::system_clock> start, end;
-  start = std::chrono::system_clock::now();
+  auto start = std::chrono::system_clock::now();
   qSort(array_quick, array_quick + arr_size,
-        [](int a, int b) { return a < b; });
-  end = std::chrono::system_clock::now();
+        [](int a, int b) { return a > b; });
+  auto end = std::chrono::system_clock::now();
   std::cout << "Result of quick sort array: ";
   print_array(array_quick, array_quick + arr_size);
   std::cout << "Time for sorting is: "
@@ -37,7 +36,7 @@ int main() {
 
   start = std::chrono::system_clock::now();
   bSort(array_buble, array_buble + arr_size,
-        [](int a, int b) { return a < b; });
+        [](int a, int b) { return a > b; });
   end = std::chrono::system_clock::now();
   std::cout << "Result of buble sort array: ";
   print_array(array_buble, array_buble + arr_size);
