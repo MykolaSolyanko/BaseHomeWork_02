@@ -2,28 +2,24 @@
 #include <iostream>
 
 void reverse_string(char *string) {
-  if (string == nullptr || string + std::strlen(string) == nullptr || std::strlen(string) == 0)
+  if (string == nullptr || std::strlen(string) == 0)
     return;
-  char *tmp_string = new char[std::strlen(string)];
-  std::strncpy(tmp_string, string, std::strlen(string));
-  std::cout << "Your reverse string is : ";
-  for (size_t index = std::strlen(tmp_string) - 1, i = 0; i < std::strlen(tmp_string); index--, i++) {
-    *(string + i) = *(tmp_string + index);
-    std::cout << *(tmp_string + index);
+  for ( char* c_start = string, *c_end = string+strlen(string)-1; c_start != string+strlen(string)/2; c_start++, c_end--){
+    char tmp = *c_start;
+    *c_start = *c_end;
+    *c_end = tmp;
   }
-  *(string + (std::strlen(tmp_string) - 1)) = *tmp_string;
-  std::cout << std::endl;
-  delete[] tmp_string;
 }
 
 int main() {
-  char *tmp_string = new char;
-  std::cout << "Please enter your string that you want reverse: ";
-  std::cin >> tmp_string;
+  size_t kMaxSizeString = 1000;
+  char *tmp_string = new char[kMaxSizeString];
+  std::cout << "Please enter your string that you want reverse to " << kMaxSizeString << " symbols and press 'Enter': ";
+  std::cin.get(tmp_string,kMaxSizeString, '\n');
 
-  char *string_full = new char[std::strlen(tmp_string) + 1];
-  std::strncpy(string_full, tmp_string, std::strlen(tmp_string) + 1);
-  delete tmp_string;
+  char *string_full = new char[strlen(tmp_string) + 1];
+  strncpy(string_full, tmp_string, strlen(tmp_string));
+  delete[] tmp_string;
 
   std::cout << "Your origin string is: " << string_full << std::endl;
   reverse_string(string_full);
