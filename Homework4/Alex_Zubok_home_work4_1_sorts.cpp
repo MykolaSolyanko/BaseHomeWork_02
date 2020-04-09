@@ -3,18 +3,20 @@
 
 using Comp = bool (*)(int, int);
 bool More(int a, int b) { return a > b; }
-bool Less(int a, int b) { return a < b; }
 
-void bSort(int *begin, const int *const end, Comp func = More) {
+void swap(int *a, int *b) {
+  int tmp = *a;
+  *a = *b;
+  *b = tmp;
+}
+
+void bSort(int *begin, int *end, Comp func = More) {
   if (begin == nullptr || end == nullptr || begin == end)
     return;
-  for (int *i = begin; i != end; i++) {
-    for (int *j = begin + 1; j != end; j++) {
-      if (!func(*j, *(j - 1))) {
-        int tmp = *(j - 1);
-        *(j - 1) = *j;
-        *j = tmp;
-      }
+  for (int *i = begin, *last = end; i != end; i++, last--) {
+    for (int *j = begin + 1; j != last; j++) {
+      if (func(*(j - 1), *j))
+        swap(j - 1, j);
     }
   }
 }
@@ -25,18 +27,16 @@ int *user_partiotion(int *begin, int *end, Comp func = More) {
   for (int *j = begin; j != end; j++) {
     if (func(pivot, *j)) { //*j < pivot !func
       i++;
-      int tmp = *j;
-      *j = *i;
-      *i = tmp;
+      swap(i, j);
     }
   }
-  int tmp = *(i + 1);
-  *(i + 1) = *(end - 1);
-  *(end - 1) = tmp;
+  swap(i + 1, end - 1);
   return (i + 1);
 }
 
 void qSort(int *begin, int *end, Comp func = More) {
+  if (begin == nullptr || end == nullptr || begin == end)
+    return;
   if (begin < end) {
     int *pi = user_partiotion(begin, end, func);
     qSort(begin, pi, func);
