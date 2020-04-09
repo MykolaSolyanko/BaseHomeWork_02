@@ -31,7 +31,7 @@ int main() {
   char *tmp_string = new char[kMaxStringSize]{};
   std::cin.get(tmp_string, kMaxStringSize, kEnter);
   char *string = new char[strlen(tmp_string) + 1]{};
-  strcpy(string, tmp_string);
+  strncpy(string, tmp_string, strlen(tmp_string));
   delete[] tmp_string;
   std::cout << "Your string is: " << string << std::endl;
   std::cout << "Your lower string is: ";
