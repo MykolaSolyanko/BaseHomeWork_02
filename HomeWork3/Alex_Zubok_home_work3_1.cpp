@@ -2,7 +2,7 @@
 #include <iostream>
 
 void reverse_string(char *string) {
-  if (string == nullptr || string + (strlen(string) - 1) == nullptr ||
+  if (string == nullptr || string + strlen(string) == nullptr ||
       strlen(string) == 0)
     return;
   for (char *c_start = string, *c_end = string + strlen(string) - 1;
