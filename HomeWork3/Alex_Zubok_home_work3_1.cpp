@@ -2,9 +2,11 @@
 #include <iostream>
 
 void reverse_string(char *string) {
-  if (string == nullptr || std::strlen(string) == 0)
+  if (string == nullptr || string + (strlen(string) - 1) == nullptr ||
+      strlen(string) == 0)
     return;
-  for ( char* c_start = string, *c_end = string+strlen(string)-1; c_start != string+strlen(string)/2; c_start++, c_end--){
+  for (char *c_start = string, *c_end = string + strlen(string) - 1;
+       c_start != string + strlen(string) / 2; c_start++, c_end--) {
     char tmp = *c_start;
     *c_start = *c_end;
     *c_end = tmp;
@@ -14,8 +16,9 @@ void reverse_string(char *string) {
 int main() {
   size_t kMaxSizeString = 1000;
   char *tmp_string = new char[kMaxSizeString];
-  std::cout << "Please enter your string that you want reverse to " << kMaxSizeString << " symbols and press 'Enter': ";
-  std::cin.get(tmp_string,kMaxSizeString, '\n');
+  std::cout << "Please enter your string that you want reverse to "
+            << kMaxSizeString << " symbols and press 'Enter': ";
+  std::cin.get(tmp_string, kMaxSizeString, '\n');
 
   char *string_full = new char[strlen(tmp_string) + 1];
   strncpy(string_full, tmp_string, strlen(tmp_string));
