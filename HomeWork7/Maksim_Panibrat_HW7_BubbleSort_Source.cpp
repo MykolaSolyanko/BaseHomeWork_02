@@ -36,8 +36,9 @@ template <typename T> static void Bubble_sort(T *begin, const T *end) {
 template <typename T> void Random_natural_array(T *begin, const T *end) {
   std::mt19937 generator{};
   T kMin, kMax;
-  std::cout << "Enter min and max numbers: ";
+  std::cout << "Enter min number: ";
   std::cin >> kMin;
+  std::cout << "Enter max number: ";
   std::cin >> kMax;
   std::uniform_int_distribution<T> distribution(kMin, kMax);
   for (begin; begin != end; ++begin) {
@@ -61,8 +62,9 @@ void Create_natural() {
 template <typename T> void Random_real_array(T *begin, const T *end) {
   std::mt19937 generator{};
   T kMin, kMax;
-  std::cout << "Enter min and max numbers: ";
+  std::cout << "Enter min number: ";
   std::cin >> kMin;
+  std::cout << "Enter max number: ";
   std::cin >> kMax;
   std::uniform_real_distribution<T> distribution(kMin, kMax);
   for (begin; begin != end; ++begin) {
