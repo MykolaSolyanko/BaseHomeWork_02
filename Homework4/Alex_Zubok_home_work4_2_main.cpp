@@ -15,7 +15,8 @@ int main() {
 
   std::cout << "Origin array for unsigned type is: ";
   print_array(array_unsigned, array_unsigned + arr_size);
-  qSort(array_unsigned, array_unsigned + arr_size, [](unsigned a, unsigned b) { return a > b; });
+  qSort(array_unsigned, array_unsigned + arr_size,
+        [](unsigned a, unsigned b) { return a > b; });
   std::cout << "Result of sort array: ";
   print_array(array_unsigned, array_unsigned + arr_size);
   delete[] array_unsigned;
@@ -32,7 +33,8 @@ int main() {
 
   std::cout << "Origin array for double type is: ";
   print_array(array_double, array_double + arr_size);
-  qSort(array_double, array_double + arr_size, [](double a, double b) { return a > b; });
+  qSort(array_double, array_double + arr_size,
+        [](double a, double b) { return a > b; });
   std::cout << "Result of sort array: ";
   print_array(array_double, array_double + arr_size);
   delete[] array_double;
@@ -50,7 +52,8 @@ int main() {
 
   std::cout << "Origin array for char type is: ";
   print_array(array_char, array_char + arr_size);
-  bSort(array_char, array_char + arr_size, [](char a, char b) { return a > b; });
+  bSort(array_char, array_char + arr_size,
+        [](char a, char b) { return a > b; });
   std::cout << "Result of sort array: ";
   print_array(array_char, array_char + arr_size);
   delete[] array_char;
