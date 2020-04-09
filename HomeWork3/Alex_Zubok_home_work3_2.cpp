@@ -4,7 +4,7 @@ void sort_array(int *begin, const int *const end) {
   if (begin == nullptr || end == nullptr || begin == end)
     return;
   for (int *i = begin; i != end; i++) {
-    for (int *j = i + 1; j != end + 1; j++) {
+    for (int *j = i + 1; j != end; j++) {
       if (*j < *i) {
         int tmp = *i;
         *i = *j;
@@ -29,7 +29,7 @@ int main() {
   for (size_t i = 0; i < arr_size; i++) {
     std::cout << "Please enter the array element: ";
     std::cin >> *(sorted_array + i);
-    sort_array(sorted_array, sorted_array + i);
+    sort_array(sorted_array, sorted_array + (i + 1));
     print_array(sorted_array, sorted_array + arr_size);
   }
   delete[] sorted_array;
