@@ -28,9 +28,9 @@ int main() {
   const size_t kMaxStringSize = 1000;
   const char kEnter = '\n';
   std::cout << "Please enter string to : ";
-  char *tmp_string = new char[kMaxStringSize];
+  char *tmp_string = new char[kMaxStringSize]{};
   std::cin.get(tmp_string, kMaxStringSize, kEnter);
-  char *string = new char[strlen(tmp_string) + 1];
+  char *string = new char[strlen(tmp_string) + 1]{};
   strcpy(string, tmp_string);
   delete[] tmp_string;
   std::cout << "Your string is: " << string << std::endl;
