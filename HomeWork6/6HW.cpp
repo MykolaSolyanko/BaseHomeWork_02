@@ -1,20 +1,21 @@
 #include <iostream>
 #include <utility>
 
+template <typename T, unsigned ARSZ>
 class Stack{
   public:
-    bool push(int value){
+    bool push(T value){
         if (index==100)
             return false;
         array[index++]=value;
         return true;
     }
-    std::pair<int, bool> pop(){
+    std::pair<T, bool> pop(){
         if(index == 0)
             return {0, false};
         return {array[--index], true};
     }
-    std::pair<int, bool> top(){
+    std::pair<T, bool> top(){
         if(index == 0)
             return {0, false};
         return {array[index-1], true};
@@ -31,12 +32,11 @@ class Stack{
         return arrSize;
     }
   private: 
-    static const int arrSize{1000};
-    int array[arrSize]{};
+    static const int arrSize{ARSZ};
+    T array[arrSize]{};
     size_t index{};
 };
 
 int main(int argc, char const *argv[]){
-    Stack st;
-    std::cout<<st.getSize();
+    Stack<double, 1000> st;
 }
