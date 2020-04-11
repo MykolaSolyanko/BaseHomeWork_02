@@ -45,7 +45,7 @@ static void Swap(int* lhs, int* rhs) {
 
 void Bubble_sort(int* begin, const int* end, Comparison comp) {
     for (int* bubble = begin; bubble != end;++bubble) {
-        for (int* next_bubble = begin; next_bubble != end;++next_bubble) {
+        for (int* next_bubble = bubble + 1; next_bubble != end;++next_bubble) {
             if (comp(*bubble, *next_bubble)) {
                 Swap(bubble, next_bubble);
             }
