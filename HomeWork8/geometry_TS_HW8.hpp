@@ -56,7 +56,8 @@ class Line : public Shape {
 class Square : public Shape {
  public:
   Square() = default;
-  Square(double Left, double Top, double Width, double Height /*ignoring*/);
+  Square(double Left, double Top, double Width,
+         double Height /*this valus is ignoring*/);
   double calc_square() override;
   void draw() override;
   virtual ~Square() = default;
