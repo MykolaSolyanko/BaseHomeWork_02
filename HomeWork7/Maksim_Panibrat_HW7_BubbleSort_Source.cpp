@@ -47,16 +47,63 @@ template <typename T> void Random_natural_array(T *begin, const T *end) {
 }
 
 void Create_natural() {
-  int array[kSize]{};
-  int *begin = {array};
-  int *end = begin + kSize;
-  Random_natural_array(begin, end);
-  std::cout << "Random input ";
-  Array_result(begin, end, kSize);
+    std::cout << "Select real number type: \n"
+        "\t1 - short\n"
+        "\t2 - int\n"
+        "\t3 - long\n";
+    int select;
+    std::cin >> select;
+    switch (select) {
+    case(1): {
+        short array[kSize]{};
+        short* begin = { array };
+        short* end = begin + kSize;
+        Random_natural_array(begin, end);
+        std::cout << "Random input ";
+        Array_result(begin, end, kSize);
 
-  Bubble_sort(begin, end);
-  std::cout << "Bubble sort ";
-  Array_result(begin, end, kSize);
+        Bubble_sort(begin, end);
+        std::cout << "Bubble sort ";
+        Array_result(begin, end, kSize);
+        break;}
+    case(2): {
+        int array[kSize]{};
+        int* begin = { array };
+        int* end = begin + kSize;
+        Random_natural_array(begin, end);
+        std::cout << "Random input ";
+        Array_result(begin, end, kSize);
+
+        Bubble_sort(begin, end);
+        std::cout << "Bubble sort ";
+        Array_result(begin, end, kSize);
+        break;}
+    case(3): {
+        long array[kSize]{};
+        long* begin = { array };
+        long* end = begin + kSize;
+        Random_natural_array(begin, end);
+        std::cout << "Random input ";
+        Array_result(begin, end, kSize);
+
+        Bubble_sort(begin, end);
+        std::cout << "Bubble sort ";
+        Array_result(begin, end, kSize);
+        break;}
+    default: {
+        std::cout << "Error, using default int type.\n";
+        int array[kSize]{};
+        int* begin = { array };
+        int* end = begin + kSize;
+        Random_natural_array(begin, end);
+        std::cout << "Random input ";
+        Array_result(begin, end, kSize);
+
+        Bubble_sort(begin, end);
+        std::cout << "Bubble sort ";
+        Array_result(begin, end, kSize);
+        break;}
+    }
 }
 
 template <typename T> void Random_real_array(T *begin, const T *end) {
@@ -73,16 +120,50 @@ template <typename T> void Random_real_array(T *begin, const T *end) {
 }
 
 void Create_real() {
-  float array[kSize]{};
-  float *begin = {array};
-  float *end = begin + kSize;
-  Random_real_array(begin, end);
-  std::cout << "Random input ";
-  Array_result(begin, end, kSize);
+    std::cout << "Select real number type: \n"
+        "\t1 - float\n"
+        "\t2 - double";
+    int select;
+    std::cin >> select;
+    switch (select) {
+    case(1): {
+        float array[kSize]{};
+        float* begin = { array };
+        float* end = begin + kSize;
+        Random_real_array(begin, end);
+        std::cout << "Random input ";
+        Array_result(begin, end, kSize);
 
-  Bubble_sort(begin, end);
-  std::cout << "Bubble sort ";
-  Array_result(begin, end, kSize);
+        Bubble_sort(begin, end);
+        std::cout << "Bubble sort ";
+        Array_result(begin, end, kSize);
+        break;}
+    case(2): {
+        double array[kSize]{};
+        double* begin = { array };
+        double* end = begin + kSize;
+        Random_real_array(begin, end);
+        std::cout << "Random input ";
+        Array_result(begin, end, kSize);
+
+        Bubble_sort(begin, end);
+        std::cout << "Bubble sort ";
+        Array_result(begin, end, kSize);
+        break;}
+    default: {
+        std::cout << "Error, using default float type.\n";
+        float array[kSize]{};
+        float* begin = { array };
+        float* end = begin + kSize;
+        Random_real_array(begin, end);
+        std::cout << "Random input ";
+        Array_result(begin, end, kSize);
+
+        Bubble_sort(begin, end);
+        std::cout << "Bubble sort ";
+        Array_result(begin, end, kSize);
+        break;}
+    }
 }
 
 void Random_char_array(char *begin, const char *end) {
