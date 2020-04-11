@@ -7,7 +7,7 @@ struct Pair {
 	const char* msg;
 };
 
-template <typename T>
+template <typename T, const long long kSize = 5>
 class Stack {
 public:
 	Pair push(T value, Pair pair) {
@@ -44,7 +44,6 @@ public:
 
 
 private:
-	static const unsigned long long kSize{ 5 };
 	T array[kSize]{};
 	unsigned long long index{};
 };
