@@ -3,28 +3,29 @@
 int main() {
   std::cout << "This program bubble sorts array by isung templates.\n"
                "Select number type: \n"
-               "\t1 - natural (int, short, long)\n"
-               "\t2 - real (float, double)\n"
+               "\t1 - whole (int, short, long)\n"
+               "\t2 - fractional (float, double)\n"
                "\t3 - letter (char)\n";
   short select;
   std::cin >> select;
   switch (select) {
-  case (1):
-    std::cout << "You selected natural numbers.\n";
-    Create_natural();
+  case (WHOLE):
+    std::cout << "You selected whole numbers.\n";
+    Create_whole();
     break;
-  case (2):
-    std::cout << "You selected real numbers.\n";
-    Create_real();
+  case (FRACTIONAL):
+    std::cout << "You selected fractional numbers.\n";
+    Create_fractional();
     break;
-  case (3):
+  case (LETTERS):
     std::cout << "You selected letters.\n";
     Create_char();
     break;
   default:
-    std::cout << "Error, using default-natural selection.\n";
-    Create_natural();
+    std::cout << "Error, using default-whole numbers.\n";
+    Create_whole();
     break;
   }
   return 0;
 }
+
