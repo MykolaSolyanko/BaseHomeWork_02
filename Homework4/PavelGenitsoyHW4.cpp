@@ -13,11 +13,12 @@ static const auto kMin_value_for_char{48};
 static const auto kMax_value_for_char{122};
 static const auto kMin_value_of_range_array{1};
 static const auto kMax_value_of_range_array{100};
-static const auto kNum_Asqii_of_slash{47};
-static const auto kNum_Asqii_of_colon{58};
-static const auto kNum_Asqii_of_commercial_at{64};
-static const auto kNum_Asqii_of_left_square_bracket{91};
-static const auto kNum_Asqii_of_apostrophe{96};
+static const auto kMin_Upper_char{'A'};
+static const auto kMax_Upper_char{'Z'};
+static const auto kMin_Lower_char{'a'};
+static const auto kMax_Lower_char{'z'};
+
+enum TypeRegisterChar { LOWER, UPPER };
 
 enum TypeSequence {
   BUBBLE_INCREASING = 1,
@@ -75,15 +76,17 @@ void RandomCreateArray(char *begin, char const *const end) {
   }
   std::random_device rd;
   std::mt19937 mt(rd());
-  std::uniform_int_distribution<int> Generate(kMin_value_for_char,
-                                              kMax_value_for_char);
+  std::uniform_int_distribution<int> GenerateUp(kMin_Upper_char,
+                                                kMax_Upper_char);
+  std::uniform_int_distribution<int> GenerateLow(kMin_Lower_char,
+                                                 kMax_Lower_char);
+  std::uniform_int_distribution<int> GenerateChoice(TypeRegisterChar::LOWER,
+                                                    TypeRegisterChar::UPPER);
   while (begin < end) {
-    int tmp = Generate(mt);
-    if (((tmp < kNum_Asqii_of_left_square_bracket ||
-          tmp > kNum_Asqii_of_apostrophe) &&
-         (tmp > kNum_Asqii_of_commercial_at)) ||
-        (tmp > kNum_Asqii_of_slash && tmp < kNum_Asqii_of_colon)) {
-      *begin++ = static_cast<unsigned char>(tmp);
+    if (GenerateChoice(mt)) {
+      *begin++ = GenerateUp(mt);
+    } else {
+      *begin++ = GenerateLow(mt);
     }
   }
 }
@@ -130,9 +133,9 @@ void BubbleSort(T1 array[], const size_t size, T2 comp) {
     return;
   }
   for (int i = 0; i < size; i++) {
-    for (int j = size - 1; j > i; j--) {
-      if (comp(*(array + j), *(array + j - 1))) {
-        swap<T1>(*(array + j - 1), *(array + j));
+    for (int j = i + 1; j < size; j++) {
+      if (comp(*(array + j), *(array + i))) {
+        swap(*(array + i), *(array + j));
       }
     }
   }
@@ -155,7 +158,7 @@ void QuickSort(T1 array[], int low, int high, T2 comp) {
       j--;
     }
     if (i <= j) {
-      swap<T1>(array[j--], array[i++]);
+      swap(array[j--], array[i++]);
     }
   }
   if (j > low) {
@@ -166,17 +169,19 @@ void QuickSort(T1 array[], int low, int high, T2 comp) {
   }
 }
 
+bool CheckFunc(char &check) { return check == 'y'; }
+
 template <typename T> void Do_U_wanna_See_array(T Array[], const size_t size) {
   if (Array == nullptr) {
     std::cout << "Error/nullptr" << std::endl;
     return;
   }
-  std::cout << "\nIf u want to see the content of array, enter 1. If not - "
-               "input any other number: ";
-  size_t check{};
+   std::cout << "\nIf u want to see the content of array, enter 'y'. If not - "
+               "input some another : ";
+  char check{};
   std::cin >> check;
-  if (check == 1) {
-    PrintArray<T>(Array, size);
+  if (CheckFunc(check)) {
+    PrintArray(Array, size);
   }
 }
 
@@ -203,46 +208,46 @@ template <typename T> void Sort(T Array[], const size_t size) {
   switch (choice) {
   case TypeSequence::BUBBLE_INCREASING: {
     auto first = std::chrono::system_clock::now();
-    BubbleSort<T>(Array, size, [](char p1, char p2) { return p1 < p2; });
+    BubbleSort(Array, size, [](T p1, T p2) { return p1 < p2; });
     auto second = std::chrono::system_clock::now();
     auto time = second - first;
     std::cout << "Time of work of this sort is - " << time.count()
               << " (milliseconds)" << std::endl;
-    Do_U_wanna_See_array<T>(Array, size);
-  } break;
-
+    Do_U_wanna_See_array(Array, size);
+    return;
+  }
   case TypeSequence::BUBBLE_DECREASING: {
     auto first = std::chrono::system_clock::now();
-    BubbleSort<T>(Array, size, [](char p1, char p2) { return p1 > p2; });
+    BubbleSort(Array, size, [](T p1, T p2) { return p1 > p2; });
     auto second = std::chrono::system_clock::now();
     auto time = second - first;
     std::cout << "Time of work of this sort is " << time.count()
               << " (milliseconds)" << std::endl;
-    Do_U_wanna_See_array<T>(Array, size);
-  } break;
-
+    Do_U_wanna_See_array(Array, size);
+    return;
+  }
   case TypeSequence::QUICKSORT_INCREASING: {
     auto first = std::chrono::system_clock::now();
-    QuickSort<T>(Array, 0, size - 1, [](char p1, char p2) { return p1 > p2; });
+    QuickSort(Array, 0, size - 1, [](T p1, T p2) { return p1 > p2; });
     auto second = std::chrono::system_clock::now();
     auto time = second - first;
     std::cout << "Time of work of this sort is " << time.count()
               << " (milliseconds)" << std::endl;
-    Do_U_wanna_See_array<T>(Array, size);
-  } break;
-
+    Do_U_wanna_See_array(Array, size);
+    return;
+  }
   case TypeSequence::QUICKSORT_DECREASING: {
     auto first = std::chrono::system_clock::now();
-    QuickSort<T>(Array, 0, size - 1, [](char p1, char p2) { return p1 < p2; });
+    QuickSort(Array, 0, size - 1, [](T p1, T p2) { return p1 < p2; });
     auto second = std::chrono::system_clock::now();
     auto time = second - first;
     std::cout << "Time of work of this sort is " << time.count()
               << " (milliseconds)" << std::endl;
-    Do_U_wanna_See_array<T>(Array, size);
-  } break;
-
+    Do_U_wanna_See_array(Array, size);
+    return;
+  }
   default:
-    break;
+    return;
   }
 }
 
@@ -262,19 +267,19 @@ template <typename T> void Create_and_Init_array(T Array[], const size_t size) {
   std::cin >> choice;
   switch (choice) {
   case TypeInitialisation::CUSTOM_ARRAY:
-    CustomCreateArray<T>(Array, Array + size);
-    Do_U_wanna_See_array<T>(Array, size);
-    Sort<T>(Array, size);
-    break;
+    CustomCreateArray(Array, Array + size);
+    Do_U_wanna_See_array(Array, size);
+    Sort(Array, size);
+    return;
 
   case TypeInitialisation::RANDOM_ARRAY:
     RandomCreateArray(Array, Array + size);
-    Do_U_wanna_See_array<T>(Array, size);
-    Sort<T>(Array, size);
-    break;
+    Do_U_wanna_See_array(Array, size);
+    Sort(Array, size);
+    return;
 
   default:
-    break;
+    return;
   }
 }
 
@@ -292,28 +297,28 @@ int main() {
       size_t kSize_u_int = GetInputFromCinForSizeArray(
           kMin_value_of_range_array, kMax_value_of_range_array);
       unsigned int *Array_u_int = new unsigned int[kSize_u_int]{};
-      Create_and_Init_array<unsigned int>(Array_u_int, kSize_u_int);
+      Create_and_Init_array(Array_u_int, kSize_u_int);
       delete[] Array_u_int;
-    } break;
-
+      break;
+    }
     case TypeElements::DOUBLE: {
       std::cout << "\nEnter size of array in range(1, 50): ";
       size_t kSize_double = GetInputFromCinForSizeArray(
           kMin_value_of_range_array, kMax_value_of_range_array);
       double *Array_double = new double[kSize_double]{};
-      Create_and_Init_array<double>(Array_double, kSize_double);
+      Create_and_Init_array(Array_double, kSize_double);
       delete[] Array_double;
-    } break;
-
+      break;
+    }
     case TypeElements::CHAR: {
       std::cout << "\nEnter size of array in range(1, 50): ";
       size_t kSize_char = GetInputFromCinForSizeArray(
           kMin_value_of_range_array, kMax_value_of_range_array);
       char *Array_char = new char[kSize_char]{};
-      Create_and_Init_array<char>(Array_char, kSize_char);
+      Create_and_Init_array(Array_char, kSize_char);
       delete[] Array_char;
-    } break;
-
+      break;
+    }
     default:
       return 0;
     }
