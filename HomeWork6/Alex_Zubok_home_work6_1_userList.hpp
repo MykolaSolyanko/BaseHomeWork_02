@@ -1,9 +1,14 @@
 #pragma once
 
+#include <cstring>
 #include <iostream>
 
 class userList {
 public:
+  userList() = default;
+  userList(int element);
+  userList(userList &src);
+  ~userList();
   void push_back(int value);
   void push_top(int value);
   void pop_back();
@@ -21,7 +26,7 @@ public:
 
 private:
   int data{};
-  userList *next_node = nullptr;
-  userList *prev_node = nullptr;
+  userList *next_node{nullptr};
+  userList *prev_node{nullptr};
   size_t index{};
 };
