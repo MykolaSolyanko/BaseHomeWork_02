@@ -14,18 +14,18 @@ void array_input(int* begin, const int* end) {
 
 void array_print(int* begin, const int* end, const int kSize) {
     std::cout << "Result: array[" << kSize << "]{ ";
-    while (begin != end - 1) {
-        std::cout << *begin << ", ";
+    while (begin != end) {
+        std::cout << *begin << " ";
         ++begin;
     }
-    std::cout << *begin <<" }\n";
+    std::cout <<" }\n";
 }
 
 void delete_element(int* begin, const int* end, int input) {
-    int i{};
+    int count_del_elem{};
     while (begin != end) {
         if (*begin == input) {
-            i++;
+            count_del_elem++;
             *begin = 0;
         }
         ++begin;
