@@ -9,9 +9,10 @@ void upper_case() {
             << kSize << " symbols: ";
   char array[kSize]{};
   std::cin >> array;
-  char *begin = array, *end = begin + kSize - 1;
+  char *begin = array;
+  char *end = begin + kSize;
   while (begin != end) {
-    if (*begin >= 'a') {
+    if (*begin >= 'a' && *begin <= 'z') {
       *begin = *begin - 32;
     }
     ++begin;
@@ -26,7 +27,8 @@ void lower_case() {
             << kSize << " symbols: ";
   char array[kSize]{};
   std::cin >> array;
-  char *begin = array, *end = begin + kSize - 1;
+  char *begin = array;
+  char *end = begin + kSize;
   while (begin != end) {
     if (*begin >= 'A' && *begin <= 'Z') {
       *begin = *begin + 32;
@@ -43,7 +45,8 @@ void is_digit() {
             << kSize << " symbols: ";
   char array[kSize]{};
   std::cin >> array;
-  char *begin = array, *end = begin + kSize - 1;
+  char *begin = array;
+  char *end = begin + kSize;
   std::cout << "Found digits: ";
   while (begin != end) {
     if (*begin >= '0' && *begin <= '9') {
