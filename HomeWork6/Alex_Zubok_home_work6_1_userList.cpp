@@ -1,5 +1,56 @@
 #include "userlist.hpp"
 
+userList::userList(int element)
+    : data(element), next_node{nullptr}, prev_node{nullptr}, index{1} {}
+
+userList::userList(userList &src) : data{src.data}, index{src.index} {
+  if (&src == nullptr)
+    return;
+  if (src.index == 0) {
+    next_node = nullptr;
+    prev_node = nullptr;
+    return;
+  }
+  userList *tmp_src = &src;
+  userList *Head = this;
+  while (tmp_src != nullptr) {
+    if (tmp_src->prev_node == nullptr) {
+      data = tmp_src->data;
+      prev_node = nullptr;
+      next_node = nullptr;
+    } else if (tmp_src->next_node == nullptr) {
+      userList *NewList = new userList;
+      NewList->data = tmp_src->data;
+      Head->next_node = NewList;
+      NewList->prev_node = Head;
+      NewList->next_node = nullptr;
+    } else {
+      userList *NewList = new userList;
+      NewList->data = tmp_src->data;
+      NewList->prev_node = Head;
+      NewList->next_node = nullptr;
+      Head->next_node = NewList;
+      Head = NewList;
+    }
+    tmp_src = tmp_src->next_node;
+  }
+}
+
+userList::~userList() {
+  if (prev_node == nullptr && next_node == nullptr && index == 0)
+    return;
+  userList *Head = next_node;
+  while (Head != nullptr) {
+    userList *tmp_node = Head->next_node;
+    delete Head;
+    Head = nullptr;
+    Head = tmp_node;
+  }
+  data = 0;
+  next_node = nullptr;
+  index = 0;
+}
+
 void userList::push_back(int value) {
   if (next_node == nullptr && prev_node == nullptr && index == 0) {
     data = value;
