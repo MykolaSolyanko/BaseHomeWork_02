@@ -2,6 +2,8 @@
 
 int main() {
   userList test;
+  test.print();
+
   // first test delete from empty list
   test.pop_back();
   test.pop_top();
@@ -50,6 +52,14 @@ int main() {
   test.print();
   test.sort();
   test.print();
+
+  userList list2(test);
+
+  list2.print();
+  list2.pop_back();
+  list2.print();
+  test.print();
+
   test.clear();
   test.print();
   return 0;
