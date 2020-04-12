@@ -29,7 +29,7 @@ void Stack::clear() {
 
 bool Stack::empty() const { return index == 0; }
 
-size_t Stack::GetStackSize() { return kSize; }
+size_t Stack::GetStackSize() const { return kSize; }
 
 std::pair<int, bool> Stack::top() {
   if (index == 0) {
@@ -38,7 +38,7 @@ std::pair<int, bool> Stack::top() {
   return {array[index - 1], true};
 }
 
-std::pair<int, bool> Stack::GetStackLength() {
+std::pair<int, bool> Stack::GetStackLength() const {
   if (index == 0) {
     return {0, false};
   }
