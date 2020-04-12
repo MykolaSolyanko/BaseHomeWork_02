@@ -29,7 +29,6 @@ void Discriminant_check(int a, int b, int c) {
   x1 = ((-b) + sqrt(pow(b, 2) - (cons4 * a * c))) / (cons2 * a);
   x2 = ((-b) - sqrt(pow(b, 2) - (cons4 * a * c))) / (cons2 * a);
   std::cout << "x1 = " << x1 << "\n x2 = " << x2 << std::endl;
-  return;
 }
 int main(int argc, char *argv[]) {
   const int kMinNum = 2, kMaxNum = 255;
