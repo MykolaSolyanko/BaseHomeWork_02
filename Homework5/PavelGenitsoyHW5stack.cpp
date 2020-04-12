@@ -15,7 +15,7 @@ bool pop(Stack &s) {
   if (s.index == 0) {
     return false;
   }
-  s.array[--s.index];
+  --s.index;
   std::cout << __FUNCTION__ << std::endl;
   return true;
 }
