@@ -5,8 +5,8 @@ void insert_element(int *begin, int *end, int element) {
     ++begin;
   }
   while (begin != end) {
+    end--;
     *end = *(end - 1);
-    --end;
   }
   *begin = element;
 }
@@ -29,7 +29,9 @@ int main() {
             << kSize << std::endl;
   int array[kSize]{};
   for (size_t i = 0; i < kSize; i++) {
-    int *begin = {array}, *end = begin + kSize - 1, element;
+    int *begin = {array};
+    int *end = begin + kSize;
+    int element;
     std::cout << "Enter '" << i << "' element: ";
     std::cin >> element;
 
