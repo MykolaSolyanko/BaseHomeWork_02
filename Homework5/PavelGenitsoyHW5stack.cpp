@@ -1,49 +1,49 @@
 #include "Stack.hpp"
 #include <iostream>
 
+static const auto kMax_Size_of_stack{100};
+
 bool push(Stack &s, int value) {
-  if (s.index == 100) {
+  if (s.index == kMax_Size_of_stack) {
     return false;
   }
   s.array[s.index++] = value;
   return true;
 }
 
-std::pair<int, bool> pop(Stack &s) {
+bool pop(Stack &s) {
   if (s.index == 0) {
-    return {0, false};
+    return false;
   }
-  return {s.array[--s.index], true};
+  s.array[--s.index];
+  std::cout << __FUNCTION__ << std::endl;
+  return true;
 }
 
 void clear(Stack &s) {
-  if (s.index == 0) {
-    return;
-  }
   s.index = 0;
+  std::cout << __FUNCTION__ << std::endl;
 }
 
 bool empty(Stack &s) { return s.index == 0; }
 
-size_t GetStackSize(Stack &s) { return s.kSize; }
-
-std::pair<int, bool> top(Stack &s) {
+int top(Stack &s) {
   if (s.index == 0) {
-    return {0, false};
+    return 0;
   }
-  return {s.array[s.index - 1], true};
+  return s.array[s.index - 1];
 }
 
-std::pair<int, bool> GetStackLength(Stack &s) {
+size_t GetStackLength(Stack &s) {
   if (s.index == 0) {
-    return {0, false};
+    return 0;
   }
   int count{0};
   size_t virt_index{s.index};
   while (virt_index-- != 0) {
     count++;
   }
-  return {count, true};
+  return count;
 }
 
 void print(Stack &s) {
@@ -55,24 +55,4 @@ void print(Stack &s) {
     std::cout << s.array[--virt_index] << " ";
   }
   std::cout << std::endl;
-}
-
-int find(Stack &s, int value) {
-  if (empty(s)) {
-    return 0;
-  }
-  size_t virt_index{s.index};
-  while (virt_index != 0) {
-    --virt_index;
-    if (virt_index == 0 && s.array[virt_index] != value) {
-      std::cout << "\nNot found\n";
-      return virt_index;
-    }
-    if (s.array[virt_index] == value) {
-      std::cout << "\nFound. The index of this element in stack is "
-                << virt_index << std::endl;
-      return s.array[virt_index];
-    }
-  }
-  return virt_index;
 }
