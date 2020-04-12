@@ -51,13 +51,12 @@ void encrypt_string(char *encrypt_string) {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), kEnter);
     std::cin.get(file_name, kMaxSizeString, kEnter);
-    std::ofstream File(file_name, std::ios_base::out);
+    std::ofstream File(file_name);
     if (File.is_open()) {
       File << encrypt_string;
       std::cout << "File successfully saved!" << std::endl;
     } else
       std::cout << "Problem with opening file!" << std::endl;
-    File.close();
     delete[] file_name;
   }
 }
