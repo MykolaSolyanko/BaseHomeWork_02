@@ -26,8 +26,8 @@ void Shape::setSize(double Width, double Height) {
 };
 /*Line*/
 Line::Line(double Left, double Top, double Width, double Height) : Line() {
-  Shape::setPos(Left, Top);
-  Shape::setSize(Width, Height);
+  setPos(Left, Top);
+  setSize(Width, Height);
 }
 double Line::calc_square() { return 0; };
 void Line::draw() {
@@ -39,8 +39,8 @@ void Line::draw() {
 Square::Square(double Left, double Top, double Width,
                double Height /*this valus is ignoring*/)
     : Square() {
-  Shape::setPos(Left, Top);
-  Shape::setSize(Width, 0 /*this valus is ignoring*/);
+  setPos(Left, Top);
+  setSize(Width, 0 /*this valus is ignoring*/);
 };
 double Square::calc_square() { return width * width; };
 void Square::draw() {
@@ -58,8 +58,8 @@ void Square::draw() {
 /* Rectangle */
 Rectangle::Rectangle(double Left, double Top, double Width, double Height)
     : Rectangle() {
-  Shape::setPos(Left, Top);
-  Shape::setSize(Width, Height);
+  setPos(Left, Top);
+  setSize(Width, Height);
 };
 double Rectangle::calc_square() { return heght * width; };
 void Rectangle::draw() {
@@ -81,8 +81,8 @@ void Rectangle::draw() {
 /*rectangular Triangle*/
 Triangle::Triangle(double Left, double Top, double Width, double Height)
     : Triangle() {
-  Shape::setPos(Left, Top);
-  Shape::setSize(Width, Height);
+  setPos(Left, Top);
+  setSize(Width, Height);
 };
 double Triangle::calc_square() { return (heght * width) / 2; };
 void Triangle::draw() {
@@ -100,8 +100,8 @@ void Triangle::draw() {
 /*Ellipse*/
 Ellipse::Ellipse(double Left, double Top, double Width, double Height)
     : Ellipse() {
-  Shape::setPos(Left, Top);
-  Shape::setSize(Width, Height);
+  setPos(Left, Top);
+  setSize(Width, Height);
 };
 double Ellipse::calc_square() {
   const double k_PI{3.14159265358979323846};
