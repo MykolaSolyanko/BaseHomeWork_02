@@ -9,15 +9,15 @@ int main() {
   short select;
   std::cin >> select;
   switch (select) {
-  case (WHOLE):
+  case WHOLE:
     std::cout << "You selected whole numbers.\n";
     Create_whole();
     break;
-  case (FRACTIONAL):
+  case FRACTIONAL:
     std::cout << "You selected fractional numbers.\n";
     Create_fractional();
     break;
-  case (LETTERS):
+  case LETTERS:
     std::cout << "You selected letters.\n";
     Create_char();
     break;
