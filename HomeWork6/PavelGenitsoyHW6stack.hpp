@@ -9,9 +9,9 @@ public:
   std::pair<int, bool> pop();
   void clear();
   bool empty() const;
-  size_t GetStackSize();
+  size_t GetStackSize() const;
   std::pair<int, bool> top();
-  std::pair<int, bool> GetStackLength();
+  std::pair<int, bool> GetStackLength() const;
   void print() const;
   int find(int value);
 
