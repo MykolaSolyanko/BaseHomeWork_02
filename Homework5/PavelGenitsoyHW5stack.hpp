@@ -1,5 +1,4 @@
 #pragma once
-#include <utility>
 
 struct Stack {
   static const size_t kSize{100};
@@ -8,11 +7,9 @@ struct Stack {
 };
 
 bool push(Stack &s, int value);
-std::pair<int, bool> pop(Stack &s);
+bool pop(Stack &s);
 void clear(Stack &s);
 bool empty(Stack &s);
-size_t GetStackSize(Stack &s);
-std::pair<int, bool> top(Stack &s);
-std::pair<int, bool> GetStackLength(Stack &s);
+int top(Stack &s);
+size_t GetStackLength(Stack &s);
 void print(Stack &s);
-int find(Stack &s, int value);
