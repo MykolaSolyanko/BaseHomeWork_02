@@ -59,7 +59,6 @@ int main() {
       delete[] output_decrypt_str;
     } else
       std::cout << "Couln't open file " << file_name << std::endl;
-    File.close();
     delete[] file_name;
   }
   // from output
