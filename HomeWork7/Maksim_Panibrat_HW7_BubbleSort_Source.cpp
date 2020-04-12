@@ -37,12 +37,12 @@ template <typename T> void Sort_settings(T *begin, T *end) {
   short select;
   std::cin >> select;
   switch (select) {
-  case (LEFT): {
+  case LEFT: {
     auto comp = [](T a, T b) { return a > b; };
     Bubble_sort(begin, end, comp);
     break;
   }
-  case (RIGHT): {
+  case RIGHT: {
     auto comp = [](T a, T b) { return a < b; };
     Bubble_sort(begin, end, comp);
     break;
@@ -77,7 +77,7 @@ void Create_whole() {
   short select;
   std::cin >> select;
   switch (select) {
-  case (SHORT): {
+  case SHORT: {
     short array[kSize]{};
     short *begin = {array};
     short *end = begin + kSize;
@@ -90,7 +90,7 @@ void Create_whole() {
     Array_result(begin, end, kSize);
     break;
   }
-  case (INT): {
+  case INT: {
     int array[kSize]{};
     int *begin = {array};
     int *end = begin + kSize;
@@ -103,7 +103,7 @@ void Create_whole() {
     Array_result(begin, end, kSize);
     break;
   }
-  case (LONG): {
+  case LONG: {
     long array[kSize]{};
     long *begin = {array};
     long *end = begin + kSize;
@@ -153,7 +153,7 @@ void Create_fractional() {
   int select;
   std::cin >> select;
   switch (select) {
-  case (FLOAT): {
+  case FLOAT: {
     float array[kSize]{};
     float *begin = {array};
     float *end = begin + kSize;
@@ -166,7 +166,7 @@ void Create_fractional() {
     Array_result(begin, end, kSize);
     break;
   }
-  case (DOUBLE): {
+  case DOUBLE: {
     double array[kSize]{};
     double *begin = {array};
     double *end = begin + kSize;
