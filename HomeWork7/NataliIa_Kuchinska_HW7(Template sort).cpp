@@ -18,50 +18,15 @@ int main() {
     std::cin >> choise;
     switch (choise) {
     case ARRAY_TYPE::INT: {
-      std::cout << "Please, choose the size of array (from 1 to 10 000)"
-                << std::endl;
-      int int_arr_size{};
-      std::cin >> int_arr_size;
-      int *int_arr = new int[int_arr_size]{};
-      if (int_arr_size <= kSize && int_arr_size > 0) {
-        CreateIntRandArray(int_arr, int_arr_size);
-        PrintArray(int_arr, int_arr_size);
-        BubbleSort(int_arr, int_arr_size, [](int a, int b) { return (a < b); });
-        PrintArray(int_arr, int_arr_size);
-      }
-      delete[] int_arr;
+      RandArrSort<int>();
       break;
     }
     case ARRAY_TYPE::DOUBLE: {
-      std::cout << "Please, choose the size of array (from 1 to 10 000)"
-                << std::endl;
-      int double_arr_size{};
-      std::cin >> double_arr_size;
-      double *d_arr = new double[double_arr_size]{};
-      if (double_arr_size <= kSize && double_arr_size > 0) {
-        CreateDoubleRandArray(d_arr, double_arr_size);
-        PrintArray(d_arr, double_arr_size);
-        BubbleSort(d_arr, double_arr_size,
-                   [](int a, int b) { return (a < b); });
-        PrintArray(d_arr, double_arr_size);
-      }
-      delete[] d_arr;
+      RandArrSort<double>();
       break;
     }
     case ARRAY_TYPE::CHAR: {
-      std::cout << "Please, choose the size of array (from 1 to 10 000)"
-                << std::endl;
-      int c_arr_size{};
-      std::cin >> c_arr_size;
-      char *c_arr = new char[c_arr_size]{};
-      if (c_arr_size <= kSize && c_arr_size > 0) {
-        CreateCharRandArray(c_arr, c_arr_size);
-        PrintArray(c_arr, c_arr_size);
-        BubbleSort(c_arr, c_arr_size, [](int a, int b) { return (a < b); });
-        PrintArray(c_arr, c_arr_size);
-      }
-
-      delete[] c_arr;
+      RandArrSort<char>();
       break;
     }
     case ARRAY_TYPE::EXIT: {
