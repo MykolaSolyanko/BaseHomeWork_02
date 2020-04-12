@@ -8,13 +8,14 @@ int main(int argc, char* argv[]) {
         << " symbols: ";
     std::cin >> array;
     const size_t size = strlen(array);
-    char* begin = { array }, * end = { begin + size };
+    char* begin = { array };
+    char* end = { begin + size };
     while (end > begin) {
-        --end;
         int tmp = *begin;
         *begin = *end;
         *end = tmp;
         ++begin;
+        --end;
     }
     std::cout << "Result: " << array;
     return 0;
