@@ -7,6 +7,7 @@ using UnsignedIntCompare = std::function<bool(unsigned int, unsigned int)>;
 using DoubleCompare = std::function<bool(double, double)>;
 using CharCompare = std::function<bool(char, char)>;
 
+static const auto kFor_check_yes{'y'};
 static const auto kMin_random_value{0};
 static const auto kMax_random_value{25.0};
 static const auto kMin_value_for_char{48};
@@ -169,7 +170,7 @@ void QuickSort(T1 array[], int low, int high, T2 comp) {
   }
 }
 
-bool CheckFunc(char &check) { return check == 'y'; }
+bool CheckFunc(char &check) { return check == kFor_check_yes; }
 
 template <typename T> void Do_U_wanna_See_array(T Array[], const size_t size) {
   if (Array == nullptr) {
