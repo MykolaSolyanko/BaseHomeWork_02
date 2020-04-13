@@ -57,9 +57,8 @@ void pop_front(node_one_ptr *&head) {
   if (head == nullptr) {
     return;
   }
-  node_one_ptr *delete_this = head;
-  node_one_ptr *hold = delete_this->next;
-  delete delete_this;
+  node_one_ptr *hold = head->next;
+  delete head;
   head = hold;
 };
 
