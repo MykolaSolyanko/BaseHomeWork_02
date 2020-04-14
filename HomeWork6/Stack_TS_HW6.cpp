@@ -42,10 +42,9 @@ void Stack::clear() {
   if (count == 0) {
     return;
   }
-  layer *arrow = head;
-  while (arrow != nullptr) {
-    layer *hold = arrow;
-    arrow = arrow->next;
+  while (head != nullptr) {
+    layer *hold = head;
+    head = head->next;
     delete hold;
   };
   head = nullptr;
