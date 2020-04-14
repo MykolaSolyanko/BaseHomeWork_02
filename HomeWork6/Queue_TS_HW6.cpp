@@ -53,14 +53,14 @@ void Queue::clear() {
     return;
   }
   node2directions *arrow = head;
-  head = nullptr;
-  tail = nullptr;
   count = 0;
   while (arrow != tail) {
     node2directions *hold = arrow;
     arrow = arrow->next;
     delete hold;
   }
+  head = nullptr;
+  tail = nullptr;
 }
 
 bool Queue::isEmpty() const { return count == 0; }
