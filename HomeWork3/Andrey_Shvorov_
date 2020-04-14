@@ -1,0 +1,24 @@
+#include <iostream>
+
+void revers(char *arr, int size) {
+  if (arr == nullptr || size == 0)
+    return;
+
+  if (arr[size - 1] == '/n')
+    --size; // not use '/n'
+  for (int i = 0; i < size / 2; i++) {
+    char tmp = arr[i];
+    arr[i] = arr[size - i - 1];
+    arr[size - i - 1] = tmp;
+  }
+}
+
+int main() {
+  char arr[]{"HelloWorld"};
+  int size = strlen(arr); // int size=sizeof(arr) / sizeof(char);
+  revers(arr, size);
+  std::cout << arr << std::endl;
+
+  std::cin.get();
+  return 0;
+}
