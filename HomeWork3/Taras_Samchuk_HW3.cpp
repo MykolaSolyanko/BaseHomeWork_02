@@ -1,8 +1,8 @@
 // Working with pointers
 #include <cstdio>
+#include <cstring>
 #include <iostream>
 #include <random>
-#include <cstring>
 
 const short k_item_len{25};
 enum Label {
@@ -44,10 +44,11 @@ bool IsDigit(const char Data) {
   return (k_ZERO_code <= Data && Data <= k_NINE_code);
 }
 
-//Used only for displaying menus
+// Used only for displaying menus
 char AlphabetLetterByIndex(const char letter_index) {
-  return (0 < letter_index && letter_index < k_letters_count + 1) ? k_letter_BIG_A + letter_index - 1
-                                                : '\0';
+  return (0 < letter_index && letter_index < k_letters_count + 1)
+             ? k_letter_BIG_A + letter_index - 1
+             : '\0';
 }
 
 // down
@@ -72,7 +73,7 @@ bool toUP(char *const toUP) {
   return true;  // OK
 }
 
-// Displays the menu 
+// Displays the menu
 int Menu() {
   std::cout << R"(
     +-----------------+
@@ -300,7 +301,7 @@ int main() {
     switch (Menu()) {
       case LABEL_EXIT:
         return 0;
-        break;
+        // break;  // Unreachable code by DeepCode
       case LABEL_REVERSE_WORD:
         ReverseLine();
         break;
