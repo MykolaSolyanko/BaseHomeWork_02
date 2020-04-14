@@ -79,10 +79,9 @@ void Stack<T>::clear() {
   if (count == 0) {
     return;
   }
-  layer<T> *arrow = head;
-  while (arrow != nullptr) {
-    layer<T> *hold = arrow;
-    arrow = arrow->next;
+  while (head != nullptr) {
+    layer<T> *hold = head;
+    head = head->next;
     delete hold;
   };
   head = nullptr;

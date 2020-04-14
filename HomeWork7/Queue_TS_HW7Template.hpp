@@ -91,11 +91,10 @@ void Queue<T>::clear() {
   if (count == 0) {
     return;
   }
-  node2directions<T> *arrow = head;
   count = 0;
-  while (arrow != tail) {
-    node2directions<T> *hold = arrow;
-    arrow = arrow->next;
+  while (head != tail) {
+    node2directions<T> *hold = head;
+    head = head->next;
     delete hold;
   }
   head = nullptr;
