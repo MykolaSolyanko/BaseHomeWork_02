@@ -5,6 +5,14 @@
 static const char k_mes_arrow[]{"=->"};
 static const char k_mes_nullptr[]{"nullptr"};
 static const char k_mes_head[]{"}>"};
+
+node_one_ptr *get_last_node(node_one_ptr *head) {
+  while (head->next != nullptr) {
+    head = head->next;
+  };
+  return head;
+};
+
 void print_list(node_one_ptr *head) {
   std::cout << k_mes_head;
   if (head == nullptr) {
@@ -24,11 +32,7 @@ void push_back(node_one_ptr *&head, const int info) {
     head = NewNode;
     return;
   }
-  node_one_ptr *arrow = head;
-  while (arrow->next != nullptr) {
-    arrow = arrow->next;
-  }
-  arrow->next = NewNode;
+  get_last_node(head)->next = NewNode;
 };
 
 void push_front(node_one_ptr *&head, const int info) {
@@ -63,10 +67,9 @@ void pop_front(node_one_ptr *&head) {
 };
 
 void clear_list(node_one_ptr *&head) {
-  node_one_ptr *arrow = head;
-  while (arrow != nullptr) {
-    node_one_ptr *hold = arrow;
-    arrow = arrow->next;
+  while (head != nullptr) {
+    node_one_ptr *hold = head;
+    head = head->next;
     delete hold;
   };
   head = nullptr;
@@ -83,10 +86,7 @@ int viewback(node_one_ptr *head) {
   if (head == nullptr) {
     return {};
   }
-  while (head->next != nullptr) {
-    head = head->next;
-  };
-  return head->Data;
+  return get_last_node(head)->Data;
 };
 
 node_one_ptr *insert(node_one_ptr *&head, node_one_ptr *pos, const int value) {
