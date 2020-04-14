@@ -2,7 +2,7 @@
 
 class Shape {
 public:
-  Shape() { std::cout << __FUNCSIG__ << std::endl; };
+  Shape() { std::cout << __FUNCSIG__ << std::endl; }
   virtual ~Shape() { std::cout << __FUNCSIG__ << std::endl; };
   virtual const void draw() = 0;
   virtual double calc_square() = 0;
@@ -13,9 +13,8 @@ private:
 class Square : public Shape {
 public:
   Square() = default;
-  Square(int a) : side{a} { std::cout << __FUNCSIG__ << std::endl; };
-  virtual ~Square() { std::cout << __FUNCSIG__ << std::endl; };
-  ;
+  Square(int a) : side{a} { std::cout << __FUNCSIG__ << std::endl; }
+  ~Square() { std::cout << __FUNCSIG__ << std::endl; }
   const void draw() override;
   double calc_square() override;
   const int get_side();
@@ -30,9 +29,8 @@ public:
   RightTriangle() = default;
   RightTriangle(int a, int h) : side{a}, height{h} {
     std::cout << __FUNCSIG__ << std::endl;
-  };
-  virtual ~RightTriangle() { std::cout << __FUNCSIG__ << std::endl; };
-  ;
+  }
+  ~RightTriangle() { std::cout << __FUNCSIG__ << std::endl; }
   const void draw() override;
   double calc_square() override;
   const int get_side();
@@ -50,9 +48,8 @@ public:
   Rectangle() = default;
   Rectangle(int a, int h) : width{a}, height{h} {
     std::cout << __FUNCSIG__ << std::endl;
-  };
-  virtual ~Rectangle() { std::cout << __FUNCSIG__ << std::endl; };
-  ;
+  }
+  ~Rectangle() { std::cout << __FUNCSIG__ << std::endl; }
   const void draw() override;
   double calc_square() override;
   const int get_width();
