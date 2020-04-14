@@ -1,0 +1,79 @@
+#include <cmath>
+#include <iostream>
+
+double myinput(char varname) {
+  double var = 0; //{0};//универсальная инициализация*
+  while (true) {
+    std::cout << "Enter " << varname << "=";
+    std::cin >> var;
+    if (std::cin.fail()) // если предыдущее извлечение оказалось неудачным,
+    {
+      std::cin.clear(); //сброс флага ошибки (возвращаем cin в 'обычный' режим
+                        //работы)
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                      '\n'); //после ошибки пропукаем символв и удаляем значения
+                             //предыдущего ввода из входного буфера
+      std::cout << "Error format " << varname << ".  Please try again.\n";
+    } else {
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                      '\n'); // удаляем лишние значения
+      break;
+    }
+  }
+  return var;
+}
+
+int main() {
+  int r = 1;
+  while (r == 1) //для меню
+  {
+    std::cout << "This program for obtaining the roots of the quadratic "
+                 "equation: Axx+Bx+C=0."
+              << std::endl;
+    std::cout << "A, B, C is a double value." << std::endl;
+    // 3, -4, 1
+    // 1, 4, 4
+    // 1, 6, 45
+    auto a = myinput('a'); //{0};//универсальная инициализация*
+    if (a != 0)            //проверка деления на 0
+    {
+      auto b = myinput('b');
+      auto c = myinput('c');
+      auto d = b * b - 4 * a * c;
+      std::cout << "d=" << d << std::endl;
+
+      double x1 = 0, x2 = 0, rx = 0, mx = 0;
+      if (d > 0) {
+        x1 = (-b + sqrt(d)) / (2 * a);
+        x2 = (-b - sqrt(d)) / (2 * a); //!!!
+        std::cout << "x1=" << x1 << " x2=" << x2 << std::endl;
+      } else if (d == 0) {
+        x1 = (-b + sqrt(d)) / (2 * a);
+        std::cout << "x1=" << x1 << std::endl;
+      } else {
+        rx = -b / (2 * a);
+        mx = sqrt(-d) / (2 * a);
+        std::cout << "x1=" << rx << "+" << mx << "i" << std::endl;
+        std::cout << "x1=" << rx << "-" << mx << "i" << std::endl;
+      }
+    } else
+      std::cout << "Error: A=0.  Please try again.\n";
+
+    std::cout << std::endl
+              << "Repeat?" << std::endl
+              << "1 - yes (repeat)" << std::endl
+              << "0 - no (exit)" << std::endl;
+    std::cin >> r;
+    if (std::cin.fail()) // если предыдущее извлечение оказалось неудачным
+                         // остаемся в проге,
+    {
+      std::cin.clear(); // то возвращаем cin в 'обычный' режим работы
+      std::cin.ignore(
+          std::numeric_limits<std::streamsize>::max(),
+          '\n'); // и удаляем значения предыдущего ввода из входного буфера
+      r = 1;     //остаемся в проге
+    }
+  }
+
+  return 0;
+}
