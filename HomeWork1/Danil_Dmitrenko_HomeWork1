@@ -1,0 +1,56 @@
+/*
+    1st Homework c++ base
+    by Danil Dmitrenko
+    16.02.20
+*/
+
+#include <cmath>
+#include <iostream>
+#include <limits>
+
+const float TWO = 2;
+const float FOUR = 4;
+
+int main(int argc, char **argv) {
+
+  std::cout << "This programm calculates x = (-b + sqrt(b^2 - 4*a*c))/2*a \n";
+
+  float a;
+
+  std::cout << "Incert a in range from −2 147 483 648 to 2 147 483 647 not "
+               "including 0:\n";
+  while (!(std::cin >> a) || a == 0) {
+    if (a == 0)
+      std::cout << "Error, you can't enter 0" << std::endl;
+    std::cout << "Error, enter a number!" << std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  }
+
+  float b;
+
+  std::cout << "Incert b in range from −2 147 483 648 to 2 147 483 647:\n";
+  while (!(std::cin >> b)) {
+    std::cout << "Error, enter a number!" << std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  }
+
+  float c;
+
+  std::cout << "Incert c in range from −2 147 483 648 to 2 147 483 647:\n";
+  while (!(std::cin >> c)) {
+    std::cout << "Error, enter a number!" << std::endl;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  }
+
+  float koren = pow(b, 2) - (FOUR * a * c);
+  if (koren < 0) {
+    std::cout << "can't calculate sqrt(" << koren << ")";
+  } else {
+    std::cout << "x1 = " << (-(b) + sqrt(koren)) / (TWO * a) << std::endl;
+    std::cout << "x2 = " << (-(b)-sqrt(koren)) / (TWO * a) << std::endl;
+  }
+  return 0;
+}
