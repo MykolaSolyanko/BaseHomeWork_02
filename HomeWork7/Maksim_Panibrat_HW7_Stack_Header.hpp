@@ -28,7 +28,7 @@ public:
 		if (index == 0) {
 			return { false, "Stack clear" };
 		}
-		array[index--];
+		index--;
 		return { true, "Pop success" };
 	}
 	void clear() {
