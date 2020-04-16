@@ -26,9 +26,6 @@ public:
 		return {true, "Pop success"};
 	}
 	void clear() {
-		if (index == 0) {
-			return;
-		}
 		index = 0;
 	}
 	int top() const {
@@ -38,7 +35,7 @@ public:
 		return array[index];
 	}
 
-	const unsigned long long GetSizeStack() {
+	static unsigned long long GetSizeStack() {
 		return kSize;
 	}
 
