@@ -20,6 +20,8 @@ int main()
             }
             std::cout << pair.msg << std::endl;
         }
+        pair.status = true;
+        pair.msg = " ";
         {
             for (;pair.status == true;pair = st_int.pop(pair)) {
                 topy = st_int.top<int>();
@@ -46,6 +48,8 @@ int main()
             }
             std::cout << pair.msg << std::endl;
         }
+        pair.status = true;
+        pair.msg = " ";
         {
             for (;pair.status == true;pair = st_float.pop(pair)) {
                 topy = st_float.top<float>();
@@ -69,6 +73,8 @@ int main()
             }
             std::cout << pair.msg << std::endl;
         }
+        pair.status = true;
+        pair.msg = " ";
         {
             for (;pair.status == true;pair = st_char.pop(pair)) {
                 topy = st_char.top<char>();
